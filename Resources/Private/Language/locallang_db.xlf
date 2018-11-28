@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-04-13T15:09:54Z" product-name="rkw_related">
+		<header/>
+		<body>
+
+			<!-- Flexform -->
+
+			<trans-unit id="flexform.more.sheetTitle">
+				<source>Behavior</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.filter_options">
+				<source>Filter options</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.frontend_options">
+				<source>Frontend options</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.frontend_filter_options">
+				<source>Frontend options</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.department">
+				<source>Topic</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.startingPid">
+				<source>Starting Pid for Search</source>
+			</trans-unit>
+            <trans-unit id="flexform.more.pidList">
+                <source>Pid List of Relevant Pages</source>
+            </trans-unit>
+            <trans-unit id="flexform.more.pidListRecursive">
+                <source>Use Pid List of Relevant Pages Recursively</source>
+            </trans-unit>
+			<trans-unit id="flexform.more.documenttype">
+				<source>Document type</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.showmorelink">
+				<source>Show more link</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.issidebar">
+				<source>Is sidebar</source>
+			</trans-unit>
+            <trans-unit id="flexform.more.showPoweredBy">
+                <source>Show "Powered by"-Logo</source>
+            </trans-unit>
+			<trans-unit id="flexform.more.itemsperpage">
+				<source>Items per page</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.maximumshownresults">
+				<source>Maximum shown results</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.autoload">
+				<source>Deactivate more-link</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.showdate">
+				<source>Show date</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.openwindow">
+				<source>Open links in same window</source>
+			</trans-unit>
+
+			<trans-unit id="flexform.more.showfilter">
+				<source>Show frontend filter</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.showdepartment">
+				<source>Show topic option</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.showdocumenttype">
+				<source>Show document type option</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.showproject">
+				<source>Show project option</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.showyear">
+				<source>Show year option</source>
+			</trans-unit>
+
+			<trans-unit id="flexform.more.additional.project">
+				<source>Project</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.additional.publications_only">
+				<source>Only publications</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.additional.everything_without_publications">
+				<source>Everything without publications</source>
+			</trans-unit>
+            <trans-unit id="flexform.more.no_cache">
+                <source>No Caching</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.similar.filter_options">
+                <source>Filter options</source>
+            </trans-unit>
+            <trans-unit id="flexform.similar.startingPid">
+                <source>Starting Pid for Search</source>
+            </trans-unit>
+            <trans-unit id="flexform.similar.pidList">
+                <source>Pid List of Relevant Pages</source>
+            </trans-unit>
+            <trans-unit id="flexform.similar.pidListRecursive">
+                <source>Use Pid List of Relevant Pages Recursively</source>
+            </trans-unit>
+
+		</body>
+	</file>
+</xliff>

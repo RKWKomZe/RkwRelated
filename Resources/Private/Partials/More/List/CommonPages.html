@@ -1,0 +1,19 @@
+{namespace rkw=RKW\RkwRelated\ViewHelpers}
+
+<f:if condition="{relatedPagesList}">
+    <f:for each="{relatedPagesList}" as="pages" iteration="iterator">
+        <!-- box content -->
+        <f:if condition="{iterator.index} < {settingsArray.maximumShownResults}">
+            <f:render partial="More/List/Boxes/Default" arguments="{_all}" />
+        </f:if>
+    </f:for>
+
+    <!-- see more -->
+    <f:if condition="{settingsArray.showMoreLink}">
+        <f:if condition="{showMoreLink}">
+            <f:if condition="{moreItemsAvailable}">
+                <f:render partial="More/List/Boxes/More" arguments="{_all}" />
+            </f:if>
+        </f:if>
+    </f:if>
+</f:if>

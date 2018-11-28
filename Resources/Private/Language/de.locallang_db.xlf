@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-04-13T15:00:08Z" product-name="rkw_related">
+		<header/>
+		<body>
+
+			<!-- Flexform -->
+
+			<trans-unit id="flexform.more.sheetTitle">
+				<source>Behavior</source>
+				<target>Verhalten</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.filter_options">
+				<source>Filter options</source>
+				<target>Default-Filteroptionen</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.frontend_options">
+				<source>Frontend options</source>
+				<target>Anzeigeeinstellungen</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.frontend_filter_options">
+				<source>Frontend options</source>
+				<target>Frontend-Filteroptionen</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.department">
+				<source>Topic</source>
+				<target>Thema</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.startingPid">
+				<source>Starting Pid for Search</source>
+				<target>Root PID für Empfehlungen (Startpunkt kann jede PID sein)</target>
+			</trans-unit>
+            <trans-unit id="flexform.more.pidList">
+                <source>Pid List of Relevant Pages</source>
+                <target>Liste der relevanten Seiten</target>
+            </trans-unit>
+            <trans-unit id="flexform.more.pidListRecursive">
+                <source>Use Pid List of Relevant Pages Recursively</source>
+                <target>Liste der relevanten Seiten rekursiv anwenden (Unterseiten inkludieren)</target>
+            </trans-unit>
+            <trans-unit id="flexform.more.documenttype">
+				<source>Document type</source>
+				<target>Dokument Typ</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.showmorelink">
+				<source>Show more link</source>
+				<target>Zeige mehr-Link</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.issidebar">
+				<source>Is sidebar</source>
+				<target>Wird in Sidebar eingesetzt (Diese Einstellung beeinflusst die Darstellung)</target>
+			</trans-unit>
+            <trans-unit id="flexform.more.showPoweredBy">
+                <source>Show "Powered by"-Logo</source>
+                <target>Förderlogo anzeigen</target>
+            </trans-unit>
+            <trans-unit id="flexform.more.itemsperpage">
+				<source>Items per page</source>
+				<target>Ergebnisse pro Seite / Aufruf</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.maximumshownresults">
+				<source>Maximum shown results</source>
+				<target>Maximale Anzahl an Ergebnissen</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.autoload">
+				<source>Deactivate more-link</source>
+				<target>Deaktiviere Auto-Load für Mehr-Link beim Erreichen des Seitenfußes</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.openwindow">
+				<source>Open links in same window</source>
+				<target>Links in gleichem Fenster öffnen (Standard: neues Fenster)</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.showdate">
+				<source>Show date</source>
+				<target>Datum in Boxen mit anzeigen</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.pleasechoose">
+				<source>Please choose</source>
+				<target>Bitte wählen</target>
+			</trans-unit>
+
+			<trans-unit id="flexform.more.showfilter">
+				<source>Show frontend filter</source>
+				<target>Filter im Frontend anzeigen</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.showdepartment">
+				<source>Show topic option</source>
+				<target>Option "Thema" anbieten</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.showdocumenttype">
+				<source>Show document type option</source>
+				<target>Option "Dokumentenart" anbieten</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.showproject">
+				<source>Show project option</source>
+				<target>Option "Projekt" anbieten</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.showyear">
+				<source>Show year option</source>
+				<target>Option "Nach Jahr" anbieten</target>
+			</trans-unit>
+
+			<trans-unit id="flexform.more.additional.project">
+				<source>Project</source>
+				<target>Projekt (Nur sichtbar wenn RkwProjects installiert)</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.additional.publications_only">
+				<source>Only publications</source>
+				<target>Nur Publikationen (Nur sichtbar wenn RkwProjects/BmPdf2Content installiert)</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.additional.everything_without_publications">
+				<source>Everything without publications</source>
+				<target>Alles außer Publikationen (Nur sichtbar wenn RkwProjects/BmPdf2Content installiert)</target>
+			</trans-unit>
+            <trans-unit id="flexform.more.no_cache">
+                <source>No Caching</source>
+                <target>Kein Caching</target>
+            </trans-unit>
+
+            <trans-unit id="flexform.similar.filter_options">
+                <source>Filter options</source>
+                <target>Default-Filteroptionen</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.startingPid">
+                <source>Starting Pid for Search</source>
+                <target>Root PID für Empfehlungen (Startpunkt kann jede PID sein)</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.pidList">
+                <source>Pid List of Relevant Pages</source>
+                <target>Liste der relevanten Seiten</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.pidListRecursive">
+                <source>Use Pid List of Relevant Pages Recursively</source>
+                <target>Liste der relevanten Seiten rekursiv anwenden (Unterseiten inkludieren)</target>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>

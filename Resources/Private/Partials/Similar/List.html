@@ -1,0 +1,16 @@
+{namespace rkw=RKW\RkwRelated\ViewHelpers}
+
+<f:if condition="{relatedPagesList}">
+	<f:for each="{relatedPagesList}" as="pages" iteration="iterator">
+		<f:if condition="{iterator.index} < {limit}">
+			<f:then>
+				<!-- box content -->
+				<f:render partial="Similar/List/Boxes/Default" arguments="{_all}" />
+			</f:then>
+			<f:else>
+				<!-- see more -->
+				<f:render partial="Similar/List/Boxes/More" arguments="{_all}" />
+			</f:else>
+		</f:if>
+	</f:for>
+</f:if>

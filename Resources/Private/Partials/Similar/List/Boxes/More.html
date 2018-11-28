@@ -1,0 +1,18 @@
+{namespace rkw=RKW\RkwRelated\ViewHelpers}
+
+<f:if condition="<rkw:showMoreItems itemsPerHundredSigns='{itemsPerHundredSigns}' pageNumber='{pageNumber}' itemsTotal='<f:count>{relatedPagesList}</f:count>' />">
+	<div class="box-wrapper">
+		<f:link.action action="list" controller="Similar" pluginName="Similarcontent" extensionName="RkwRelated" id="more-link-{pageNumber}" class="box help ajax next-page small" title="<f:translate key='partials_more_boxes_more.show_more' extensionName='RkwRelated' />" rel="nofollow" target="_blank" additionalParams="{tx_rkwrelated_similarcontent: '{pageNumber: pageNumber, ttContentUid: ttContentUid}'}" additionalAttributes="{data-page-type: '{pageTypeAjax}'}" >
+			<header>
+				<p>
+					<f:translate key="partials_more_boxes_more.morebox1" extensionName="RkwRelated" />
+					<br>
+					<strong>
+						<f:translate key="partials_more_boxes_more.morebox2" extensionName="RkwRelated" />
+					</strong>
+				</p>
+			</header>
+		</f:link.action>
+	</div>
+</f:if>
+

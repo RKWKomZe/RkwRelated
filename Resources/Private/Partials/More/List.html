@@ -1,0 +1,41 @@
+<f:section name="Replace">
+    <f:if condition="{relatedPagesList}">
+        <f:then>
+            <f:if condition="{currentPluginNameStrtolower} == 'morecontentpublication'">
+                <f:then>
+                    <div id="tx-rkwrelated-boxes-grid-{currentPluginNameStrtolower}-{ttContentUid}" class="boxes-publications">
+                        <f:render partial="More/List/Publications" arguments="{_all}" />
+                    </div>
+                </f:then>
+                <f:else>
+                    <div id="tx-rkwrelated-boxes-grid-{currentPluginNameStrtolower}-{ttContentUid}" class="boxes-grid {f:if(condition: '{settings.isSidebar}', then: 'narrow')}">
+                        <f:render partial="More/List/Boxes/PoweredBy" arguments="{_all}" />
+                        <f:render partial="More/List/CommonPages" arguments="{_all}" />
+                    </div>
+                </f:else>
+            </f:if>
+        </f:then>
+        <f:else>
+            <f:render partial="More/List/NoResults" arguments="{_all}" />
+        </f:else>
+    </f:if>
+</f:section>
+
+<f:section name="Append">
+
+    <f:if condition="{relatedPagesList}">
+        <f:then>
+            <f:if condition="{currentPluginNameStrtolower} == 'morecontentpublication'">
+                <f:then>
+                    <f:render partial="More/List/Publications" arguments="{_all}" />
+                </f:then>
+                <f:else>
+                    <f:render partial="More/List/CommonPages" arguments="{_all}" />
+                </f:else>
+            </f:if>
+        </f:then>
+        <f:else>
+            <f:render partial="More/List/NoResults" arguments="{_all}" />
+        </f:else>
+    </f:if>
+</f:section>

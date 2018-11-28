@@ -1,0 +1,34 @@
+{namespace rkw=RKW\RkwRelated\ViewHelpers}
+
+<f:if condition="{relatedPagesList}">
+	<f:for each="{relatedPagesList}" as="pages" iteration="iterator">
+		<div>
+			<f:if condition="{pages}" >
+				<f:if condition="<f:uri.page pageUid='{pages.uid}' />">
+					<f:then>
+						<f:link.page pageUid="{pages.uid}" class="box publication {pages.txRkwbasicsDepartment.cssClass}" target="{f:if(condition: '{settingsArray.openLinksInSameWindow}', then: '', else: '_blank')}" title="{pages.title}" >
+							<f:render partial="More/List/Boxes/Publications" arguments="{_all}" />
+						</f:link.page>
+					</f:then>
+					<f:else>
+						<a href="#" class="box publication {pages.txRkwbasicsDepartment.cssClass}" target="{f:if(condition: '{settingsArray.openLinksInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
+							<f:render partial="More/List/Boxes/Publications" arguments="{_all}" />
+						</a>
+					</f:else>
+				</f:if>
+			</f:if>
+		</div>
+	</f:for>
+
+	<!-- see more -->
+	<f:if condition="{settingsArray.showMoreLink}">
+		<f:if condition="{showMoreLink}">
+			<f:if condition="{moreItemsAvailable}">
+				<f:render partial="More/List/Boxes/MorePublications" arguments="{_all}" />
+			</f:if>
+		</f:if>
+	</f:if>
+</f:if>
+
+
+

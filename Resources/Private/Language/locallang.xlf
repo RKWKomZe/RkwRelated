@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-04-19T15:28:16Z" product-name="rkw_related">
+		<header/>
+		<body>
+			<trans-unit id="partials_more_boxes_more.interesting">
+				<source>Interesting?</source>
+			</trans-unit>
+			<trans-unit id="partials_more_boxes_more.morebox1">
+				<source>Interesting?</source>
+			</trans-unit>
+			<trans-unit id="partials_more_boxes_more.morebox2">
+				<source>Show more</source>
+			</trans-unit>
+			<trans-unit id="partials_more_boxes_more.show_more">
+				<source>Show more</source>
+			</trans-unit>
+
+
+			<!-- FILTER -->
+
+			<trans-unit id="partials_more_filters.showAll">
+				<source>All topics</source>
+			</trans-unit>
+			<trans-unit id="partials_more_filters.topics">
+				<source>Topics</source>
+			</trans-unit>
+
+			<trans-unit id="partials_more_list_filters_department.labelLong">
+				<source>Topics</source>
+			</trans-unit>
+
+			<trans-unit id="partials_more_list_filters_filters_year.labelLong">
+				<source>Year</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_filters_filters_year.allyears">
+				<source>All years</source>
+			</trans-unit>
+
+			<trans-unit id="partials_more_list_filters_documenttype.labelLong">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_filters_documenttype.alltypes">
+				<source>All types</source>
+			</trans-unit>
+
+			<trans-unit id="partials_more_list_filters_project.labelLong">
+				<source>Project</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_filters_project.alltypes">
+				<source>All projects</source>
+			</trans-unit>
+
+			<!-- NO RESULTS -->
+
+			<trans-unit id="partials_more_list_noresults.text1">
+				<source>No results.</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_noresults.text2">
+				<source>Please check your search filters.</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_noresults.text3">
+				<source>Maybe you've found a research gap ;-)</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_noresults.text4">
+				<source>Can we help you in person?</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_noresults.text5">
+				<source>Don't hesitate to contact us.</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_noresults.phone">
+				<source>Phone:</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_noresults.email">
+				<source>E-Mail:</source>
+			</trans-unit>
+			<trans-unit id="partials_more_list_noresults.email.title">
+				<source>Write E-Mail</source>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

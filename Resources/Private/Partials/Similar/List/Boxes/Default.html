@@ -1,0 +1,50 @@
+{namespace rkw=RKW\RkwRelated\ViewHelpers}
+<div class="box-wrapper">
+	<f:link.page pageUid="{pages.uid}" class="box {pages.txRkwbasicsDepartment.cssClass} big" target="{config.linkTarget}" title="{pages.title}">
+		<header>
+			<p>
+                <f:if condition="<rkw:pageTranslateProperty pageUid='{pages.uid}' dbField='title' sysLanguageUid='{sysLanguageUid}' />">
+                    <f:then>
+                        <f:format.crop maxCharacters="{settingsArray.headerCrop}" respectWordBoundaries="false"><rkw:pageTranslateProperty pageUid='{pages.uid}' dbField='title' sysLanguageUid='{sysLanguageUid}' /></f:format.crop>
+                    </f:then>
+                    <f:else>
+                        <f:format.crop maxCharacters="{settingsArray.headerCrop}" respectWordBoundaries="false">{pages.title}</f:format.crop>
+                    </f:else>
+                </f:if>
+			</p>
+		</header>
+
+		<f:if condition="{pages.txRkwbasicsTeaserImage}" >
+			<f:then>
+				<div class="box-content wysiwyg">
+					<figure>
+						<f:cObject typoscriptObjectPath="plugin.tx_rkwrelated.libs.responsiveImageThumbnail" data="{pages.txRkwbasicsTeaserImage.uid}"/>
+					</figure>
+				</div>
+			</f:then>
+			<f:else>
+				<div class="box-content">
+					<div class="wysiwyg">
+						<p>
+                            <f:if condition="<rkw:pageTranslateProperty pageUid='{pages.uid}' dbField='txRkwbasicsTeaserText' sysLanguageUid='{sysLanguageUid}' />">
+                                <f:then>
+                                    <f:format.crop maxCharacters="{settingsArray.contentCrop}" respectWordBoundaries="false"><rkw:pageTranslateProperty pageUid='{pages.uid}' dbField='txRkwbasicsTeaserText' sysLanguageUid='{sysLanguageUid}' /></f:format.crop>
+                                </f:then>
+                                <f:else>
+                                    <f:format.crop maxCharacters="{settingsArray.contentCrop}" respectWordBoundaries="false">{pages.txRkwbasicsTeaserText}</f:format.crop>
+                                </f:else>
+                            </f:if>
+						</p>
+					</div>
+				</div>
+			</f:else>
+		</f:if>
+
+		<footer>
+			<p class="icon-article">
+				<f:format.crop maxCharacters="{settingsArray.footerCrop}" respectWordBoundaries="false">{pages.txRkwbasicsDocumentType.name}</f:format.crop>
+			</p>
+		</footer>
+	</f:link.page>
+</div>
+
