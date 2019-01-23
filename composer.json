@@ -29,7 +29,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RKW\\Related\\": "Classes/"
+            "RKW\\RkwRelated\\": "Classes/"
         }
     },
     "extra": {
