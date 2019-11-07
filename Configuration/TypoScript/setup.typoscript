@@ -1,0 +1,379 @@
+config.tx_extbase.persistence {
+
+	classes {
+
+        \RKW\RkwProjects\Domain\Model\Pages {
+            subclasses {
+                Tx_RkwRelated_Pages = RKW\RkwRelated\Domain\Model\Pages
+            }
+        }
+
+        RKW\RkwRelated\Domain\Model\Pages {
+			mapping {
+				tableName = pages
+				columns {
+					uid.mapOnProperty = uid
+					pid.mapOnProperty = pid
+					tstamp.mapOnProperty = tstamp
+                    lastUpdated.mapOnProperty = lastUpdated
+				}
+			}
+		}
+
+		RKW\RkwRelated\Domain\Model\PagesLanguageOverlay {
+			mapping {
+				tableName = pages_language_overlay
+			}
+		}
+		RKW\RkwRelated\Domain\Model\TtContent {
+			mapping {
+				tableName = tt_content
+			}
+		}
+		RKW\RkwRelated\Domain\Model\SysCategory {
+			mapping {
+				tableName = sys_category
+				recordType =
+			}
+		}
+		RKW\RkwRelated\Domain\Model\File {
+			mapping {
+				tableName = sys_file
+			}
+		}
+		RKW\RkwRelated\Domain\Model\FileReference {
+			mapping {
+				tableName = sys_file_reference
+				columns {
+					uid_local.mapOnProperty = file
+				}
+			}
+		}
+	}
+}
+
+module.tx_rkwrelated {
+    settings {
+        clearCachePageList = {$module.tx_rkwrelated.settings.clearCachePageList}
+    }
+}
+
+plugin.tx_rkwrelated_similarcontent {
+	view {
+		templateRootPath = {$plugin.tx_rkwrelated_similarcontent.view.templateRootPath}
+		partialRootPath = {$plugin.tx_rkwrelated_similarcontent.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_rkwrelated_similarcontent.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_rkwrelated_similarcontent.persistence.storagePid}
+	}
+	features {
+        # see: https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Breaking-78002-EnforceCHashArgumentForExtbaseActions.html
+        requireCHashArgumentForActionArguments = 0
+	}
+	settings {
+		cache {
+			ttl = {$plugin.tx_rkwrelated_similarcontent.settings.cache.ttl}
+		}
+        startingPid = {$plugin.tx_rkwrelated_morecontent.settings.startingPid}
+        startingPidList = {$plugin.tx_rkwrelated_morecontent.settings.startingPidList}
+        excludePidList = {$plugin.tx_rkwrelated_morecontent.settings.excludePidList}
+        pidList = {$plugin.tx_rkwrelated_morecontent.settings.pidList}
+        pidListRecursive = {$plugin.tx_rkwrelated_morecontent.settings.pidListRecursive}
+		itemsPerHundredSigns = {$plugin.tx_rkwrelated_similarcontent.settings.itemsPerHundredSigns}
+		minItems = {$plugin.tx_rkwrelated_similarcontent.settings.minItems}
+		colPosOfPagesMainContentElement = {$plugin.tx_rkwrelated_similarcontent.settings.colPosOfPageMainContentElement}
+		pageTypeAjaxSimilarcontent = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}
+		headerCrop = {$plugin.tx_rkwrelated_similarcontent.settings.headerCrop}
+		contentCrop = {$plugin.tx_rkwrelated_similarcontent.settings.contentCrop}
+		footerCrop = {$plugin.tx_rkwrelated_similarcontent.settings.footerCrop}
+        useRkwSearchForSorting = {$plugin.tx_rkwrelated_similarcontent.settings.useRkwSearchForSorting}
+        sysCategoryParentUid = {$plugin.tx_rkwrelated_similarcontent.settings.sysCategoryParentUid}
+	}
+}
+
+plugin.tx_rkwrelated_morecontent {
+	view {
+		templateRootPath = {$plugin.tx_rkwrelated_morecontent.view.templateRootPath}
+		partialRootPath = {$plugin.tx_rkwrelated_morecontent.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_rkwrelated_morecontent.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_rkwrelated_morecontent.persistence.storagePid}
+	}
+	features {
+        # see: https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Breaking-78002-EnforceCHashArgumentForExtbaseActions.html
+        requireCHashArgumentForActionArguments = 0
+	}
+	settings {
+		cache {
+			ttl = {$plugin.tx_rkwrelated_morecontent.settings.cache.ttl}
+		}
+        startingPid = {$plugin.tx_rkwrelated_morecontent.settings.startingPid}
+        startingPidList = {$plugin.tx_rkwrelated_morecontent.settings.startingPidList}
+        excludePidList = {$plugin.tx_rkwrelated_morecontent.settings.excludePidList}
+        pidList = {$plugin.tx_rkwrelated_morecontent.settings.pidList}
+        pidListRecursive = {$plugin.tx_rkwrelated_morecontent.settings.pidListRecursive}
+		pageTypeAjaxMoreContent = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
+		pageTypeAjaxMoreContent2 = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
+		pageTypeAjaxMoreContentPublication = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContentPublication}
+		headerCrop = {$plugin.tx_rkwrelated_morecontent.settings.headerCrop}
+		contentCrop = {$plugin.tx_rkwrelated_morecontent.settings.contentCrop}
+		footerCrop = {$plugin.tx_rkwrelated_morecontent.settings.footerCrop}
+		publicationCrop = {$plugin.tx_rkwrelated_morecontent.settings.publicationCrop}
+		staticInitialYearForFilter = {$plugin.tx_rkwrelated_morecontent.settings.staticInitialYearForFilter}
+        useRkwSearchForSorting = {$plugin.tx_rkwrelated_morecontent.settings.useRkwSearchForSorting}
+        poweredByImage = {$plugin.tx_rkwrelated_morecontent.settings.poweredByImage}
+    }
+
+}
+plugin.tx_rkwrelated_morecontent2 < plugin.tx_rkwrelated_morecontent
+plugin.tx_rkwrelated_morecontentpublication < plugin.tx_rkwrelated_morecontent
+
+
+# Add jquery if not disabled
+[globalVar = LIT:1 = {$plugin.tx_rkwrelated_morecontent.settings.includeJqueryLib}]
+	#page.includeJSFooterlibs.tx_rkwrelated_jquery  = EXT:rkw_related/Resources/Public/Scripts/jquery.min.js
+[global]
+
+[globalVar = LIT:1 = {$plugin.tx_rkwrelated_similarcontent.settings.cache.includeAjaxJS}]
+	#page.includeJSFooterlibs.tx_rkwrelated_jquery  = EXT:rkw_related/Resources/Public/Scripts/main.js
+[global]
+
+tx_rkwrelated_similarcontent_ajax = PAGE
+tx_rkwrelated_similarcontent_ajax {
+	typeNum = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}
+	config {
+
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		no_cache = 0
+		debug = 0
+
+		additionalHeaders.10.header = Content-type: application/json
+		metaCharset = utf-8
+
+		index_enable = 0
+		index_metatags = 0
+		index_externals = 0
+	}
+
+	10 = USER_INT
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = RkwRelated
+		pluginName = Similarcontent
+		vendorName = RKW
+		controller = Similar
+		switchableControllerActions {
+			Similar {
+				1 = list
+			}
+		}
+		view < plugin.tx_rkwrelated_similarcontent.view
+		persistence < plugin.tx_rkwrelated_similarcontent.persistence
+		settings < plugin.tx_rkwrelated_similarcontent.settings
+	}
+}
+
+tx_rkwrelated_morecontent_ajax = PAGE
+tx_rkwrelated_morecontent_ajax {
+	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
+	config {
+
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		no_cache = 0
+		debug = 0
+
+		additionalHeaders.10.header = Content-type: application/json
+		metaCharset = utf-8
+
+		index_enable = 0
+		index_metatags = 0
+		index_externals = 0
+	}
+
+	10 = USER_INT
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = RkwRelated
+		pluginName = Morecontent
+		vendorName = RKW
+		controller = More
+		switchableControllerActions {
+			More {
+				1 = list
+			}
+		}
+		view < plugin.tx_rkwrelated_morecontent.view
+		persistence < plugin.tx_rkwrelated_morecontent.persistence
+		settings < plugin.tx_rkwrelated_morecontent.settings
+	}
+}
+
+tx_rkwrelated_morecontent2_ajax = PAGE
+tx_rkwrelated_morecontent2_ajax {
+	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
+	config {
+
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		no_cache = 0
+		debug = 0
+
+		additionalHeaders.10.header = Content-type: application/json
+		metaCharset = utf-8
+
+		index_enable = 0
+		index_metatags = 0
+		index_externals = 0
+	}
+
+	10 = USER_INT
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = RkwRelated
+		pluginName = Morecontent2
+		vendorName = RKW
+		controller = More
+		switchableControllerActions {
+			More {
+				1 = list
+			}
+		}
+		view < plugin.tx_rkwrelated_morecontent.view
+		persistence < plugin.tx_rkwrelated_morecontent.persistence
+		settings < plugin.tx_rkwrelated_morecontent.settings
+	}
+}
+tx_rkwrelated_morecontentpublication_ajax = PAGE
+tx_rkwrelated_morecontentpublication_ajax {
+	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContentPublication}
+	config {
+
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		no_cache = 0
+		debug = 0
+
+		additionalHeaders.10.header = Content-type: application/json
+		metaCharset = utf-8
+
+		index_enable = 0
+		index_metatags = 0
+		index_externals = 0
+	}
+
+	10 = USER_INT
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = RkwRelated
+		pluginName = Morecontentpublication
+		vendorName = RKW
+		controller = More
+		switchableControllerActions {
+			More {
+				1 = list
+			}
+		}
+		view < plugin.tx_rkwrelated_morecontent.view
+		persistence < plugin.tx_rkwrelated_morecontent.persistence
+		settings < plugin.tx_rkwrelated_morecontent.settings
+	}
+}
+
+plugin.tx_rkwrelated.libs {
+
+	responsiveImageThumbnail = IMAGE
+	responsiveImageThumbnail {
+
+		file {
+			import.current = 1
+			treatIdAsReference = 1
+			maxW = 450
+		}
+
+
+		# Inherit configuration from tt_content and rkw_basics
+		layout < tt_content.image.20.1.layout
+		layoutKey = picture
+		sourceCollection < plugin.tx_rkwbasics.libs.responsiveImages.sourceCollection
+
+		# set configuration for sourceCollection
+		sourceCollection {
+
+			mobile.maxW.override = 450
+			mobile.maxW.override.if {
+				value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.mobile}
+				isLessThan = 450
+			}
+			mobileRetina2.maxW.override < .mobile.maxW.override
+
+			tablet.maxW.override < .mobile.maxW.override
+			tablet.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.tablet}
+			tabletRetina2.maxW.override < .tablet.maxW.override
+			tabletRetina3.maxW.override < .tablet.maxW.override
+
+			desktop.maxW.override < .mobile.maxW.override
+			desktop.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.desktop}
+			desktopRetina2.maxW.override < .desktop.maxW.override
+		}
+	}
+
+	responsiveLogoThumbnail < .responsiveImageThumbnail
+	responsiveLogoThumbnail {
+		file.maxW = 450
+		sourceCollection {
+
+			mobile.maxW.override = 440
+			mobile.maxW.override.if.isLessThan = 440
+		}
+	}
+
+
+
+	# PDF Thumbnails
+	responsivePdfThumbnail = IMAGE
+	responsivePdfThumbnail {
+
+		file {
+			import.current = 1
+            treatIdAsReference = 1
+
+            ext = png
+			maxW = 215
+		}
+
+		# Inherit configuration from tt_content
+		layout < tt_content.image.20.1.layout
+		layoutKey = picture
+		sourceCollection < plugin.tx_rkwbasics.libs.responsiveImages.sourceCollection
+
+		# set configuration for sourceCollection
+		sourceCollection {
+
+			mobile.maxW.override = 215
+			mobile.maxW.override.if {
+				value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.mobile}
+				isLessThan = 215
+			}
+			mobileRetina2.maxW.override < .mobile.maxW.override
+
+			tablet.maxW.override < .mobile.maxW.override
+			tablet.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.tablet}
+			tabletRetina2.maxW.override < .tablet.maxW.override
+			tabletRetina3.maxW.override < .tablet.maxW.override
+
+			desktop.maxW.override < .mobile.maxW.override
+			desktop.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.desktop}
+			desktopRetina2.maxW.override < .desktop.maxW.override
+		}
+	}
+
+
+}
