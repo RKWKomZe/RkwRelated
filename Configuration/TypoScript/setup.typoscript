@@ -140,8 +140,8 @@ plugin.tx_rkwrelated_morecontentpublication < plugin.tx_rkwrelated_morecontent
 	#page.includeJSFooterlibs.tx_rkwrelated_jquery  = EXT:rkw_related/Resources/Public/Scripts/main.js
 [global]
 
-tx_rkwrelated_similarcontent_ajax = PAGE
-tx_rkwrelated_similarcontent_ajax {
+txRkwRelatedSimilarContentAajax = PAGE
+txRkwRelatedSimilarContentAjax {
 	typeNum = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}
 	config {
 
@@ -177,8 +177,8 @@ tx_rkwrelated_similarcontent_ajax {
 	}
 }
 
-tx_rkwrelated_morecontent_ajax = PAGE
-tx_rkwrelated_morecontent_ajax {
+txRkwRelatedMoreContentAjax = PAGE
+txRkwRelatedMoreContentAjax {
 	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
 	config {
 
@@ -214,8 +214,8 @@ tx_rkwrelated_morecontent_ajax {
 	}
 }
 
-tx_rkwrelated_morecontent2_ajax = PAGE
-tx_rkwrelated_morecontent2_ajax {
+txRkwRelatedMoreContent2Ajax = PAGE
+txRkwRelatedMoreContent2Ajax {
 	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
 	config {
 
@@ -250,8 +250,8 @@ tx_rkwrelated_morecontent2_ajax {
 		settings < plugin.tx_rkwrelated_morecontent.settings
 	}
 }
-tx_rkwrelated_morecontentpublication_ajax = PAGE
-tx_rkwrelated_morecontentpublication_ajax {
+txRkwRelatedMoreContentPublicationAjax = PAGE
+txRkwRelatedMoreContentPublicationAjax {
 	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContentPublication}
 	config {
 
