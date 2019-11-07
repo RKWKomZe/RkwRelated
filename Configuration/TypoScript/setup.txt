@@ -67,6 +67,10 @@ plugin.tx_rkwrelated_similarcontent {
 	persistence {
 		storagePid = {$plugin.tx_rkwrelated_similarcontent.persistence.storagePid}
 	}
+	features {
+        # see: https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Breaking-78002-EnforceCHashArgumentForExtbaseActions.html
+        requireCHashArgumentForActionArguments = 0
+	}
 	settings {
 		cache {
 			ttl = {$plugin.tx_rkwrelated_similarcontent.settings.cache.ttl}
@@ -97,6 +101,10 @@ plugin.tx_rkwrelated_morecontent {
 	persistence {
 		storagePid = {$plugin.tx_rkwrelated_morecontent.persistence.storagePid}
 	}
+	features {
+        # see: https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Breaking-78002-EnforceCHashArgumentForExtbaseActions.html
+        requireCHashArgumentForActionArguments = 0
+	}
 	settings {
 		cache {
 			ttl = {$plugin.tx_rkwrelated_morecontent.settings.cache.ttl}
@@ -116,8 +124,8 @@ plugin.tx_rkwrelated_morecontent {
 		staticInitialYearForFilter = {$plugin.tx_rkwrelated_morecontent.settings.staticInitialYearForFilter}
         useRkwSearchForSorting = {$plugin.tx_rkwrelated_morecontent.settings.useRkwSearchForSorting}
         poweredByImage = {$plugin.tx_rkwrelated_morecontent.settings.poweredByImage}
-
     }
+
 }
 plugin.tx_rkwrelated_morecontent2 < plugin.tx_rkwrelated_morecontent
 plugin.tx_rkwrelated_morecontentpublication < plugin.tx_rkwrelated_morecontent
