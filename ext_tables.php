@@ -51,8 +51,8 @@ call_user_func(
 
             $pluginName = strtolower('Morecontent');
             $pluginSignature = $extensionName . '_' . $pluginName;
-            $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-            $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
                 'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentFullSpectrum.xml'
@@ -60,8 +60,8 @@ call_user_func(
 
             $pluginName = strtolower('Morecontent2');
             $pluginSignature = $extensionName . '_' . $pluginName;
-            $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-            $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
                 'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentFullSpectrum.xml'
@@ -69,8 +69,8 @@ call_user_func(
 
             $pluginName = strtolower('MorecontentPublication');
             $pluginSignature = $extensionName . '_' . $pluginName;
-            $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-            $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
                 'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentPublicationFullSpectrum.xml'
@@ -80,8 +80,8 @@ call_user_func(
 
             $pluginName = strtolower('Morecontent');
             $pluginSignature = $extensionName . '_' . $pluginName;
-            $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-            $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
                 'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContent.xml'
@@ -89,8 +89,8 @@ call_user_func(
 
             $pluginName = strtolower('Morecontent2');
             $pluginSignature = $extensionName . '_' . $pluginName;
-            $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-            $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
                 'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContent.xml'
@@ -98,8 +98,8 @@ call_user_func(
 
             $pluginName = strtolower('MorecontentPublication');
             $pluginSignature = $extensionName . '_' . $pluginName;
-            $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-            $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+            $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
                 'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContent.xml'
@@ -108,8 +108,8 @@ call_user_func(
 
         $pluginName = strtolower('Similarcontent');
         $pluginSignature = $extensionName . '_' . $pluginName;
-        $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-        $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
             $pluginSignature,
             'FILE:EXT:' . $extKey . '/Configuration/FlexForms/SimilarContent.xml'
