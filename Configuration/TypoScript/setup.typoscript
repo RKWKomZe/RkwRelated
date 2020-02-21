@@ -140,7 +140,7 @@ plugin.tx_rkwrelated_morecontentpublication < plugin.tx_rkwrelated_morecontent
 	#page.includeJSFooterlibs.tx_rkwrelated_jquery  = EXT:rkw_related/Resources/Public/Scripts/main.js
 [global]
 
-txRkwRelatedSimilarContentAajax = PAGE
+txRkwRelatedSimilarContentAjax = PAGE
 txRkwRelatedSimilarContentAjax {
 	typeNum = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}
 	config {
