@@ -356,7 +356,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         ) {
             $constraints[] = 'pages.tx_rkwsearch_pubdate < ' . intval($page->getTxRkwsearchPubdate());
         } else {
-            $constraints[] = 'pages.last_updated < ' . intval($page->getLastUpdated());
+            $constraints[] = 'pages.lastUpdated < ' . intval($page->getLastUpdated());
         }
 
         // 4. set second ordering
@@ -366,7 +366,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         ) {
             $order[] = 'tx_rkwsearch_pubdate ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
         } else {
-            $order[] = 'last_updated ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+            $order[] = 'lastUpdated ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
         }
 
         // 5. Offset
