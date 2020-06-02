@@ -374,6 +374,4 @@ plugin.tx_rkwrelated.libs {
 			desktopRetina2.maxW.override < .desktop.maxW.override
 		}
 	}
-
-
 }

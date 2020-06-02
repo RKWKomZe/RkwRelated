@@ -25,12 +25,6 @@ namespace RKW\RkwRelated\Domain\Model;
  */
 class Pages extends \RKW\RkwProjects\Domain\Model\Pages
 {
-    /**
-     * description
-     *
-     * @var string
-     */
-    protected $description;
 
     /**
      * categories
@@ -46,17 +40,12 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
      */
     protected $txBmpdf2contentIsImport;
 
-    /**
-     * lastUpdated
-     *
-     * @var integer
-     */
-    protected $lastUpdated;
 
     /**
      * txRkwsearchPubdate
      *
      * @var integer
+     * @deprecated
      */
     protected $txRkwsearchPubdate;
 
@@ -81,28 +70,6 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
     protected function initStorageObjects()
     {
         $this->sysCategory = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-    }
-
-
-    /**
-     * Returns the description
-     *
-     * @return string $description
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Sets the description
-     *
-     * @param string $description
-     * @return void
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
     }
 
 
@@ -166,30 +133,12 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
         $this->txBmpdf2contentIsImport = $txBmpdf2contentIsImport;
     }
 
-    /**
-     * Returns the lastUpdated
-     *
-     * @return integer lastUpdated
-     */
-    public function getLastUpdated()
-    {
-        return $this->lastUpdated;
-    }
-
-    /**
-     * Sets the lastUpdated
-     *
-     * @param integer $lastUpdated
-     */
-    public function setLastUpdated($lastUpdated)
-    {
-        $this->lastUpdated = $lastUpdated;
-    }
 
     /**
      * Returns the txRkwsearchPubdate
      *
      * @return integer
+     * @deprecated
      */
     public function getTxRkwsearchPubdate()
     {
@@ -201,6 +150,7 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
      *
      * @param integer $txRkwsearchPubdate
      * @return void
+     * @deprecated
      */
     public function setTxRkwsearchPubdate($txRkwsearchPubdate)
     {
