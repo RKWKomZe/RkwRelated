@@ -34,12 +34,11 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
     protected $categories;
 
     /**
-     * txBmpdf2contentIsImport
+     * txRkwpdf2contentIsImport
      *
-     * @var integer
+     * @var \integer
      */
-    protected $txBmpdf2contentIsImport;
-
+    protected $txRkwpdf2contentIsImport;
 
     /**
      * txRkwsearchPubdate
@@ -114,23 +113,23 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
     }
 
     /**
-     * Returns the txBmpdf2contentIsImport
+     * Returns the txRkwpdf2contentIsImport
      *
-     * @return integer txBmpdf2contentIsImport
+     * @return \string txRkwpdf2contentIsImport
      */
-    public function getBmpdf2contentIsImport()
-    {
-        return $this->txBmpdf2contentIsImport;
+    public function getRkwpdf2contentIsImport() {
+        return $this->txRkwpdf2contentIsImport;
     }
 
     /**
-     * Sets the txBmpdf2contentIsImport
+     * Sets the txRkwpdf2contentEtrackerIsImport
+     * Hint: Migration support - set both. Old and new
      *
-     * @param integer $txBmpdf2contentIsImport
+     * @param \string $txRkwpdf2contentIsImport
      */
-    public function setTxBmpdf2contentIsImport($txBmpdf2contentIsImport)
-    {
-        $this->txBmpdf2contentIsImport = $txBmpdf2contentIsImport;
+    public function setTxRkwpdf2contentIsImport($txRkwpdf2contentIsImport) {
+        $this->txRkwpdf2contentIsImport = $txRkwpdf2contentIsImport;
+        $this->txBmpdf2contentIsImport = $txRkwpdf2contentIsImport;
     }
 
 
