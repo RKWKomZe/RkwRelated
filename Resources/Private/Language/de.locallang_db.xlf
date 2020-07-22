@@ -106,11 +106,11 @@
 			</trans-unit>
 			<trans-unit id="flexform.more.additional.publications_only">
 				<source>Only publications</source>
-				<target>Nur Publikationen (Nur sichtbar wenn RkwProjects/BmPdf2Content installiert)</target>
+				<target>Nur Publikationen (Nur sichtbar wenn RkwProjects/RkwPdf2Content installiert)</target>
 			</trans-unit>
 			<trans-unit id="flexform.more.additional.everything_without_publications">
 				<source>Everything without publications</source>
-				<target>Alles außer Publikationen (Nur sichtbar wenn RkwProjects/BmPdf2Content installiert)</target>
+				<target>Alles außer Publikationen (Nur sichtbar wenn RkwProjects/RkwPdf2Content installiert)</target>
 			</trans-unit>
             <trans-unit id="flexform.more.no_cache">
                 <source>No Caching</source>

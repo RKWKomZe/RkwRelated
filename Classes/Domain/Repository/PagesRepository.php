@@ -89,15 +89,16 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
 
         // exclude txBmpdf2contentIsImportSub
-        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
             $constraints[] =
                 $query->logicalOr(
                     $query->logicalAnd(
-                        $query->equals('txBmpdf2contentIsImport', 1),
-                        $query->equals('txBmpdf2contentIsImportSub', 0)
+                        $query->equals('txRkwpdf2contentIsImport', 1),
+                        $query->equals('txRkwpdf2contentIsImportSub', 0)
                     ),
-                    $query->equals('txBmpdf2contentIsImport', 0)
+                    $query->equals('txRkwpdf2contentIsImport', 0)
                 );
+
         }
 
         $query->matching($query->logicalAnd($constraints));
@@ -107,10 +108,10 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_search'))
             && ($typoScriptSettings['useRkwSearchForSorting'])
         ) {
-            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
                 $query->setOrderings(
                     array(
-                        'txBmpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+                        'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                         'txRkwsearchPubdate'      => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                     )
                 );
@@ -125,10 +126,10 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         } else {
 
-            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
                 $query->setOrderings(
                     array(
-                        'txBmpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+                        'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                         'lastUpdated'             => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                     )
                 );
@@ -203,14 +204,14 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
 
         // exclude txBmpdf2contentIsImportSub
-        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
             $constraints[] =
                 $query->logicalOr(
                     $query->logicalAnd(
-                        $query->equals('txBmpdf2contentIsImport', 1),
-                        $query->equals('txBmpdf2contentIsImportSub', 0)
+                        $query->equals('txRkwpdf2contentIsImport', 1),
+                        $query->equals('txRkwpdf2contentIsImportSub', 0)
                     ),
-                    $query->equals('txBmpdf2contentIsImport', 0)
+                    $query->equals('txRkwpdf2contentIsImport', 0)
                 );
         }
 
@@ -221,10 +222,10 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_search'))
             && ($typoScriptSettings['useRkwSearchForSorting'])
         ) {
-            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
                 $query->setOrderings(
                     array(
-                        'txBmpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+                        'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                         'txRkwsearchPubdate'      => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                     )
                 );
@@ -239,10 +240,10 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         } else {
 
-            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
                 $query->setOrderings(
                     array(
-                        'txBmpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+                        'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                         'lastUpdated'             => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                     )
                 );
@@ -338,16 +339,16 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
 
         // exclude txBmpdf2contentIsImportSub
-        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
             $constraints[] = '(
                 (
-                    pages.tx_bmpdf2content_is_import = 1
-                    AND pages.tx_bmpdf2content_is_import_sub = 0
+                    pages.tx_rkwpdf2content_is_import = 1
+                    AND pages.tx_rkwpdf2content_is_import_sub = 0
                 ) 
-                OR pages.tx_bmpdf2content_is_import = 0
+                OR pages.tx_rkwpdf2content_is_import = 0
             )';
 
-            // $order[] = 'pages.tx_bmpdf2content_is_import ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+            // $order[] = 'pages.tx_rkwpdf2content_is_import ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
         }
 
         if (
@@ -455,11 +456,11 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
 
         if ($pluginName == 'Morecontentpublication') {
-            $constraints[] = $query->equals('txBmpdf2contentIsImport', 1);
+            $constraints[] = $query->equals('txRkwpdf2contentIsImport', 1);
         }
 
         if ($typoScriptSettings['everythingWithoutPublications']) {
-            $constraints[] = $query->equals('txBmpdf2contentIsImport', 0);
+            $constraints[] = $query->equals('txRkwpdf2contentIsImport', 0);
         }
 
         $constraints[] = $query->logicalNot($query->in('uid', $excludePages));
@@ -483,15 +484,15 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $constraints[] = $query->equals('txRkwsearchNoSearch', 0);
         }
 
-        // exclude txBmpdf2contentIsImportSub
-        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+        // exclude txRkwpdf2contentIsImportSub
+        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
             $constraints[] =
                 $query->logicalOr(
                     $query->logicalAnd(
-                        $query->equals('txBmpdf2contentIsImport', 1),
-                        $query->equals('txBmpdf2contentIsImportSub', 0)
+                        $query->equals('txRkwpdf2contentIsImport', 1),
+                        $query->equals('txRkwpdf2contentIsImportSub', 0)
                     ),
-                    $query->equals('txBmpdf2contentIsImport', 0)
+                    $query->equals('txRkwpdf2contentIsImport', 0)
                 );
         }
 
@@ -502,7 +503,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_search'))
             && ($typoScriptSettings['useRkwSearchForSorting'])
         ) {
-            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')) {
+            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
                 $query->setOrderings(
                     array(
                         'txRkwsearchPubdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
@@ -595,14 +596,14 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $constraints[] = $query->equals('txRkwsearchNoSearch', 0);
         }
 
-        // exclude txBmpdf2contentIsImportSub
+        // exclude txRkwpdf2contentIsImportSub
         $constraints[] =
             $query->logicalOr(
                 $query->logicalAnd(
-                    $query->equals('txBmpdf2contentIsImport', 1),
-                    $query->equals('txBmpdf2contentIsImportSub', 0)
+                    $query->equals('txRkwpdf2contentIsImport', 1),
+                    $query->equals('txRkwpdf2contentIsImportSub', 0)
                 ),
-                $query->equals('txBmpdf2contentIsImport', 0)
+                $query->equals('txRkwpdf2contentIsImport', 0)
             );
 
         // NOW: construct final query!
