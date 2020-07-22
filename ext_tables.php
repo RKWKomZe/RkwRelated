@@ -43,10 +43,10 @@ call_user_func(
         // Add Flexform
         //=================================================================
         $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($extKey));
-        // Proof rkw_projects and bm_pdf2content (rkw_projects depends on bm_pdf2content, so rkw_projects is sufficient)
+        // Proof rkw_projects and rkw_pdf2content (rkw_projects depends on rkw_pdf2content, so rkw_projects is sufficient)
         if (
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')
-            && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bm_pdf2content')
+            && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')
         ) {
 
             $pluginName = strtolower('Morecontent');
