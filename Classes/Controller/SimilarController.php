@@ -158,6 +158,14 @@ class SimilarController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $this->relatedPages = $this->cacheManager->get($cacheIdentifier);
                 $this->limit = $this->cacheManager->get($cacheIdentifier . '_limit');
 
+                if ($this->relatedPages === false) {
+                    // if value is "false"
+                    $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::ERROR, sprintf('Fetched results from cache, but cache is empty!'));
+                } else {
+                    $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Fetched %s results from cache.', count($this->relatedPages)));
+                }
+
+
             } else {
 
                 // Cache does not exist or we're in development context
@@ -373,6 +381,16 @@ class SimilarController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     $cacheTtl
                 );
 
+            }
+
+            if (
+                $this->relatedPages === false
+                || !count($this->relatedPages)
+            ) {
+                // if value is "false"
+                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::ERROR, sprintf('No results are delivered to the frontend!'));
+            } else {
+                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('In total %s results are delivered to the frontend.', count($this->relatedPages)));
             }
 
             // 8. Choose kind of view. Either normal templating, or its ajax-more functionality
