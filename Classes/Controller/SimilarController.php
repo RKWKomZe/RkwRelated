@@ -14,6 +14,7 @@ namespace RKW\RkwRelated\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class SimilarController
@@ -267,9 +268,13 @@ class SimilarController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 // 4.1 Get category of page and search for other Pages
                 // This is the point we walk along, if the rkw_project extension is not loaded. But if we don't get some sysCategories
                 // in the step before, we go in here anyway (so we don't have to ask for "is-not-loaded"-('rkw_projets'))
-                if (!count($this->sysCategories)) {
+                if (
+                    is_countable($this->sysCategories)
+                    && !count($this->sysCategories)
+                ) {
                     $this->sysCategories = $page->getSysCategory();
                 }
+
 
                 // 5. calculate item count
                 $ttContentList = $this->ttContentRepository->findBodyTextElementsByPage($page, $currentSysLanguageUid, $this->settings);
@@ -304,7 +309,10 @@ class SimilarController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
                 // 6.1 Check for sysCategories or project
                 // if there are no sysCategories we check for pages that belong to the same project
-                if (count($this->sysCategories)) {
+                if (
+                    is_countable($this->sysCategories)
+                    && count($this->sysCategories)
+                ) {
 
                     /** @toDo: if language is not the standard one (= not "0"), use pagesLanguageOverlayRepository -- really needed? */
                     $this->relatedPages = $this->pagesRepository->findBySysCategory($this->settings, $page, $this->sysCategories, $excludePages, $pidList, $pageNumber, $this->limit);
