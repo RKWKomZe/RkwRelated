@@ -60,9 +60,9 @@ module.tx_rkwrelated {
 
 plugin.tx_rkwrelated_similarcontent {
 	view {
-		templateRootPath = {$plugin.tx_rkwrelated_similarcontent.view.templateRootPath}
-		partialRootPath = {$plugin.tx_rkwrelated_similarcontent.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_rkwrelated_similarcontent.view.layoutRootPath}
+		templateRootPaths.0 = {$plugin.tx_rkwrelated_similarcontent.view.templateRootPath}
+		partialRootPaths.0 = {$plugin.tx_rkwrelated_similarcontent.view.partialRootPath}
+		layoutRootPaths.0 = {$plugin.tx_rkwrelated_similarcontent.view.layoutRootPath}
 	}
 	persistence {
 		storagePid = {$plugin.tx_rkwrelated_similarcontent.persistence.storagePid}
@@ -94,9 +94,9 @@ plugin.tx_rkwrelated_similarcontent {
 
 plugin.tx_rkwrelated_morecontent {
 	view {
-		templateRootPath = {$plugin.tx_rkwrelated_morecontent.view.templateRootPath}
-		partialRootPath = {$plugin.tx_rkwrelated_morecontent.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_rkwrelated_morecontent.view.layoutRootPath}
+		templateRootPaths.0 = {$plugin.tx_rkwrelated_morecontent.view.templateRootPath}
+		partialRootPaths.0 = {$plugin.tx_rkwrelated_morecontent.view.partialRootPath}
+		layoutRootPaths.0 = {$plugin.tx_rkwrelated_morecontent.view.layoutRootPath}
 	}
 	persistence {
 		storagePid = {$plugin.tx_rkwrelated_morecontent.persistence.storagePid}
