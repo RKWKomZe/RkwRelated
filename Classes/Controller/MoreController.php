@@ -215,7 +215,10 @@ class MoreController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $fullResultCount = $this->pagesRepository->$flexformConfigurationType($this->settings, $excludePages, null, $pidList, $filter, $this->request->getPluginName());
 
             // 3. Cache it!
-            if (count($this->relatedPages) > 0) {
+            if (
+                is_countable($this->sysCategories)
+                && count($this->relatedPages) > 0
+            ) {
                 $cacheTtl = $this->settings['cache']['ttl'] ? $this->settings['cache']['ttl'] : 86400;
                 $this->cacheManager->set(
                     $cacheIdentifier,
@@ -246,7 +249,8 @@ class MoreController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
 
-        $moreItemsAvailable = ($pageNumber * $this->settings['itemsPerPage']) < count($fullResultCount) ? true : false;
+        $resultCount = is_countable($fullResultCount) ? count($fullResultCount) : 0;
+        $moreItemsAvailable = ($pageNumber * $this->settings['itemsPerPage']) < $resultCount ? true : false;
         if (intval($this->settings['maximumShownResults'])) {
             $showMoreLink = ($pageNumber * $this->settings['itemsPerPage']) < intval($this->settings['maximumShownResults']) ? true : false;
         } else {
