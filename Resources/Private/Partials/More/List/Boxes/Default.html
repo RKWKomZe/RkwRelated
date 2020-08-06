@@ -1,4 +1,69 @@
 {namespace rkw=RKW\RkwRelated\ViewHelpers}
+
+<div class="flex-item">
+	<div class="tile">
+		<f:if condition="{pages.txRkwbasicsTeaserImage}" >
+			<div class="tile__header has-img">
+				<div class="tile__img">
+					<f:cObject typoscriptObjectPath="plugin.tx_rkwrelated.libs.responsiveImageThumbnail" data="{pages.txRkwbasicsTeaserImage.uid}"/>
+				</div>
+			</div>
+		</f:if>
+		<div class="tile__content">
+			<h3 class="tile__title icon">
+				<span class="tile__title-icon tile__title-icon--margin">
+					<svg class="icon icon--32"><use xlink:href="#ic-document" /></svg>
+				</span>
+				<span class="tile__title-text">
+					<f:if condition="<rkw:pageTranslateProperty pageUid='{pages.uid}' dbField='title' sysLanguageUid='{sysLanguageUid}' />">
+						<f:then>
+							<f:format.crop maxCharacters="{settingsArray.headerCrop}" respectWordBoundaries="false"><rkw:pageTranslateProperty pageUid='{pages.uid}' dbField='title' sysLanguageUid='{sysLanguageUid}' /></f:format.crop>
+						</f:then>
+						<f:else>
+							<f:format.crop maxCharacters="{settingsArray.headerCrop}" respectWordBoundaries="false">{pages.title}</f:format.crop>
+						</f:else>
+					</f:if>
+				</span>
+			</h3>
+			<div class="tile__text">
+				<p>
+					<f:if condition="<rkw:pageTranslateProperty pageUid='{pages.uid}' dbField='txRkwbasicsTeaserText' sysLanguageUid='{sysLanguageUid}' />">
+						<f:then>
+							<f:format.crop maxCharacters="{settingsArray.contentCrop}" respectWordBoundaries="false"><rkw:pageTranslateProperty pageUid='{pages.uid}' dbField='txRkwbasicsTeaserText' sysLanguageUid='{sysLanguageUid}' /></f:format.crop>
+						</f:then>
+						<f:else>
+							<f:format.crop maxCharacters="{settingsArray.contentCrop}" respectWordBoundaries="false">{pages.txRkwbasicsTeaserText}</f:format.crop>
+						</f:else>
+					</f:if>
+				</p>
+			</div>
+		</div>
+		<div class="tile__footer tile__contact">
+			<div class="tile__contact-text">
+				<svg class="icon icon--16"><use xlink:href="#ic-date" /></svg><f:format.date format="d.m.Y">{pages.lastUpdated}</f:format.date>
+			</div>
+			<f:debug>{pages.txRkwauthorsAuthorship}</f:debug>
+			<f:if condition="{pages.txRkwauthorsAuthorship}">
+				<f:if condition="{pages.txRkwauthorsAuthorship} > 1">
+					<f:then>
+						<div class="tile__footer-author">von Stefanie Berchert</div>
+
+					</f:then>
+					<f:else>
+						<div class="tile__footer-author">von Stefanie Berchert</div>
+
+					</f:else>
+				</f:if>
+			</f:if>
+		</div>
+		<f:link.page pageUid="{pages.uid}" class="tile__link-overlay" target="{f:if(condition: '{settingsArray.openLinksInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
+			{pages.title}
+		</f:link.page>
+	</div>
+</div>
+
+
+<f:comment>
 <div class="box-wrapper">
 	<f:link.page pageUid="{pages.uid}" class="box {pages.txRkwbasicsDepartment.cssClass} big" target="{f:if(condition: '{settingsArray.openLinksInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
 		<header>
@@ -78,3 +143,4 @@
 	</f:link.page>
 </div>
 
+</f:comment>

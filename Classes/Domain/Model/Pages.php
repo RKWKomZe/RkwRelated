@@ -49,14 +49,23 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
     protected $txRkwsearchPubdate;
 
     /**
+     * txRkwauthorsAuthorship
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors>
+     */
+    protected $txRkwauthorsAuthorship = null;
+
+
+    /**
      * __construct
      */
     public function __construct()
     {
-        parent::__construct();
+
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
     }
+
 
     /**
      * Initializes all ObjectStorage properties
@@ -69,6 +78,8 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
     protected function initStorageObjects()
     {
         $this->sysCategory = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->txRkwauthorsAuthorship = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
     }
 
 
@@ -155,4 +166,17 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
     {
         $this->txRkwsearchPubdate = $txRkwsearchPubdate;
     }
+
+
+    /**
+     * Returns the txRkwauthorsAuthorship
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors> $txRkwauthorsAuthorship
+     */
+    public function getTxRkwauthorsAuthorship()
+    {
+        return $this->txRkwauthorsAuthorship;
+    }
+
+
 }
