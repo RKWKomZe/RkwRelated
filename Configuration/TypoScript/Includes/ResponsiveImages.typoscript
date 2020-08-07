@@ -1,0 +1,127 @@
+lib.txRkwRelated {
+
+	responsiveImageThumbnail < lib.txRkwBasics.responsiveImage
+	responsiveImageThumbnail {
+        settings {
+            breakpoint {
+                desktop >
+                tablet >
+                mobile2 >
+                mobile >
+            }
+            cropVariant {
+               fallback = teaser
+            }
+        }
+	}
+
+	responsiveLogoThumbnail < lib.txRkwBasics.responsiveImage
+	responsiveLogoThumbnail {
+        settings {
+            breakpoint {
+                desktop >
+                tablet >
+                mobile2 >
+                mobile >
+            }
+            maxWidth {
+                fallback = 440
+            }
+        }
+	}
+}
+
+
+
+/**
+ * Old version
+ * @deprecated
+ */
+plugin.tx_rkwrelated.libs {
+
+	responsiveImageThumbnail = IMAGE
+	responsiveImageThumbnail {
+
+		file {
+			import.current = 1
+			treatIdAsReference = 1
+			maxW = 450
+		}
+
+
+		# Inherit configuration from tt_content and rkw_basics
+		layout < tt_content.image.20.1.layout
+		layoutKey = picture
+		sourceCollection < plugin.tx_rkwbasics.libs.responsiveImages.sourceCollection
+
+		# set configuration for sourceCollection
+		sourceCollection {
+
+			mobile.maxW.override = 450
+			mobile.maxW.override.if {
+				value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.mobile}
+				isLessThan = 450
+			}
+			mobileRetina2.maxW.override < .mobile.maxW.override
+
+			tablet.maxW.override < .mobile.maxW.override
+			tablet.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.tablet}
+			tabletRetina2.maxW.override < .tablet.maxW.override
+			tabletRetina3.maxW.override < .tablet.maxW.override
+
+			desktop.maxW.override < .mobile.maxW.override
+			desktop.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.desktop}
+			desktopRetina2.maxW.override < .desktop.maxW.override
+		}
+	}
+
+	responsiveLogoThumbnail < .responsiveImageThumbnail
+	responsiveLogoThumbnail {
+		file.maxW = 450
+		sourceCollection {
+
+			mobile.maxW.override = 440
+			mobile.maxW.override.if.isLessThan = 440
+		}
+	}
+
+
+
+	# PDF Thumbnails
+	responsivePdfThumbnail = IMAGE
+	responsivePdfThumbnail {
+
+		file {
+			import.current = 1
+            treatIdAsReference = 1
+
+            ext = png
+			maxW = 215
+		}
+
+		# Inherit configuration from tt_content
+		layout < tt_content.image.20.1.layout
+		layoutKey = picture
+		sourceCollection < plugin.tx_rkwbasics.libs.responsiveImages.sourceCollection
+
+		# set configuration for sourceCollection
+		sourceCollection {
+
+			mobile.maxW.override = 215
+			mobile.maxW.override.if {
+				value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.mobile}
+				isLessThan = 215
+			}
+			mobileRetina2.maxW.override < .mobile.maxW.override
+
+			tablet.maxW.override < .mobile.maxW.override
+			tablet.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.tablet}
+			tabletRetina2.maxW.override < .tablet.maxW.override
+			tabletRetina3.maxW.override < .tablet.maxW.override
+
+			desktop.maxW.override < .mobile.maxW.override
+			desktop.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.desktop}
+			desktopRetina2.maxW.override < .desktop.maxW.override
+		}
+	}
+}

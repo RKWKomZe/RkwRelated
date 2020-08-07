@@ -445,22 +445,17 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             );
         }
 
-        if (isset($filter['project'])) {
-            if ($filter['project']) {
-                $constraints[] = $query->equals('txRkwprojectsProjectUid', intval($filter['project']));
-            }
-        } else {
-            if ($typoScriptSettings['projectList']) {
-                $constraints[] = $query->in('txRkwprojectsProjectUid', \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $typoScriptSettings['projectList']));
-            }
-        }
+        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
 
-        if ($pluginName == 'Morecontentpublication') {
-            $constraints[] = $query->equals('txRkwpdf2contentIsImport', 1);
-        }
-
-        if ($typoScriptSettings['everythingWithoutPublications']) {
-            $constraints[] = $query->equals('txRkwpdf2contentIsImport', 0);
+            if (isset($filter['project'])) {
+                if ($filter['project']) {
+                    $constraints[] = $query->equals('txRkwprojectsProjectUid', intval($filter['project']));
+                }
+            } else {
+                if ($typoScriptSettings['projectList']) {
+                    $constraints[] = $query->in('txRkwprojectsProjectUid', \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $typoScriptSettings['projectList']));
+                }
+            }
         }
 
         $constraints[] = $query->logicalNot($query->in('uid', $excludePages));
@@ -480,12 +475,32 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $constraints[] = $query->equals('noSearch', 0);
         $constraints[] = $query->equals('txRkwbasicsDocumentType.visibility', 1);
 
-        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_search')) {
-            $constraints[] = $query->equals('txRkwsearchNoSearch', 0);
-        }
-
         // exclude txRkwpdf2contentIsImportSub
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
+
+            if ($pluginName == 'Morecontentpublication') {
+
+                $constraints[] = $query->logicalAnd(
+                    $query->equals('txRkwpdf2contentIsImport', 1),
+                    $query->equals('txRkwpdf2contentIsImportSub', 0)
+                );
+
+            } else if ($typoScriptSettings['everythingWithoutPublications']) {
+
+                $constraints[] = $query->equals('txRkwpdf2contentIsImport', 0);
+
+            } else {
+                $constraints[] =
+                    $query->logicalOr(
+                        $query->logicalAnd(
+                            $query->equals('txRkwpdf2contentIsImport', 1),
+                            $query->equals('txRkwpdf2contentIsImportSub', 0)
+                        ),
+                        $query->equals('txRkwpdf2contentIsImport', 0)
+                    );
+            }
+
+        } else {
             $constraints[] =
                 $query->logicalOr(
                     $query->logicalAnd(
@@ -499,34 +514,11 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // NOW: construct final query!
         $query->matching($query->logicalAnd($constraints));
 
-        if (
-            (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_search'))
-            && ($typoScriptSettings['useRkwSearchForSorting'])
-        ) {
-            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
-                $query->setOrderings(
-                    array(
-                        'txRkwsearchPubdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
-                    )
-                );
-
-            } else {
-                $query->setOrderings(
-                    array(
-                        'txRkwsearchPubdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
-                    )
-                );
-            }
-
-        } else {
-
-            $query->setOrderings(
-                array(
-                    'lastUpdated' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
-                )
-            );
-
-        }
+        $query->setOrderings(
+            array(
+                'lastUpdated' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+            )
+        );
 
         if ($pageNumber) {
             if ($pageNumber <= 1) {
@@ -554,7 +546,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param string $pluginName
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByConfiguration($typoScriptSettings, $pages, $pageNumber = 0, $pidList, $filter, $pluginName)
+    public function findByConfiguration($typoScriptSettings, $pages, $pageNumber, $pidList, $filter, $pluginName)
     {
         $query = $this->createQuery();
 
@@ -592,10 +584,6 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $constraints[] = $query->equals('noSearch', 0);
         $constraints[] = $query->equals('txRkwbasicsDocumentType.visibility', 1);
 
-        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_search')) {
-            $constraints[] = $query->equals('txRkwsearchNoSearch', 0);
-        }
-
         // exclude txRkwpdf2contentIsImportSub
         $constraints[] =
             $query->logicalOr(
@@ -609,27 +597,11 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // NOW: construct final query!
         $query->matching($query->logicalAnd($constraints));
 
-        if (
-            (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_search'))
-            && ($typoScriptSettings['useRkwSearchForSorting'])
-        ) {
-
-            $query->setOrderings(
-                array(
-                    'txRkwsearchPubdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
-                )
-            );
-
-
-        } else {
-
-            $query->setOrderings(
-                array(
-                    'lastUpdated' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
-                )
-            );
-
-        }
+        $query->setOrderings(
+            array(
+                'lastUpdated' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+            )
+        );
 
         if ($pageNumber) {
             $query->setOffset((intval($pageNumber) - 1) * intval($typoScriptSettings['itemsPerPage']));
@@ -641,7 +613,6 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
 
         return $query->execute();
-        //====
     }
 
 

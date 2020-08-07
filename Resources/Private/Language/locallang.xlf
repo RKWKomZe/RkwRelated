@@ -3,6 +3,22 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2017-04-19T15:28:16Z" product-name="rkw_related">
 		<header/>
 		<body>
+
+
+        	<!-- Partials -->
+			<trans-unit id="partials.more.list.boxes.default.byAuthor">
+				<source>by</source>
+			</trans-unit>
+			<trans-unit id="partials.more.list.boxes.default.severalAuthors">
+				<source>Several Authors</source>
+			</trans-unit>
+
+
+            <!-- ============================================================== -->
+            <!-- Deprecated from below this line -->
+            <!-- ============================================================== -->
+
+
 			<trans-unit id="partials_more_boxes_more.interesting">
 				<source>Interesting?</source>
 			</trans-unit>

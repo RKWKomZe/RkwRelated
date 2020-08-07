@@ -132,16 +132,6 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
         return $this->txRkwpdf2contentIsImport;
     }
 
-    /**
-     * Sets the txRkwpdf2contentEtrackerIsImport
-     * Hint: Migration support - set both. Old and new
-     *
-     * @param \string $txRkwpdf2contentIsImport
-     */
-    public function setTxRkwpdf2contentIsImport($txRkwpdf2contentIsImport) {
-        $this->txRkwpdf2contentIsImport = $txRkwpdf2contentIsImport;
-        $this->txBmpdf2contentIsImport = $txRkwpdf2contentIsImport;
-    }
 
 
     /**
@@ -155,17 +145,6 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
         return $this->txRkwsearchPubdate;
     }
 
-    /**
-     * Sets the txRkwsearchPubdate
-     *
-     * @param integer $txRkwsearchPubdate
-     * @return void
-     * @deprecated
-     */
-    public function setTxRkwsearchPubdate($txRkwsearchPubdate)
-    {
-        $this->txRkwsearchPubdate = $txRkwsearchPubdate;
-    }
 
 
     /**

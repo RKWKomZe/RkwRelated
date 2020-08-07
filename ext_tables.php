@@ -43,7 +43,8 @@ call_user_func(
         // Add Flexform
         //=================================================================
         $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($extKey));
-        // Proof rkw_projects and rkw_pdf2content (rkw_projects depends on rkw_pdf2content, so rkw_projects is sufficient)
+
+        // Check for rkw_projects and rkw_pdf2content
         if (
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')
             && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')
