@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <tx_rkwprojects_domain_model_projects>
+        <uid>1</uid>
+        <pid>1</pid>
+        <name>Testprojekt</name>
+    </tx_rkwprojects_domain_model_projects>
+
+
+
+    <pages>
+        <uid>200</uid>
+        <pid>1</pid>
+        <title>Page</title>
+        <doktype>1</doktype>
+    </pages>
+    <pages>
+        <uid>300</uid>
+        <pid>200</pid>
+        <title>Page</title>
+        <doktype>1</doktype>
+        <tx_rkwprojects_project_uid>1</tx_rkwprojects_project_uid>
+    </pages>
+
+</dataset>

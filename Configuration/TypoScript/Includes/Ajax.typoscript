@@ -1,0 +1,147 @@
+txRkwRelatedSimilarContentAjax = PAGE
+txRkwRelatedSimilarContentAjax {
+	typeNum = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}
+	config {
+
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		no_cache = 0
+		debug = 0
+
+		additionalHeaders.10.header = Content-type: application/json
+		metaCharset = utf-8
+
+		index_enable = 0
+		index_metatags = 0
+		index_externals = 0
+	}
+
+	10 = USER_INT
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = RkwRelated
+		pluginName = Similarcontent
+		vendorName = RKW
+		controller = Similar
+		switchableControllerActions {
+			Similar {
+				1 = list
+			}
+		}
+		view < plugin.tx_rkwrelated_similarcontent.view
+		persistence < plugin.tx_rkwrelated_similarcontent.persistence
+		settings < plugin.tx_rkwrelated_similarcontent.settings
+	}
+}
+
+txRkwRelatedMoreContentAjax = PAGE
+txRkwRelatedMoreContentAjax {
+	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
+	config {
+
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		no_cache = 0
+		debug = 0
+
+		additionalHeaders.10.header = Content-type: application/json
+		metaCharset = utf-8
+
+		index_enable = 0
+		index_metatags = 0
+		index_externals = 0
+	}
+
+	10 = USER_INT
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = RkwRelated
+		pluginName = Morecontent
+		vendorName = RKW
+		controller = More
+		switchableControllerActions {
+			More {
+				1 = list
+			}
+		}
+		view < plugin.tx_rkwrelated_morecontent.view
+		persistence < plugin.tx_rkwrelated_morecontent.persistence
+		settings < plugin.tx_rkwrelated_morecontent.settings
+	}
+}
+
+txRkwRelatedMoreContent2Ajax = PAGE
+txRkwRelatedMoreContent2Ajax {
+	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
+	config {
+
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		no_cache = 0
+		debug = 0
+
+		additionalHeaders.10.header = Content-type: application/json
+		metaCharset = utf-8
+
+		index_enable = 0
+		index_metatags = 0
+		index_externals = 0
+	}
+
+	10 = USER_INT
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = RkwRelated
+		pluginName = Morecontent2
+		vendorName = RKW
+		controller = More
+		switchableControllerActions {
+			More {
+				1 = list
+			}
+		}
+		view < plugin.tx_rkwrelated_morecontent.view
+		persistence < plugin.tx_rkwrelated_morecontent.persistence
+		settings < plugin.tx_rkwrelated_morecontent.settings
+	}
+}
+txRkwRelatedMoreContentPublicationAjax = PAGE
+txRkwRelatedMoreContentPublicationAjax {
+	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContentPublication}
+	config {
+
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		no_cache = 0
+		debug = 0
+
+		additionalHeaders.10.header = Content-type: application/json
+		metaCharset = utf-8
+
+		index_enable = 0
+		index_metatags = 0
+		index_externals = 0
+	}
+
+	10 = USER_INT
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = RkwRelated
+		pluginName = Morecontentpublication
+		vendorName = RKW
+		controller = More
+		switchableControllerActions {
+			More {
+				1 = list
+			}
+		}
+		view < plugin.tx_rkwrelated_morecontent.view
+		persistence < plugin.tx_rkwrelated_morecontent.persistence
+		settings < plugin.tx_rkwrelated_morecontent.settings
+	}
+}
+

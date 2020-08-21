@@ -1,0 +1,11 @@
+{namespace rkw=RKW\RkwRelated\ViewHelpers}
+
+<f:form.select
+	class="select-field"
+	value="<rkw:selectPreselect filterUid='{filter.documentType}' configList='{settings.documentType}' />"
+	name="filter[documentType]"
+	options="{documentTypeList}"
+	optionValueField="uid"
+	optionLabelField="name"
+	prependOptionLabel="<f:translate key='partials.default.more.filters.documentType.showAll' />"
+	prependOptionValue="0" />

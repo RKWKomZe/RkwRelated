@@ -23,7 +23,7 @@ namespace RKW\RkwRelated\Domain\Model;
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Pages extends \RKW\RkwProjects\Domain\Model\Pages
+class Pages extends PagesAbstract
 {
 
     /**
@@ -49,14 +49,23 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
     protected $txRkwsearchPubdate;
 
     /**
+     * txRkwauthorsAuthorship
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors>
+     */
+    protected $txRkwauthorsAuthorship = null;
+
+
+    /**
      * __construct
      */
     public function __construct()
     {
-        parent::__construct();
+
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
     }
+
 
     /**
      * Initializes all ObjectStorage properties
@@ -69,6 +78,8 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
     protected function initStorageObjects()
     {
         $this->sysCategory = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->txRkwauthorsAuthorship = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
     }
 
 
@@ -121,16 +132,6 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
         return $this->txRkwpdf2contentIsImport;
     }
 
-    /**
-     * Sets the txRkwpdf2contentEtrackerIsImport
-     * Hint: Migration support - set both. Old and new
-     *
-     * @param \string $txRkwpdf2contentIsImport
-     */
-    public function setTxRkwpdf2contentIsImport($txRkwpdf2contentIsImport) {
-        $this->txRkwpdf2contentIsImport = $txRkwpdf2contentIsImport;
-        $this->txBmpdf2contentIsImport = $txRkwpdf2contentIsImport;
-    }
 
 
     /**
@@ -144,15 +145,17 @@ class Pages extends \RKW\RkwProjects\Domain\Model\Pages
         return $this->txRkwsearchPubdate;
     }
 
+
+
     /**
-     * Sets the txRkwsearchPubdate
+     * Returns the txRkwauthorsAuthorship
      *
-     * @param integer $txRkwsearchPubdate
-     * @return void
-     * @deprecated
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors> $txRkwauthorsAuthorship
      */
-    public function setTxRkwsearchPubdate($txRkwsearchPubdate)
+    public function getTxRkwauthorsAuthorship()
     {
-        $this->txRkwsearchPubdate = $txRkwsearchPubdate;
+        return $this->txRkwauthorsAuthorship;
     }
+
+
 }

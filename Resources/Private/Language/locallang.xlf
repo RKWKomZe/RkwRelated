@@ -3,6 +3,41 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2017-04-19T15:28:16Z" product-name="rkw_related">
 		<header/>
 		<body>
+
+
+        	<!-- Partials -->
+			<trans-unit id="partials.more.list.boxes.default.byAuthor">
+				<source>by</source>
+			</trans-unit>
+			<trans-unit id="partials.more.list.boxes.default.severalAuthors">
+				<source>Several Authors</source>
+			</trans-unit>
+            <trans-unit id="partials.default.more.boxes.more.labelMore">
+                <source>Show more</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text1">
+                <source>No results.</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text2">
+                <source>Please check your search filters.</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text3">
+                <source>Maybe you've found a research gap ;-)</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text4">
+                <source>Can we help you in person?</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text5">
+                <source>Don't hesitate to contact us.</source>
+            </trans-unit>
+
+
+
+            <!-- ============================================================== -->
+            <!-- Deprecated from below this line -->
+            <!-- ============================================================== -->
+
+
 			<trans-unit id="partials_more_boxes_more.interesting">
 				<source>Interesting?</source>
 			</trans-unit>

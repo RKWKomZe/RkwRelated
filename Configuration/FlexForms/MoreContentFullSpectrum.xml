@@ -42,12 +42,12 @@
                             <type>check</type>
                         </config>
                     </settings.pidListRecursive>
-                    <settings.everythingWithoutPublications>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.additional.everything_without_publications</label>
+                    <settings.ignoreVisibility>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.ignoreVisibility</label>
                         <config>
                             <type>check</type>
                         </config>
-                    </settings.everythingWithoutPublications>
+                    </settings.ignoreVisibility>
                     <settings.documentTypeList>
                         <TCEforms>
                             <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.documenttype</label>
@@ -119,82 +119,48 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
-                    <settings.showPoweredBy>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showPoweredBy</label>
-                        <config>
-                            <type>check</type>
-                        </config>
-                    </settings.showPoweredBy>
-                    <settings.isSidebar>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.issidebar</label>
-                        <config>
-                            <type>check</type>
-                        </config>
-                    </settings.isSidebar>
-                    <settings.itemsPerPage>
+                    <settings.layout>
                         <TCEforms>
-                            <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.itemsperpage</label>
+                            <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.layout</label>
                             <config>
                                 <type>select</type>
                                 <items type="array">
                                     <numIndex index="0" type="array">
-                                        <numIndex index="0">5</numIndex>
-                                        <numIndex index="1">5</numIndex>
+                                        <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.layout.I.default</numIndex>
+                                        <numIndex index="1">Default</numIndex>
                                     </numIndex>
                                     <numIndex index="1" type="array">
-                                        <numIndex index="0">10</numIndex>
-                                        <numIndex index="1">10</numIndex>
+                                        <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.layout.I.home</numIndex>
+                                        <numIndex index="1">Home</numIndex>
                                     </numIndex>
                                     <numIndex index="2" type="array">
-                                        <numIndex index="0">25</numIndex>
-                                        <numIndex index="1">25</numIndex>
-                                    </numIndex>
-                                    <numIndex index="3" type="array">
-                                        <numIndex index="0">50</numIndex>
-                                        <numIndex index="1">50</numIndex>
-                                    </numIndex>
-                                    <numIndex index="4" type="array">
-                                        <numIndex index="0">100</numIndex>
-                                        <numIndex index="1">100</numIndex>
+                                        <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.layout.I.reduced</numIndex>
+                                        <numIndex index="1">Reduced</numIndex>
                                     </numIndex>
                                 </items>
                             </config>
                         </TCEforms>
-                    </settings.itemsPerPage>
-                    <settings.maximumShownResults>
-                        <TCEforms>
-                            <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.maximumshownresults</label>
-                            <config>
-                                <type>select</type>
-                                <items type="array">
-                                    <numIndex index="0" type="array">
-                                        <numIndex index="0">∞</numIndex>
-                                        <numIndex index="1">0</numIndex>
-                                    </numIndex>
-                                    <numIndex index="1" type="array">
-                                        <numIndex index="0">5</numIndex>
-                                        <numIndex index="1">5</numIndex>
-                                    </numIndex>
-                                    <numIndex index="2" type="array">
-                                        <numIndex index="0">10</numIndex>
-                                        <numIndex index="1">10</numIndex>
-                                    </numIndex>
-                                    <numIndex index="3" type="array">
-                                        <numIndex index="0">25</numIndex>
-                                        <numIndex index="1">25</numIndex>
-                                    </numIndex>
-                                    <numIndex index="4" type="array">
-                                        <numIndex index="0">50</numIndex>
-                                        <numIndex index="1">50</numIndex>
-                                    </numIndex>
-                                    <numIndex index="5" type="array">
-                                        <numIndex index="0">100</numIndex>
-                                        <numIndex index="1">100</numIndex>
-                                    </numIndex>
-                                </items>
-                            </config>
-                        </TCEforms>
-                    </settings.maximumShownResults>
+                    </settings.layout>
+                    <settings.displayPublications>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.additional.displayPublications</label>
+                        <config>
+                            <type>select</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.additional.displayPublications.I.default</numIndex>
+                                    <numIndex index="1">0</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.additional.displayPublications.I.publicationsOnly</numIndex>
+                                    <numIndex index="1">1</numIndex>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.additional.displayPublications.I.noPublications</numIndex>
+                                    <numIndex index="1">2</numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.displayPublications>
                     <settings.showMoreLink>
                         <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showmorelink</label>
                         <config>

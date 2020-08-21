@@ -1,0 +1,23 @@
+
+<f:if condition="{relatedPagesList}">
+    <f:then>
+        <div class="tiles-wrapper">
+            <div class="tiles flex-container flex-container--margin">
+
+                <f:for each="{relatedPagesList}" as="pages" iteration="iterator">
+                    <!-- box content -->
+                    <f:if condition="{iterator.index} < {settingsArray.maximumShownResults}">
+                        <f:render partial="Default/More/Boxes/Default" arguments="{_all}" />
+                    </f:if>
+                </f:for>
+            </div>
+        </div>
+
+        <!-- see more -->
+        <f:render partial="Default/More/Boxes/More" arguments="{_all}" />
+
+    </f:then>
+    <f:else>
+        <f:render partial="Default/More/NoResults" arguments="{_all}" />
+    </f:else>
+</f:if>

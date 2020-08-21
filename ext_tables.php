@@ -43,7 +43,8 @@ call_user_func(
         // Add Flexform
         //=================================================================
         $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($extKey));
-        // Proof rkw_projects and rkw_pdf2content (rkw_projects depends on rkw_pdf2content, so rkw_projects is sufficient)
+
+        // Check for rkw_projects and rkw_pdf2content
         if (
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')
             && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')
@@ -73,7 +74,7 @@ call_user_func(
             $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
-                'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentPublicationFullSpectrum.xml'
+                'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentFullSpectrum.xml'
             );
 
         } else {

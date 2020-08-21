@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+	<div class="flex-item flex-basis-3">
+		<div class="tile">
+			<f:render partial="Home/More/Boxes/Default/Inner" section="Header" arguments="{_all}" />
+			<div class="tile__content">
+				<f:render partial="Home/More/Boxes/Default/Inner" section="Title" arguments="{_all}" />
+				<f:render partial="Home/More/Boxes/Default/Inner" section="Text" arguments="{_all}" />
+			</div>
+
+			<f:render partial="Home/More/Boxes/Default/Inner" section="Footer" arguments="{_all}" />
+
+			<f:link.page pageUid="{pages.uid}" class="tile__link-overlay" target="{f:if(condition: '{settings.openLinksInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
+				{pages.title}
+			</f:link.page>
+		</div>
+	</div>
+
+</html>

@@ -1,21 +1,20 @@
 
-<f:layout name="Default" />
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-This Template is responsible for creating a table of domain objects.
+    <f:layout name="{layout}" />
 
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-Resources:
-Private:
-Templates:
-List.html: keep
+    <f:section name="Default">
+        <f:render partial="Default/More/Filters" arguments="{_all}" />
+        <f:render partial="Default/More/List" section="Replace" arguments="{_all}" />
 
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+    </f:section>
 
-<f:section name="main">
-	<f:render partial="More/List/Filter" arguments="{_all}" />
+    <!-- ======================================================================== -->
 
-	<div id="tx-rkwrelated-result-section-{currentPluginNameStrtolower}-{ttContentUid}" class="search-result-section" aria-live="assertive" aria-atomic="true" role="main">
-        <f:render partial="More/List" section="Replace" arguments="{_all}" />
-    </div>
-</f:section>
+    <f:section name="Home">
+
+        <f:render partial="Home/More/Filters" arguments="{_all}" />
+        <f:render partial="Home/More/List" arguments="{_all}" />
+
+    </f:section>
+</html>

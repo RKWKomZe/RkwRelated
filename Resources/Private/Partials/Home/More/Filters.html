@@ -1,0 +1,69 @@
+{namespace rkwAuthors=RKW\RkwAuthors\ViewHelpers}
+<f:if condition="{settings.showFilter}">
+
+	<!--
+	Beim Form-Feld "pluginName" könnte man noch mit der Variable {currentPluginName} arbeiten. Beim Feld
+	"additionalParams" funktioniert hingegen kein "tx_rkwrelated_{currentPluginName}", weswegen daher nun
+	mit Conditions für das jeweilige Plugin gearbeitet wird.
+	-->
+
+	<!-- Morecontent -->
+	<f:if condition="{currentPluginName} == 'Morecontent'">
+		<f:form
+			noCacheHash="true"
+			action="list"
+			controller="More"
+			extensionName="RkwRelated"
+			pluginName="Morecontent"
+			class="ajax"
+			additionalParams="{rkw_ajax : '{key: ajaxHelper.key, cid: ajaxHelper.contentUid, idl: \'1\'}'}" >
+
+			<div class="btn-list btn-list--desktop">
+				<f:if condition="{settings.showDepartment}">
+					<f:render partial="Home/More/Filters/Department" arguments="{_all}" />
+				</f:if>
+				<f:if condition="{settings.showDocumentType}">
+					<f:render partial="Home/More/Filters/DocumentType" arguments="{_all}" />
+				</f:if>
+				<f:if condition="{settings.showProject}">
+					<f:render partial="Home/More/Filters/Project" arguments="{_all}" />
+				</f:if>
+                <f:if condition="{settings.showYear}">
+                    <f:render partial="Home/More/Filters/Year" arguments="{_all}" />
+                </f:if>
+			</div>
+		</f:form>
+	</f:if>
+
+	<!-- Morecontent2 -->
+	<f:if condition="{currentPluginName} == 'Morecontent2'">
+		<f:form
+			noCacheHash="true"
+			action="list"
+			controller="More"
+			extensionName="RkwRelated"
+			pluginName="Morecontent2"
+			class="ajax"
+			additionalParams="{rkw_ajax : '{key: ajaxHelper.key, cid: ajaxHelper.contentUid, idl: \'1\'}'}">
+
+			<div class="btn-list btn-list--desktop">
+				<f:if condition="{settings.showDepartment}">
+					<f:render partial="Home/More/Filters/Department" arguments="{_all}" />
+				</f:if>
+				<f:if condition="{settings.showDocumentType}">
+					<f:render partial="Home/More/Filters/DocumentType" arguments="{_all}" />
+				</f:if>
+				<f:if condition="{settings.showProject}">
+					<f:render partial="Home/More/Filters/Project" arguments="{_all}" />
+				</f:if>
+                <f:if condition="{settings.showYear}">
+                    <f:render partial="Home/More/Filters/Year" arguments="{_all}" />
+                </f:if>
+			</div>
+
+		</f:form>
+	</f:if>
+
+
+
+</f:if>

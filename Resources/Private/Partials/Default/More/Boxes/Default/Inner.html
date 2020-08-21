@@ -1,0 +1,89 @@
+{namespace rkwRelated=RKW\RkwRelated\ViewHelpers}
+{namespace rkwAuthors=RKW\RkwAuthors\ViewHelpers}
+
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+	<f:section name="Header">
+		<div class="tile__header has-img">
+			<div class="tile__img">
+				<f:if condition="{pages.txRkwbasicsTeaserImage}" >
+					<f:then>
+						<f:cObject typoscriptObjectPath="lib.txRkwRelated.responsiveImageThumbnail" data="{pages.txRkwbasicsTeaserImage.uid}"/>
+					</f:then>
+					<f:else>
+						&nbsp;
+					</f:else>
+				</f:if>
+			</div>
+		</div>
+	</f:section>
+
+
+
+	<f:section name="Title">
+		<h3 class="tile__title icon">
+			<span class="tile__title-icon tile__title-icon--margin">
+				<f:comment>
+					<f:if condition="{pages.txRkwbasicsDocumentType.uid}">
+						ToDo: Switch for icon based on DocumentType
+					</f:if>
+				</f:comment>
+				<svg class="icon icon--32"><use xlink:href="#ic-document" /></svg>
+			</span>
+			<span class="tile__title-text">
+				<f:if condition="<rkwRelated:pageTranslateProperty pageUid='{pages.uid}' dbField='title' sysLanguageUid='{sysLanguageUid}' />">
+					<f:then>
+						<f:format.crop maxCharacters="{settingsArray.textCropping.header}" respectWordBoundaries="false"><rkwRelated:pageTranslateProperty pageUid='{pages.uid}' dbField='title' sysLanguageUid='{sysLanguageUid}' /></f:format.crop>
+					</f:then>
+					<f:else>
+						<f:format.crop maxCharacters="{settingsArray.textCropping.header}" respectWordBoundaries="false">{pages.title}</f:format.crop>
+					</f:else>
+				</f:if>
+			</span>
+		</h3>
+	</f:section>
+
+
+	<f:section name="Text">
+		<f:if condition="{pages.abstract}">
+			<div class="tile__text">
+				<p>
+					<f:if condition="<rkwRelated:pageTranslateProperty pageUid='{pages.uid}' dbField='txRkwbasicsTeaserText' sysLanguageUid='{sysLanguageUid}' />">
+						<f:then>
+							<f:format.crop maxCharacters="{settingsArray.textCropping.content}" respectWordBoundaries="false"><rkwRelated:pageTranslateProperty pageUid='{pages.uid}' dbField='abstract' sysLanguageUid='{sysLanguageUid}' /></f:format.crop>
+						</f:then>
+						<f:else>
+							<f:format.crop maxCharacters="{settingsArray.textCropping.content}" respectWordBoundaries="false">{pages.abstract}</f:format.crop>
+						</f:else>
+					</f:if>
+				</p>
+			</div>
+		</f:if>
+	</f:section>
+
+
+	<f:section name="Footer">
+		<div class="tile__footer tile__contact">
+			<div class="tile__contact-text">
+				<svg class="icon icon--16"><use xlink:href="#ic-date" /></svg><f:format.date format="d.m.Y">{pages.lastUpdated}</f:format.date>
+			</div>
+
+			<f:if condition="{pages.txRkwauthorsAuthorship}">
+				<f:if condition="{pages.txRkwauthorsAuthorship} == 1">
+					<f:then>
+						<div class="tile__footer-author">
+							<f:translate key="partials.default.more.boxes.default.inner.byAuthor" extensionName="RkwRelated" />
+							&nbsp;<rkwAuthors:GetCombinedName author="{pages.txRkwauthorsAuthorship.0}"/>
+						</div>
+					</f:then>
+					<f:else>
+						<div class="tile__footer-author">v
+							<f:translate key="partials.default.more.boxes.default.inner.severalAuthors" extensionName="RkwRelated" />
+						</div>
+					</f:else>
+				</f:if>
+			</f:if>
+		</div>
+	</f:section>
+
+</html>

@@ -87,7 +87,6 @@ plugin.tx_rkwrelated_similarcontent {
 		headerCrop = {$plugin.tx_rkwrelated_similarcontent.settings.headerCrop}
 		contentCrop = {$plugin.tx_rkwrelated_similarcontent.settings.contentCrop}
 		footerCrop = {$plugin.tx_rkwrelated_similarcontent.settings.footerCrop}
-        useRkwSearchForSorting = {$plugin.tx_rkwrelated_similarcontent.settings.useRkwSearchForSorting}
         sysCategoryParentUid = {$plugin.tx_rkwrelated_similarcontent.settings.sysCategoryParentUid}
 	}
 }
@@ -109,6 +108,7 @@ plugin.tx_rkwrelated_morecontent {
 		cache {
 			ttl = {$plugin.tx_rkwrelated_morecontent.settings.cache.ttl}
 		}
+        version = {$plugin.tx_rkwrelated_morecontent.settings.version}
         startingPid = {$plugin.tx_rkwrelated_morecontent.settings.startingPid}
         startingPidList = {$plugin.tx_rkwrelated_morecontent.settings.startingPidList}
         excludePidList = {$plugin.tx_rkwrelated_morecontent.settings.excludePidList}
@@ -116,14 +116,25 @@ plugin.tx_rkwrelated_morecontent {
         pidListRecursive = {$plugin.tx_rkwrelated_morecontent.settings.pidListRecursive}
 		pageTypeAjaxMoreContent = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
 		pageTypeAjaxMoreContent2 = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
+		publicationCrop = {$plugin.tx_rkwrelated_morecontent.settings.publicationCrop}
+		staticInitialYearForFilter = {$plugin.tx_rkwrelated_morecontent.settings.staticInitialYearForFilter}
+        poweredByImage = {$plugin.tx_rkwrelated_morecontent.settings.poweredByImage}
+        textCropping {
+            header = {$plugin.tx_rkwrelated_morecontent.settings.textCropping.header}
+            content = {$plugin.tx_rkwrelated_morecontent.settings.textCropping.content}
+            footer = {$plugin.tx_rkwrelated_morecontent.settings.textCropping.footer}
+        }
+        itemLimitPerPage {
+            default = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.default}
+            home = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.home}
+            reduced = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.reduced}
+        }
+
+        # DEPRECATED BELOW!
 		pageTypeAjaxMoreContentPublication = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContentPublication}
 		headerCrop = {$plugin.tx_rkwrelated_morecontent.settings.headerCrop}
 		contentCrop = {$plugin.tx_rkwrelated_morecontent.settings.contentCrop}
 		footerCrop = {$plugin.tx_rkwrelated_morecontent.settings.footerCrop}
-		publicationCrop = {$plugin.tx_rkwrelated_morecontent.settings.publicationCrop}
-		staticInitialYearForFilter = {$plugin.tx_rkwrelated_morecontent.settings.staticInitialYearForFilter}
-        useRkwSearchForSorting = {$plugin.tx_rkwrelated_morecontent.settings.useRkwSearchForSorting}
-        poweredByImage = {$plugin.tx_rkwrelated_morecontent.settings.poweredByImage}
     }
 
 }
@@ -131,247 +142,8 @@ plugin.tx_rkwrelated_morecontent2 < plugin.tx_rkwrelated_morecontent
 plugin.tx_rkwrelated_morecontentpublication < plugin.tx_rkwrelated_morecontent
 
 
-# Add jquery if not disabled
-[globalVar = LIT:1 = {$plugin.tx_rkwrelated_morecontent.settings.includeJqueryLib}]
-	#page.includeJSFooterlibs.tx_rkwrelated_jquery  = EXT:rkw_related/Resources/Public/Scripts/jquery.min.js
-[global]
 
-[globalVar = LIT:1 = {$plugin.tx_rkwrelated_similarcontent.settings.cache.includeAjaxJS}]
-	#page.includeJSFooterlibs.tx_rkwrelated_jquery  = EXT:rkw_related/Resources/Public/Scripts/main.js
-[global]
-
-txRkwRelatedSimilarContentAjax = PAGE
-txRkwRelatedSimilarContentAjax {
-	typeNum = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}
-	config {
-
-		disableAllHeaderCode = 1
-		xhtml_cleaning = 0
-		admPanel = 0
-		no_cache = 0
-		debug = 0
-
-		additionalHeaders.10.header = Content-type: application/json
-		metaCharset = utf-8
-
-		index_enable = 0
-		index_metatags = 0
-		index_externals = 0
-	}
-
-	10 = USER_INT
-	10 {
-		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-		extensionName = RkwRelated
-		pluginName = Similarcontent
-		vendorName = RKW
-		controller = Similar
-		switchableControllerActions {
-			Similar {
-				1 = list
-			}
-		}
-		view < plugin.tx_rkwrelated_similarcontent.view
-		persistence < plugin.tx_rkwrelated_similarcontent.persistence
-		settings < plugin.tx_rkwrelated_similarcontent.settings
-	}
-}
-
-txRkwRelatedMoreContentAjax = PAGE
-txRkwRelatedMoreContentAjax {
-	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
-	config {
-
-		disableAllHeaderCode = 1
-		xhtml_cleaning = 0
-		admPanel = 0
-		no_cache = 0
-		debug = 0
-
-		additionalHeaders.10.header = Content-type: application/json
-		metaCharset = utf-8
-
-		index_enable = 0
-		index_metatags = 0
-		index_externals = 0
-	}
-
-	10 = USER_INT
-	10 {
-		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-		extensionName = RkwRelated
-		pluginName = Morecontent
-		vendorName = RKW
-		controller = More
-		switchableControllerActions {
-			More {
-				1 = list
-			}
-		}
-		view < plugin.tx_rkwrelated_morecontent.view
-		persistence < plugin.tx_rkwrelated_morecontent.persistence
-		settings < plugin.tx_rkwrelated_morecontent.settings
-	}
-}
-
-txRkwRelatedMoreContent2Ajax = PAGE
-txRkwRelatedMoreContent2Ajax {
-	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
-	config {
-
-		disableAllHeaderCode = 1
-		xhtml_cleaning = 0
-		admPanel = 0
-		no_cache = 0
-		debug = 0
-
-		additionalHeaders.10.header = Content-type: application/json
-		metaCharset = utf-8
-
-		index_enable = 0
-		index_metatags = 0
-		index_externals = 0
-	}
-
-	10 = USER_INT
-	10 {
-		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-		extensionName = RkwRelated
-		pluginName = Morecontent2
-		vendorName = RKW
-		controller = More
-		switchableControllerActions {
-			More {
-				1 = list
-			}
-		}
-		view < plugin.tx_rkwrelated_morecontent.view
-		persistence < plugin.tx_rkwrelated_morecontent.persistence
-		settings < plugin.tx_rkwrelated_morecontent.settings
-	}
-}
-txRkwRelatedMoreContentPublicationAjax = PAGE
-txRkwRelatedMoreContentPublicationAjax {
-	typeNum = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContentPublication}
-	config {
-
-		disableAllHeaderCode = 1
-		xhtml_cleaning = 0
-		admPanel = 0
-		no_cache = 0
-		debug = 0
-
-		additionalHeaders.10.header = Content-type: application/json
-		metaCharset = utf-8
-
-		index_enable = 0
-		index_metatags = 0
-		index_externals = 0
-	}
-
-	10 = USER_INT
-	10 {
-		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-		extensionName = RkwRelated
-		pluginName = Morecontentpublication
-		vendorName = RKW
-		controller = More
-		switchableControllerActions {
-			More {
-				1 = list
-			}
-		}
-		view < plugin.tx_rkwrelated_morecontent.view
-		persistence < plugin.tx_rkwrelated_morecontent.persistence
-		settings < plugin.tx_rkwrelated_morecontent.settings
-	}
-}
-
-plugin.tx_rkwrelated.libs {
-
-	responsiveImageThumbnail = IMAGE
-	responsiveImageThumbnail {
-
-		file {
-			import.current = 1
-			treatIdAsReference = 1
-			maxW = 450
-		}
-
-
-		# Inherit configuration from tt_content and rkw_basics
-		layout < tt_content.image.20.1.layout
-		layoutKey = picture
-		sourceCollection < plugin.tx_rkwbasics.libs.responsiveImages.sourceCollection
-
-		# set configuration for sourceCollection
-		sourceCollection {
-
-			mobile.maxW.override = 450
-			mobile.maxW.override.if {
-				value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.mobile}
-				isLessThan = 450
-			}
-			mobileRetina2.maxW.override < .mobile.maxW.override
-
-			tablet.maxW.override < .mobile.maxW.override
-			tablet.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.tablet}
-			tabletRetina2.maxW.override < .tablet.maxW.override
-			tabletRetina3.maxW.override < .tablet.maxW.override
-
-			desktop.maxW.override < .mobile.maxW.override
-			desktop.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.desktop}
-			desktopRetina2.maxW.override < .desktop.maxW.override
-		}
-	}
-
-	responsiveLogoThumbnail < .responsiveImageThumbnail
-	responsiveLogoThumbnail {
-		file.maxW = 450
-		sourceCollection {
-
-			mobile.maxW.override = 440
-			mobile.maxW.override.if.isLessThan = 440
-		}
-	}
-
-
-
-	# PDF Thumbnails
-	responsivePdfThumbnail = IMAGE
-	responsivePdfThumbnail {
-
-		file {
-			import.current = 1
-            treatIdAsReference = 1
-
-            ext = png
-			maxW = 215
-		}
-
-		# Inherit configuration from tt_content
-		layout < tt_content.image.20.1.layout
-		layoutKey = picture
-		sourceCollection < plugin.tx_rkwbasics.libs.responsiveImages.sourceCollection
-
-		# set configuration for sourceCollection
-		sourceCollection {
-
-			mobile.maxW.override = 215
-			mobile.maxW.override.if {
-				value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.mobile}
-				isLessThan = 215
-			}
-			mobileRetina2.maxW.override < .mobile.maxW.override
-
-			tablet.maxW.override < .mobile.maxW.override
-			tablet.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.tablet}
-			tabletRetina2.maxW.override < .tablet.maxW.override
-			tabletRetina3.maxW.override < .tablet.maxW.override
-
-			desktop.maxW.override < .mobile.maxW.override
-			desktop.maxW.override.if.value = {$plugin.tx_rkwbasics.settings.responsiveImages.breakpoints.desktop}
-			desktopRetina2.maxW.override < .desktop.maxW.override
-		}
-	}
-}
+#===============================================================
+# Includes
+#===============================================================
+<INCLUDE_TYPOSCRIPT: source="DIR:./Includes" extensions="typoscript">

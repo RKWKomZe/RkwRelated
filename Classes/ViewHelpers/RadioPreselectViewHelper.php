@@ -38,7 +38,6 @@ class RadioPreselectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
         // is a filter set?
         if (intval($filterUid) == $currentUid) {
             return true;
-            //===
         }
 
         // If only one item in the configList is set, we preselect this
@@ -48,11 +47,9 @@ class RadioPreselectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
             && (!$filterUid)
         ) {
             return true;
-            //===
         }
 
         return false;
-        //===
     }
 
 }
