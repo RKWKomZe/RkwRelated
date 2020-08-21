@@ -1,5 +1,5 @@
 
-<f:layout name="Default" />
+<f:layout name="{layout}" />
 
 This Template is responsible for creating a table of domain objects.
 
@@ -12,7 +12,7 @@ List.html: keep
 
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
-<f:section name="main">
+<f:section name="Default">
 	<div class="boxes-grid narrow" id="tx-rkwrelated-result-section-{currentPluginNameStrtolower}">
 		<f:render partial="Similar/List" arguments="{_all}" />
 	</div>

@@ -5,14 +5,55 @@
 		<body>
 
         	<!-- Partials -->
-			<trans-unit id="partials.more.list.boxes.default.byAuthor">
+			<trans-unit id="partials.default.more.boxes.default.inner.byAuthor">
 				<source>by</source>
 				<target>von</target>
 			</trans-unit>
-			<trans-unit id="partials.more.list.boxes.default.severalAuthors">
+			<trans-unit id="partials.default.more.boxes.default.inner.severalAuthors">
 				<source>Several Authors</source>
 				<target>Mehrere Autoren</target>
 			</trans-unit>
+            <trans-unit id="partials.default.more.boxes.more.labelMore">
+                <source>Show more</source>
+                <target>Mehr anzeigen</target>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text1">
+                <source>No results.</source>
+                <target>Leider konnten wir keine passenden Ergebnisse finden.</target>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text2">
+                <source>Please check your search filters.</source>
+                <target>Bitte versuchen Sie eine andere Kombination an Filterkriterien.</target>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text3">
+                <source>Maybe you've found a research gap ;-)</source>
+                <target>Möglicherweise haben Sie aber auch einfach eine Forschungslücke entdeckt ;-)</target>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text4">
+                <source>Can we help you in person?</source>
+                <target>Können wir Ihnen persönlich weiterhelfen?</target>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text5">
+                <source>Don't hesitate to contact us.</source>
+                <target>Wir freuen uns über Ihren Anruf oder Ihre E-Mail!</target>
+            </trans-unit>
+			<trans-unit id="partials.default.more.filters.department.showAll">
+				<source>All Topics</source>
+				<target>Alle Themen</target>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.project.showAll">
+				<source>All Projects</source>
+				<target>Alle Projekte</target>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.documentType.showAll">
+				<source>All Documents</source>
+				<target>Alle Dokumentenarten</target>
+			</trans-unit>
+            <trans-unit id="partials.default.more.filters.years.showAll">
+                <source>All Years</source>
+                <target>Alle Jahre</target>
+            </trans-unit>
+
 
 
             <!-- ============================================================== -->

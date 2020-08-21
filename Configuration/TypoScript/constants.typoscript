@@ -66,9 +66,6 @@ plugin.tx_rkwrelated_similarcontent {
 		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default footer text cropping
 		footerCrop = 20
 
-        # cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Use rkw_search fields for sorting if installed 1 = yes
-        useRkwSearchForSorting = 1
-
         # cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=ID of parent sys_category for similar search
         sysCategoryParentUid = 0
 	}
@@ -88,14 +85,21 @@ plugin.tx_rkwrelated_morecontent {
 		storagePid =
 	}
 	settings {
+
+        # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=Version to use
+        version = 2
+
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Include jQuery? 1 = yes
 		includeJqueryLib = 0
+
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Include AjaxJS? 1 = yes
 		includeAjaxJS = 0
+
 		cache {
 			# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Cache time to live
 			ttl = 86400
 		}
+
         # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PID to start search from
         startingPid = 0
 
@@ -117,14 +121,46 @@ plugin.tx_rkwrelated_morecontent {
 		# cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 2
 		pageTypeAjaxMoreContent2 = 1491920078
 
+		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Starting year of filter option "sort by year" (default:2011)
+		staticInitialYearForFilter =
+
+        # cat=plugin.tx_rkwrelated_morecontent//a; type=string; label=Path to powered-by image
+        poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwi-logo2.png
+
+        textCropping {
+
+            # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default header text cropping
+            header = 200
+
+            # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default body text cropping
+            content = 150
+
+            # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default footer text cropping
+            footer = 24
+        }
+
+        itemLimitPerPage {
+
+            # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Items per page for default layout
+            default = 3
+
+            # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Items per page for home layout
+            home = 7
+
+            # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Items per page for reduced layout
+            reduced = 3
+        }
+
+
+        # DEPRECATED BELOW THIS LINE!!!!!
 		# cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 3
 		pageTypeAjaxMoreContentPublication = 1491920095
 
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default header text cropping
-		headerCrop = 60
+		headerCrop = 200
 
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default body text cropping
-		contentCrop = 230
+		contentCrop = 150
 
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default footer text cropping
 		footerCrop = 20
@@ -132,13 +168,5 @@ plugin.tx_rkwrelated_morecontent {
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default footer text cropping
 		publicationCrop = 30
 
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Starting year of filter option "sort by year" (default:2011)
-		staticInitialYearForFilter =
-
-        # cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Use rkw_search fields for sorting if installed 1 = yes
-        useRkwSearchForSorting = 1
-
-        # cat=plugin.tx_rkwrelated_morecontent//a; type=string; label=Path to powered-by image
-        poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwi-logo.png
 	}
 }

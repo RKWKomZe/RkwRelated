@@ -12,6 +12,25 @@
 			<trans-unit id="partials.more.list.boxes.default.severalAuthors">
 				<source>Several Authors</source>
 			</trans-unit>
+            <trans-unit id="partials.default.more.boxes.more.labelMore">
+                <source>Show more</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text1">
+                <source>No results.</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text2">
+                <source>Please check your search filters.</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text3">
+                <source>Maybe you've found a research gap ;-)</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text4">
+                <source>Can we help you in person?</source>
+            </trans-unit>
+            <trans-unit id="partials.default.more.noResults.text5">
+                <source>Don't hesitate to contact us.</source>
+            </trans-unit>
+
 
 
             <!-- ============================================================== -->

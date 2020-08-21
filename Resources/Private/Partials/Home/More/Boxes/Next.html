@@ -1,0 +1,26 @@
+{namespace rkw=RKW\RkwRelated\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+
+	<f:if condition="{currentPluginName} == 'Morecontent'">
+		<f:link.action action="list" controller="More" extensionName="RkwRelated" pluginName="Morecontent"
+			class="btn btn--primary btn--centered mt-1 ajax {f:if(condition: '{settings.disabledAutoLoad} == 1', then: '', else: 'autoload')}"
+			title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
+			rel="nofollow"
+			target="_blank"
+			additionalParams="{tx_rkwrelated_morecontent: '{pageNumber: pageNumber, filter: filter}', rkw_ajax : '{key: ajaxHelper.key, cid: ajaxHelper.contentUid, idl: \'2,3\'}'}">
+			<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
+		</f:link.action>
+	</f:if>
+
+	<f:if condition="{currentPluginName} == 'Morecontent2'">
+		<f:link.action action="list" controller="More" extensionName="RkwRelated" pluginName="Morecontent2"
+			class="btn btn--primary btn--centered mt-1 ajax {f:if(condition: '{settings.disabledAutoLoad} == 1', then: '', else: 'autoload')}"
+			title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
+			rel="nofollow"
+			target="_blank"
+			additionalParams="{tx_rkwrelated_morecontent2: '{pageNumber: pageNumber, filter: filter}', rkw_ajax : '{key: ajaxHelper.key, cid: ajaxHelper.contentUid, idl: \'2,3\'}'}">
+			<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
+		</f:link.action>
+	</f:if>
+</html>

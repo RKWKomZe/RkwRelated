@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <tx_rkwprojects_domain_model_projects>
+        <uid>1</uid>
+        <pid>1</pid>
+        <name>Sadomaso</name>
+    </tx_rkwprojects_domain_model_projects>
+
+    <pages>
+        <uid>400</uid>
+        <pid>1</pid>
+        <title>Page</title>
+        <doktype>1</doktype>
+        <tx_rkwprojects_project_uid>1</tx_rkwprojects_project_uid>
+    </pages>
+
+    <sys_category>
+        <uid>1</uid>
+        <pid>1</pid>
+        <title>Bondage</title>
+    </sys_category>
+    <sys_category>
+        <uid>2</uid>
+        <pid>1</pid>
+        <title>Wax</title>
+    </sys_category>
+
+    <sys_category_record_mm>
+        <uid_local>1</uid_local>
+        <uid_foreign>1</uid_foreign>
+        <tablenames>tx_rkwprojects_domain_model_projects</tablenames>
+        <sorting>0</sorting>
+        <sorting_foreign>1</sorting_foreign>
+        <fieldname>sys_category</fieldname>
+    </sys_category_record_mm>
+    <sys_category_record_mm>
+        <uid_local>2</uid_local>
+        <uid_foreign>1</uid_foreign>
+        <tablenames>tx_rkwprojects_domain_model_projects</tablenames>
+        <sorting>0</sorting>
+        <sorting_foreign>2</sorting_foreign>
+        <fieldname>sys_category</fieldname>
+    </sys_category_record_mm>
+
+</dataset>

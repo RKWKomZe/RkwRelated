@@ -9,6 +9,9 @@ lib.txRkwRelated {
                 mobile2 >
                 mobile >
             }
+            maxWidth {
+                fallback = 345
+            }
             cropVariant {
                fallback = teaser
             }
@@ -25,7 +28,7 @@ lib.txRkwRelated {
                 mobile >
             }
             maxWidth {
-                fallback = 440
+                fallback = 200
             }
         }
 	}

@@ -74,7 +74,7 @@ call_user_func(
             $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
-                'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentPublicationFullSpectrum.xml'
+                'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentFullSpectrum.xml'
             );
 
         } else {

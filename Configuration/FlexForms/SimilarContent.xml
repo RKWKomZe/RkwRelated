@@ -44,5 +44,34 @@
                 </el>
             </ROOT>
         </filteroptions>
+
+        <frontendoptions>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.similar.frontend_options</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.layout>
+                        <TCEforms>
+                            <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.similar.layout</label>
+                            <config>
+                                <type>select</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.similar.layout.I.default</numIndex>
+                                        <numIndex index="1">Default</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.similar.layout.I.reduced</numIndex>
+                                        <numIndex index="1">Reduced</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.layout>
+                </el>
+            </ROOT>
+        </frontendoptions>
     </sheets>
 </T3DataStructure>
