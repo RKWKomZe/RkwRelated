@@ -142,16 +142,6 @@ plugin.tx_rkwrelated_morecontent2 < plugin.tx_rkwrelated_morecontent
 plugin.tx_rkwrelated_morecontentpublication < plugin.tx_rkwrelated_morecontent
 
 
-# Add jquery if not disabled
-[globalVar = LIT:1 = {$plugin.tx_rkwrelated_morecontent.settings.includeJqueryLib}]
-	#page.includeJSFooterlibs.tx_rkwrelated_jquery  = EXT:rkw_related/Resources/Public/Scripts/jquery.min.js
-[global]
-
-[globalVar = LIT:1 = {$plugin.tx_rkwrelated_similarcontent.settings.cache.includeAjaxJS}]
-	#page.includeJSFooterlibs.tx_rkwrelated_jquery  = EXT:rkw_related/Resources/Public/Scripts/main.js
-[global]
-
-
 
 #===============================================================
 # Includes

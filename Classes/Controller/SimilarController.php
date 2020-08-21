@@ -49,14 +49,6 @@ class SimilarController extends AbstractController
      */
     protected $relatedPages = null;
 
-    /**
-     * limit
-     *
-     * @var integer
-     */
-    protected $limit = 5;
-
-
 
     /**
      * listAction
@@ -76,6 +68,7 @@ class SimilarController extends AbstractController
         }
 
         $pageNumber++;
+        $limit = 8;
 
         $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
         // $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
@@ -101,7 +94,7 @@ class SimilarController extends AbstractController
             $categories = $this->filterUtility->getSysCategories();
             $project = $this->filterUtility->getProjectRecursive();
             $department = $this->filterUtility->getDepartmentRecursive();
-            $limit = ($this->settings['minItems'] ? intval($this->settings['minItems']) : 5);
+            $limit = ($this->settings['minItems'] ? intval($this->settings['minItems']) : 8);
 
             /*
              * @toDo: This won't work with gridElements
@@ -125,6 +118,9 @@ class SimilarController extends AbstractController
             }
             */
 
+            /** @deprecated */
+            $this->settings['itemsPerHundredSigns'] = PHP_INT_MAX;
+
             // Check for sysCategories or project
             // if there are no sysCategories we check for pages that belong to the same project
             $relatedPages = [];
@@ -139,7 +135,8 @@ class SimilarController extends AbstractController
                     $excludePidList,
                     $this->settings['sysCategoryParentUid'],
                     $pageNumber,
-                    $limit
+                    $limit,
+                    boolval($this->settings['ignoreVisibility'])
                 );
 
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using category filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
@@ -155,7 +152,8 @@ class SimilarController extends AbstractController
                     $excludePidList,
                     $includePidList,
                     $pageNumber,
-                    $limit
+                    $limit,
+                    boolval($this->settings['ignoreVisibility'])
                 );
 
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using project filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
@@ -170,7 +168,8 @@ class SimilarController extends AbstractController
                     $excludePidList,
                     $includePidList,
                     $pageNumber,
-                    $limit
+                    $limit,
+                    boolval($this->settings['ignoreVisibility'])
                 );
 
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using department filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
@@ -206,13 +205,13 @@ class SimilarController extends AbstractController
                 'relatedPagesList'            => $relatedPages,
                 'pageNumber'                  => $pageNumber,
                 'currentPluginName'           => $this->request->getPluginName(),
-                'limit'                       => $this->limit,
+                'limit'                       => $limit,
             ];
 
 
             $this->view->assignMultiple($assignments);
 
-            /** @depreacted  */
+        /** @depreacted  */
         } else {
 
 
@@ -224,7 +223,7 @@ class SimilarController extends AbstractController
                 'currentPluginNameStrtolower' => strtolower($this->request->getPluginName()),
                 'pageTypeAjax'                => intval($this->settings['pageTypeAjaxSimilarcontent']),
                 'itemsPerHundredSigns'        => floatval($this->settings['itemsPerHundredSigns']), // do not load float value in view -> this can produce ajax issues. Or write a ViewHelper ;-)
-                'limit'                       => $this->limit,
+                'limit'                       => $limit,
                 'settingsArray'               => $this->settings, // do not access settings in view the normal way -> this would produce ajax issues
                 'ttContentUid'                => $ttContentUid
             ];

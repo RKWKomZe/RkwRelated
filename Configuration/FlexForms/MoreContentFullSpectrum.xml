@@ -42,6 +42,12 @@
                             <type>check</type>
                         </config>
                     </settings.pidListRecursive>
+                    <settings.ignoreVisibility>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.ignoreVisibility</label>
+                        <config>
+                            <type>check</type>
+                        </config>
+                    </settings.ignoreVisibility>
                     <settings.documentTypeList>
                         <TCEforms>
                             <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.documenttype</label>

@@ -41,6 +41,12 @@
                             <type>check</type>
                         </config>
                     </settings.pidListRecursive>
+                    <settings.ignoreVisibility>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.similar.ignoreVisibility</label>
+                        <config>
+                            <type>check</type>
+                        </config>
+                    </settings.ignoreVisibility>
                 </el>
             </ROOT>
         </filteroptions>

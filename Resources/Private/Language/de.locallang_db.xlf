@@ -4,7 +4,9 @@
 		<header/>
 		<body>
 
-			<!-- Flexform -->
+            <!-- ========================================================== -->
+            <!-- Flexform: More, additional -->
+            <!-- ========================================================== -->
 			<trans-unit id="flexform.more.sheetTitle">
 				<source>Behavior</source>
 				<target>Verhalten</target>
@@ -21,9 +23,6 @@
 				<source>Frontend options</source>
 				<target>Frontend-Filteroptionen</target>
 			</trans-unit>
-
-
-
 			<trans-unit id="flexform.more.department">
 				<source>Topic</source>
 				<target>Thema</target>
@@ -40,6 +39,10 @@
                 <source>Use Pid List of Relevant Pages Recursively</source>
                 <target>Liste der relevanten Seiten rekursiv anwenden (Unterseiten inkludieren)</target>
             </trans-unit>
+            <trans-unit id="flexform.more.ignoreVisibility">
+                <source>Ignore global visibility of document types</source>
+                <target>Globale Sichtbarkeit der Dokumententypen ignorieren</target>
+            </trans-unit>
             <trans-unit id="flexform.more.documenttype">
 				<source>Document type</source>
 				<target>Dokument Typ</target>
@@ -47,10 +50,6 @@
 			<trans-unit id="flexform.more.showmorelink">
 				<source>Show more link</source>
 				<target>Zeige mehr-Link</target>
-			</trans-unit>
-			<trans-unit id="flexform.more.issidebar">
-				<source>Is sidebar</source>
-				<target>Wird in Sidebar eingesetzt (Diese Einstellung beeinflusst die Darstellung)</target>
 			</trans-unit>
             <trans-unit id="flexform.more.layout">
                 <source>Layout</source>
@@ -72,14 +71,6 @@
                 <source>Show "Powered by"-Logo</source>
                 <target>Förderlogo anzeigen</target>
             </trans-unit>
-            <trans-unit id="flexform.more.itemsperpage">
-				<source>Items per page</source>
-				<target>Ergebnisse pro Seite / Aufruf</target>
-			</trans-unit>
-			<trans-unit id="flexform.more.maximumshownresults">
-				<source>Maximum shown results</source>
-				<target>Maximale Anzahl an Ergebnissen</target>
-			</trans-unit>
 			<trans-unit id="flexform.more.autoload">
 				<source>Deactivate more-link</source>
 				<target>Deaktiviere Auto-Load für Mehr-Link beim Erreichen des Seitenfußes</target>
@@ -118,7 +109,9 @@
 			</trans-unit>
 
 
-
+            <!-- ========================================================== -->
+            <!-- Flexform: More, additional -->
+            <!-- ========================================================== -->
 			<trans-unit id="flexform.more.additional.project">
 				<source>Project</source>
 				<target>Projekt (Nur sichtbar wenn RkwProjects installiert)</target>
@@ -145,7 +138,9 @@
             </trans-unit>
 
 
-
+            <!-- ========================================================== -->
+            <!-- Flexform: Similar  -->
+            <!-- ========================================================== -->
             <trans-unit id="flexform.similar.filter_options">
                 <source>Filter options</source>
                 <target>Default-Filteroptionen</target>
@@ -165,6 +160,10 @@
             <trans-unit id="flexform.similar.pidListRecursive">
                 <source>Use Pid List of Relevant Pages Recursively</source>
                 <target>Liste der relevanten Seiten rekursiv anwenden (Unterseiten inkludieren)</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.ignoreVisibility">
+                <source>Ignore global visibility of document types</source>
+                <target>Globale Sichtbarkeit der Dokumententypen ignorieren</target>
             </trans-unit>
             <trans-unit id="flexform.similar.layout">
                 <source>Layout</source>

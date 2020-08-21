@@ -151,7 +151,8 @@ class MoreController extends AbstractController
                 $filterList,
                 $findPublications,
                 $pageNumber,
-                $itemsPerPage
+                $itemsPerPage,
+                boolval($this->settings['ignoreVisibility'])
             );
 
             $relatedPagesCount = $this->pagesRepository->findByConfiguration(
@@ -160,7 +161,8 @@ class MoreController extends AbstractController
                 $filterList,
                 $findPublications,
                 0,
-                $itemsPerPage
+                $itemsPerPage,
+                boolval($this->settings['ignoreVisibility'])
             );
 
             // Cache it!
@@ -188,13 +190,16 @@ class MoreController extends AbstractController
         $resultCount = is_countable($relatedPagesCount) ? count($relatedPagesCount) : 0;
         $moreItemsAvailable = ($pageNumber * $itemsPerPage) < $resultCount ? true : false;
 
-        /** @deprecated completely obsolete in version 2 */
+        /** @deprecated completely obsolete in version 2 - including the following two lines after this comment blog
         if (intval($this->settings['maximumShownResults'])) {
             $showMoreLink = ($pageNumber * $itemsPerPage) < intval($this->settings['maximumShownResults']) ? true : false;
         } else {
             $this->settings['maximumShownResults'] = PHP_INT_MAX;
             $showMoreLink = true;
-        }
+        }*/
+        $this->settings['maximumShownResults'] = PHP_INT_MAX;
+        $this->settings['showMoreLink'] = $showMoreLink = true;
+
 
         // to avoid dependence to RkwProject, we're calling the repository this way
         $projectList = null;
@@ -260,7 +265,6 @@ class MoreController extends AbstractController
                 'filter'                      => $filter,
                 'sysLanguageUid'              => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
             ];
-
 
             if (
                 ($pageNumber == 1)

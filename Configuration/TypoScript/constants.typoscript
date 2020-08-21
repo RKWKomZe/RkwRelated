@@ -89,12 +89,6 @@ plugin.tx_rkwrelated_morecontent {
         # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=Version to use
         version = 2
 
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Include jQuery? 1 = yes
-		includeJqueryLib = 0
-
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Include AjaxJS? 1 = yes
-		includeAjaxJS = 0
-
 		cache {
 			# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Cache time to live
 			ttl = 86400
@@ -114,12 +108,6 @@ plugin.tx_rkwrelated_morecontent {
 
         # cat=plugin.tx_rkwrelated_morecontent//f; type=boolean; label=Use pidList recursively
         pidListRecursive = 0
-
-        # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 1
-		pageTypeAjaxMoreContent = 1492077599
-
-		# cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 2
-		pageTypeAjaxMoreContent2 = 1491920078
 
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Starting year of filter option "sort by year" (default:2011)
 		staticInitialYearForFilter =
@@ -153,8 +141,11 @@ plugin.tx_rkwrelated_morecontent {
 
 
         # DEPRECATED BELOW THIS LINE!!!!!
-		# cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 3
-		pageTypeAjaxMoreContentPublication = 1491920095
+		# cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Include jQuery? 1 = yes
+		includeJqueryLib = 0
+
+		# cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Include AjaxJS? 1 = yes
+		includeAjaxJS = 0
 
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default header text cropping
 		headerCrop = 200
@@ -167,6 +158,15 @@ plugin.tx_rkwrelated_morecontent {
 
 		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default footer text cropping
 		publicationCrop = 30
+
+        # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 1
+		pageTypeAjaxMoreContent = 1492077599
+
+		# cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 2
+		pageTypeAjaxMoreContent2 = 1491920078
+
+		# cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 3
+		pageTypeAjaxMoreContentPublication = 1491920095
 
 	}
 }

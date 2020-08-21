@@ -101,6 +101,7 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      * Checks if the current call is based on ajax or not
      *
      * @return bool
+     * @deprecated
      */
     protected function isAjaxCall()
     {

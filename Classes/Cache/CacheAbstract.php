@@ -98,7 +98,7 @@ abstract class CacheAbstract implements \TYPO3\CMS\Core\SingletonInterface
             ($this->getContextMode() != 'Production')
             || ($this->getEnvironmentMode() != 'FE')
         ) {
-           // return false;
+            return false;
         }
 
         return $this->getCache()
@@ -121,7 +121,7 @@ abstract class CacheAbstract implements \TYPO3\CMS\Core\SingletonInterface
             ($this->getContextMode() != 'Production')
             || ($this->getEnvironmentMode() != 'FE')
         ) {
-            //return false;
+            return false;
         }
 
         return $this->getCache()
@@ -147,7 +147,7 @@ abstract class CacheAbstract implements \TYPO3\CMS\Core\SingletonInterface
             ($this->getContextMode() != 'Production')
             || ($this->getEnvironmentMode() != 'FE')
         ) {
-           // return $this;
+            return $this;
         }
 
         $this->getCache()
