@@ -1,8 +1,0 @@
-{namespace rkw=RKW\RkwRelated\ViewHelpers}
-
-<p>
-	<label for="document-type-select" class="hide"><f:translate key="partials_more_list_filters_project.labelLong" /></label>
-	<f:form.select value="<rkw:selectPreselect filterUid='{filter.project}' configList='{settingsArray.project}' />" id="document-type-select" name="filter[project]" class="secondary ajax" options="{projectList}" optionValueField="uid" optionLabelField="shortName" prependOptionLabel="<f:translate key='partials_more_list_filters_project.alltypes' />" prependOptionValue="0" />
-</p>
-
-

@@ -4,8 +4,9 @@
 		<header/>
 		<body>
 
-			<!-- Flexform -->
-
+            <!-- ========================================================== -->
+            <!-- Flexform: More, additional -->
+            <!-- ========================================================== -->
 			<trans-unit id="flexform.more.sheetTitle">
 				<source>Behavior</source>
 			</trans-unit>
@@ -30,34 +31,42 @@
             <trans-unit id="flexform.more.pidListRecursive">
                 <source>Use Pid List of Relevant Pages Recursively</source>
             </trans-unit>
-			<trans-unit id="flexform.more.documenttype">
+            <trans-unit id="flexform.more.ignoreVisibility">
+                <source>Ignore global visibility of document types</source>
+            </trans-unit>
+            <trans-unit id="flexform.more.documenttype">
 				<source>Document type</source>
 			</trans-unit>
 			<trans-unit id="flexform.more.showmorelink">
 				<source>Show more link</source>
 			</trans-unit>
-			<trans-unit id="flexform.more.issidebar">
-				<source>Is sidebar</source>
-			</trans-unit>
+            <trans-unit id="flexform.more.layout">
+                <source>Layout</source>
+            </trans-unit>
+            <trans-unit id="flexform.more.layout.I.default">
+                <source>Default</source>
+            </trans-unit>
+            <trans-unit id="flexform.more.layout.I.home">
+                <source>Home</source>
+            </trans-unit>
+            <trans-unit id="flexform.more.layout.I.reduced">
+                <source>Reduced</source>
+            </trans-unit>
             <trans-unit id="flexform.more.showPoweredBy">
                 <source>Show "Powered by"-Logo</source>
             </trans-unit>
-			<trans-unit id="flexform.more.itemsperpage">
-				<source>Items per page</source>
-			</trans-unit>
-			<trans-unit id="flexform.more.maximumshownresults">
-				<source>Maximum shown results</source>
-			</trans-unit>
 			<trans-unit id="flexform.more.autoload">
 				<source>Deactivate more-link</source>
-			</trans-unit>
-			<trans-unit id="flexform.more.showdate">
-				<source>Show date</source>
 			</trans-unit>
 			<trans-unit id="flexform.more.openwindow">
 				<source>Open links in same window</source>
 			</trans-unit>
-
+			<trans-unit id="flexform.more.showdate">
+				<source>Show date</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.pleasechoose">
+				<source>Please choose</source>
+			</trans-unit>
 			<trans-unit id="flexform.more.showfilter">
 				<source>Show frontend filter</source>
 			</trans-unit>
@@ -74,21 +83,38 @@
 				<source>Show year option</source>
 			</trans-unit>
 
+
+            <!-- ========================================================== -->
+            <!-- Flexform: More, additional -->
+            <!-- ========================================================== -->
 			<trans-unit id="flexform.more.additional.project">
 				<source>Project</source>
 			</trans-unit>
-			<trans-unit id="flexform.more.additional.publications_only">
-				<source>Only publications</source>
+			<trans-unit id="flexform.more.additional.displayPublications">
+				<source>Display Publications</source>
 			</trans-unit>
-			<trans-unit id="flexform.more.additional.everything_without_publications">
-				<source>Everything without publications</source>
+			<trans-unit id="flexform.more.additional.displayPublications.I.default">
+				<source>Everything</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.additional.displayPublications.I.publicationsOnly">
+				<source>Publications Only</source>
+			</trans-unit>
+			<trans-unit id="flexform.more.additional.displayPublications.I.noPublications">
+				<source>Everything but publications</source>
 			</trans-unit>
             <trans-unit id="flexform.more.no_cache">
                 <source>No Caching</source>
             </trans-unit>
 
+
+            <!-- ========================================================== -->
+            <!-- Flexform: Similar  -->
+            <!-- ========================================================== -->
             <trans-unit id="flexform.similar.filter_options">
                 <source>Filter options</source>
+            </trans-unit>
+            <trans-unit id="flexform.similar.frontend_options">
+                <source>Frontend options</source>
             </trans-unit>
             <trans-unit id="flexform.similar.startingPid">
                 <source>Starting Pid for Search</source>
@@ -98,6 +124,21 @@
             </trans-unit>
             <trans-unit id="flexform.similar.pidListRecursive">
                 <source>Use Pid List of Relevant Pages Recursively</source>
+            </trans-unit>
+            <trans-unit id="flexform.similar.ignoreVisibility">
+                <source>Ignore global visibility of document types</source>
+            </trans-unit>
+            <trans-unit id="flexform.similar.layout">
+                <source>Layout</source>
+            </trans-unit>
+            <trans-unit id="flexform.msimilar.layout.I.default">
+                <source>Default</source>
+            </trans-unit>
+            <trans-unit id="flexform.similar.layout.I.home">
+                <source>Home</source>
+            </trans-unit>
+            <trans-unit id="flexform.similar.layout.I.reduced">
+                <source>Reduced</source>
             </trans-unit>
 
 		</body>

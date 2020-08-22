@@ -4,8 +4,9 @@
 		<header/>
 		<body>
 
-			<!-- Flexform -->
-
+            <!-- ========================================================== -->
+            <!-- Flexform: More, additional -->
+            <!-- ========================================================== -->
 			<trans-unit id="flexform.more.sheetTitle">
 				<source>Behavior</source>
 				<target>Verhalten</target>
@@ -38,6 +39,10 @@
                 <source>Use Pid List of Relevant Pages Recursively</source>
                 <target>Liste der relevanten Seiten rekursiv anwenden (Unterseiten inkludieren)</target>
             </trans-unit>
+            <trans-unit id="flexform.more.ignoreVisibility">
+                <source>Ignore global visibility of document types</source>
+                <target>Globale Sichtbarkeit der Dokumententypen ignorieren</target>
+            </trans-unit>
             <trans-unit id="flexform.more.documenttype">
 				<source>Document type</source>
 				<target>Dokument Typ</target>
@@ -46,22 +51,26 @@
 				<source>Show more link</source>
 				<target>Zeige mehr-Link</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.issidebar">
-				<source>Is sidebar</source>
-				<target>Wird in Sidebar eingesetzt (Diese Einstellung beeinflusst die Darstellung)</target>
-			</trans-unit>
+            <trans-unit id="flexform.more.layout">
+                <source>Layout</source>
+                <target>Layout</target>
+            </trans-unit>
+            <trans-unit id="flexform.more.layout.I.default">
+                <source>Default</source>
+                <target>Standard</target>
+            </trans-unit>
+            <trans-unit id="flexform.more.layout.I.home">
+                <source>Home</source>
+                <target>Startseite</target>
+            </trans-unit>
+            <trans-unit id="flexform.more.layout.I.reduced">
+                <source>Reduced</source>
+                <target>Reduziert</target>
+            </trans-unit>
             <trans-unit id="flexform.more.showPoweredBy">
                 <source>Show "Powered by"-Logo</source>
                 <target>Förderlogo anzeigen</target>
             </trans-unit>
-            <trans-unit id="flexform.more.itemsperpage">
-				<source>Items per page</source>
-				<target>Ergebnisse pro Seite / Aufruf</target>
-			</trans-unit>
-			<trans-unit id="flexform.more.maximumshownresults">
-				<source>Maximum shown results</source>
-				<target>Maximale Anzahl an Ergebnissen</target>
-			</trans-unit>
 			<trans-unit id="flexform.more.autoload">
 				<source>Deactivate more-link</source>
 				<target>Deaktiviere Auto-Load für Mehr-Link beim Erreichen des Seitenfußes</target>
@@ -78,7 +87,6 @@
 				<source>Please choose</source>
 				<target>Bitte wählen</target>
 			</trans-unit>
-
 			<trans-unit id="flexform.more.showfilter">
 				<source>Show frontend filter</source>
 				<target>Filter im Frontend anzeigen</target>
@@ -100,26 +108,46 @@
 				<target>Option "Nach Jahr" anbieten</target>
 			</trans-unit>
 
+
+            <!-- ========================================================== -->
+            <!-- Flexform: More, additional -->
+            <!-- ========================================================== -->
 			<trans-unit id="flexform.more.additional.project">
 				<source>Project</source>
 				<target>Projekt (Nur sichtbar wenn RkwProjects installiert)</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.additional.publications_only">
-				<source>Only publications</source>
-				<target>Nur Publikationen (Nur sichtbar wenn RkwProjects/RkwPdf2Content installiert)</target>
+			<trans-unit id="flexform.more.additional.displayPublications">
+				<source>Display Publications</source>
+				<target>Anzeige von Publikationen (Nur sichtbar wenn RkwProjects/RkwPdf2Content installiert)</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.additional.everything_without_publications">
-				<source>Everything without publications</source>
-				<target>Alles außer Publikationen (Nur sichtbar wenn RkwProjects/RkwPdf2Content installiert)</target>
+			<trans-unit id="flexform.more.additional.displayPublications.I.default">
+				<source>Everything</source>
+				<target>Alles</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.additional.displayPublications.I.publicationsOnly">
+				<source>Publications Only</source>
+				<target>Nur Publikationen</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.additional.displayPublications.I.noPublications">
+				<source>Everything but publications</source>
+				<target>Alles außer Publikationen</target>
 			</trans-unit>
             <trans-unit id="flexform.more.no_cache">
                 <source>No Caching</source>
                 <target>Kein Caching</target>
             </trans-unit>
 
+
+            <!-- ========================================================== -->
+            <!-- Flexform: Similar  -->
+            <!-- ========================================================== -->
             <trans-unit id="flexform.similar.filter_options">
                 <source>Filter options</source>
                 <target>Default-Filteroptionen</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.frontend_options">
+                <source>Frontend options</source>
+                <target>Anzeigeeinstellungen</target>
             </trans-unit>
             <trans-unit id="flexform.similar.startingPid">
                 <source>Starting Pid for Search</source>
@@ -132,6 +160,26 @@
             <trans-unit id="flexform.similar.pidListRecursive">
                 <source>Use Pid List of Relevant Pages Recursively</source>
                 <target>Liste der relevanten Seiten rekursiv anwenden (Unterseiten inkludieren)</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.ignoreVisibility">
+                <source>Ignore global visibility of document types</source>
+                <target>Globale Sichtbarkeit der Dokumententypen ignorieren</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.layout">
+                <source>Layout</source>
+                <target>Layout</target>
+            </trans-unit>
+            <trans-unit id="flexform.msimilar.layout.I.default">
+                <source>Default</source>
+                <target>Standard</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.layout.I.home">
+                <source>Home</source>
+                <target>Startseite</target>
+            </trans-unit>
+            <trans-unit id="flexform.similar.layout.I.reduced">
+                <source>Reduced</source>
+                <target>Reduziert</target>
             </trans-unit>
 		</body>
 	</file>
