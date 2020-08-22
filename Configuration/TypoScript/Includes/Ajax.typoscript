@@ -1,3 +1,7 @@
+// =================================
+// @DEPRECATED COMPLETELY
+// =================================
+
 txRkwRelatedSimilarContentAjax = PAGE
 txRkwRelatedSimilarContentAjax {
 	typeNum = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}

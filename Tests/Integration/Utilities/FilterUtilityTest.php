@@ -599,7 +599,7 @@ class FilterUtilityTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getCombinedFilterByNameReturnsExternalFilterOverSettingsFilterIfExternalEmpty()
+    public function getCombinedFilterByNameReturnsExternalFilterOverSettingsFilterIfExternalZeroValue()
     {
 
         /**
@@ -622,6 +622,8 @@ class FilterUtilityTest extends FunctionalTestCase
         static::assertCount(0, $result);
 
     }
+
+
 
     //=============================================
 

@@ -65,6 +65,11 @@ class SimilarController extends AbstractController
         // Attention: Following line doesn't work in ajax-context (return PID instead of plugins content element uid)
         if (!$ttContentUid) {
             $ttContentUid = $this->ajaxHelper->getContentUid();
+
+        /** @deprecated - making old version work with new ajax */
+        } else if ($ttContentUid) {
+            $this->ajaxHelper->init(['cid' => $ttContentUid]);
+            $this->loadSettingsFromFlexForm();
         }
 
         $pageNumber++;
