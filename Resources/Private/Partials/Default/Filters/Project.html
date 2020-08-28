@@ -1,0 +1,14 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:rkwRelated="http://typo3.org/ns/RKW/RkwRelated/ViewHelpers"
+	data-namespace-typo3-fluid="true">
+
+	<f:form.select
+		class="select-field"
+		value="rkwRelated:preselect filterList='{filterFull.project}' />"
+		name="filter[project]"
+		options="{projectList}"
+		optionValueField="uid"
+		optionLabelField="shortName"
+		prependOptionLabel="<f:translate key='partials.default.more.filters.project.showAll' />"
+		prependOptionValue="0" />
+</html>

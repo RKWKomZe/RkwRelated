@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:rkwAjax="http://typo3.org/ns/RKW/RkwAjax/ViewHelpers"
+	data-namespace-typo3-fluid="true">
+
+	<f:if condition="{showMoreLink}">
+		<f:if condition="{settings.displayPublications} == 1">
+			<f:then>
+				<f:if condition="{settings.detailPid.publication}">
+					<f:render partial="Reduced/Boxes/Next" section="Publication" arguments="{_all}" />
+				</f:if>
+			</f:then>
+			<f:else>
+				<f:if condition="{settings.detailPid.default}">
+					<f:render partial="Reduced/Boxes/Next" section="Default" arguments="{_all}" />
+				</f:if>
+			</f:else>
+		</f:if>
+	</f:if>
+
+</html>

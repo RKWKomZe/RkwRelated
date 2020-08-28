@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <pages>
+        <uid>170</uid>
+        <pid>1</pid>
+        <title>Page Test</title>
+        <doktype>1</doktype>
+        <tx_rkwbasics_document_type>2</tx_rkwbasics_document_type>
+    </pages>
+
+
+    <tx_rkwbasics_domain_model_department>
+        <uid>1</uid>
+        <pid>1</pid>
+        <name>Quality Assurance</name>
+    </tx_rkwbasics_domain_model_department>
+
+
+    <tx_rkwbasics_domain_model_documenttype>
+        <uid>2</uid>
+        <pid>1</pid>
+        <name>Blog</name>
+    </tx_rkwbasics_domain_model_documenttype>
+
+</dataset>

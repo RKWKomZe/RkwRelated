@@ -14,6 +14,8 @@ namespace RKW\RkwRelated\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * ShowMoreItems
  *
@@ -22,6 +24,7 @@ namespace RKW\RkwRelated\ViewHelpers;
  * @copyright Rkw Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @deprecated This class is deprecated and will be removed soon.
  */
 class ShowMoreItemsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
@@ -35,6 +38,8 @@ class ShowMoreItemsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
      */
     public function render($itemsPerHundredSigns = 0.0, $pageNumber = 1, $itemsTotal = 1)
     {
+        GeneralUtility::logDeprecatedFunction();
+
         $pageNumber--;
 
         if ($pageNumber * $itemsPerHundredSigns < $itemsTotal) {
