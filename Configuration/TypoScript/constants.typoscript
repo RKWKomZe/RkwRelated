@@ -19,31 +19,82 @@ plugin.tx_rkwrelated_similarcontent {
 		storagePid =
 	}
 	settings {
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Include jQuery? 1 = yes
-		includeJqueryLib = 0
 
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Include AjaxJS? 1 = yes
-		includeAjaxJS = 0
+        # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=Version to use
+        version = 2
 
 		cache {
 			# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Cache time to live
 			ttl = 86400
 		}
 
-        # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PID to start search from
+        # cat=plugin.tx_rkwrelated_similarcontent//f; type=integer; label=PID to start search from
         startingPid = 0
 
-        # cat=plugin.tx_rkwrelated_morecontent//f; type=string; label=PIDs to start search from (comma separated)
+        # cat=plugin.tx_rkwrelated_similarcontent//f; type=string; label=PIDs to start search from (comma separated)
         startingPidList = 0
 
-        # cat=plugin.tx_rkwrelated_morecontent//f; type=string; label=PIDs to exclude from list (comma separated)
+        # cat=plugin.tx_rkwrelated_similarcontent//f; type=string; label=PIDs to exclude from list (comma separated)
         excludePidList =
 
-        # cat=plugin.tx_rkwrelated_morecontent//f; type=string; label=PIDs to include in list (comma separated)
+        # cat=plugin.tx_rkwrelated_similarcontent//f; type=string; label=PIDs to include in list (comma separated)
         pidList =
 
-        # cat=plugin.tx_rkwrelated_morecontent//f; type=boolean; label=Use pidList recursively
+        # cat=plugin.tx_rkwrelated_similarcontent//f; type=boolean; label=Use pidList recursively
         pidListRecursive = 0
+
+        # cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=ID of parent sys_category for similar search
+        sysCategoryParentUid = 0
+
+		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Starting year of filter option "sort by year" (default:2011)
+		staticInitialYearForFilter =
+
+        # cat=plugin.tx_rkwrelated_similarcontent//a; type=string; label=Path to powered-by image
+        poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwi-logo2.png
+
+        detailPid {
+
+            # cat=plugin.tx_rkwrelated_similarcontent//f; type=string; label=Detail pid (default)
+            default =
+
+            # cat=plugin.tx_rkwrelated_similarcontent//f; type=string; label=Detail pid for publications
+            publication =
+        }
+
+        textCropping {
+
+            # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default header text cropping
+            header = 200
+
+            # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default body text cropping
+            content = 150
+
+            # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default footer text cropping
+            footer = 24
+        }
+
+        itemLimitPerPage {
+
+            # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Items per page for default layout
+            default = 8
+
+            # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Items per page for home layout
+            home = 7
+
+            # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Items per page for reduced layout
+            reduced = 3
+            
+            # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Items per page for below layout
+            below = 3
+        }
+
+
+        # DEPRECATED BELOW THIS LINE!!!!!
+		# cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Include jQuery? 1 = yes
+		includeJqueryLib = 0
+
+		# cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Include AjaxJS? 1 = yes
+		includeAjaxJS = 0
 
         # cat=plugin.tx_rkwrelated_similarcontent//a; type=float; label=Items per hundred signs
 		itemsPerHundredSigns = 0.4
@@ -66,8 +117,6 @@ plugin.tx_rkwrelated_similarcontent {
 		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default footer text cropping
 		footerCrop = 20
 
-        # cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=ID of parent sys_category for similar search
-        sysCategoryParentUid = 0
 	}
 }
 
@@ -115,6 +164,15 @@ plugin.tx_rkwrelated_morecontent {
         # cat=plugin.tx_rkwrelated_morecontent//a; type=string; label=Path to powered-by image
         poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwi-logo2.png
 
+        detailPid {
+
+            # cat=plugin.tx_rkwrelated_morecontent//f; type=string; label=Detail pid (default)
+            default =
+
+            # cat=plugin.tx_rkwrelated_morecontent//f; type=string; label=Detail pid for publications
+            publication =
+        }
+
         textCropping {
 
             # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default header text cropping
@@ -130,13 +188,16 @@ plugin.tx_rkwrelated_morecontent {
         itemLimitPerPage {
 
             # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Items per page for default layout
-            default = 3
+            default = 8
 
             # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Items per page for home layout
             home = 7
 
             # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Items per page for reduced layout
             reduced = 3
+            
+            # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Items per page for below layout
+            below = 3
         }
 
 

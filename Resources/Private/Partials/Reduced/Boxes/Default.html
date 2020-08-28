@@ -1,0 +1,8 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+	<li class="iconlist__item {f:if(condition: '{pages.txRkwpdf2contentIsImport}', then: 'book', else: 'public')}">
+		<f:link.page pageUid="{pages.uid}" target="{f:if(condition: '{settings.openLinksInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
+			{pages.title}
+		</f:link.page>
+	</li>
+</html>

@@ -123,12 +123,13 @@ class Pages extends PagesAbstract
         $this->categories = $sysCategory;
     }
 
+
     /**
      * Returns the txRkwpdf2contentIsImport
      *
      * @return \string txRkwpdf2contentIsImport
      */
-    public function getRkwpdf2contentIsImport() {
+    public function getTxRkwpdf2contentIsImport() {
         return $this->txRkwpdf2contentIsImport;
     }
 

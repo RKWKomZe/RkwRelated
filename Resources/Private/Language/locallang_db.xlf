@@ -37,9 +37,6 @@
             <trans-unit id="flexform.more.documenttype">
 				<source>Document type</source>
 			</trans-unit>
-			<trans-unit id="flexform.more.showmorelink">
-				<source>Show more link</source>
-			</trans-unit>
             <trans-unit id="flexform.more.layout">
                 <source>Layout</source>
             </trans-unit>
@@ -52,17 +49,17 @@
             <trans-unit id="flexform.more.layout.I.reduced">
                 <source>Reduced</source>
             </trans-unit>
+            <trans-unit id="flexform.more.layout.I.below">
+                <source>Below</source>
+            </trans-unit>
             <trans-unit id="flexform.more.showPoweredBy">
                 <source>Show "Powered by"-Logo</source>
             </trans-unit>
-			<trans-unit id="flexform.more.autoload">
-				<source>Deactivate more-link</source>
+			<trans-unit id="flexform.more.showmorelink">
+				<source>Show More-Link</source>
 			</trans-unit>
 			<trans-unit id="flexform.more.openwindow">
 				<source>Open links in same window</source>
-			</trans-unit>
-			<trans-unit id="flexform.more.showdate">
-				<source>Show date</source>
 			</trans-unit>
 			<trans-unit id="flexform.more.pleasechoose">
 				<source>Please choose</source>

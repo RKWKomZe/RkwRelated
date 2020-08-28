@@ -1,0 +1,35 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rkwAjax="http://typo3.org/ns/RKW/RkwAjax/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+
+    <rkwAjax:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="replace" ajaxId="1">
+        <div class="flex-container" aria-live="assertive" aria-atomic="true" role="main">
+
+            <f:if condition="{relatedPagesList}">
+                <f:then>
+
+                    <div class="tiles-wrapper" >
+                        <rkwAjax:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="append" ajaxId="2">
+                            <div class="tiles flex-container flex-container--margin">
+
+                                <f:render partial="Default/Boxes/PoweredBy" section="Flex3" arguments="{_all}" />
+
+                                <f:for each="{relatedPagesList}" as="pages" iteration="iterator">
+                                    <f:render partial="Default/Boxes/Default" section="Flex3" arguments="{_all}" />
+                                </f:for>
+                            </div>
+                        </rkwAjax:ajaxWrapper>
+                    </div>
+
+                    <f:render partial="Default/Next" arguments="{_all}" />
+
+                </f:then>
+                <f:else>
+                    <f:render partial="Default/NoResults" arguments="{_all}" />
+                </f:else>
+            </f:if>
+        </div>
+    </rkwAjax:ajaxWrapper>
+
+</html>

@@ -1,20 +1,27 @@
-
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
     <f:layout name="{layout}" />
 
     <f:section name="Default">
-        <f:render partial="Default/More/Filters" arguments="{_all}" />
-        <f:render partial="Default/More/List" section="Replace" arguments="{_all}" />
-
+        <f:render partial="Default/Filters" arguments="{_all}" />
+        <f:render partial="Default/List" arguments="{_all}" />
     </f:section>
 
     <!-- ======================================================================== -->
 
     <f:section name="Home">
+        <f:render partial="Home/List" arguments="{_all}" />
+    </f:section>
 
-        <f:render partial="Home/More/Filters" arguments="{_all}" />
-        <f:render partial="Home/More/List" arguments="{_all}" />
+    <!-- ======================================================================== -->
 
+    <f:section name="Reduced">
+        <f:render partial="Reduced/List" arguments="{_all}" />
+    </f:section>
+
+    <!-- ======================================================================== -->
+
+    <f:section name="Below">
+        <f:render partial="Below/List" arguments="{_all}" />
     </f:section>
 </html>

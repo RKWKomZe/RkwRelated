@@ -108,7 +108,7 @@ class FilterUtilityTest extends FunctionalTestCase
          */
 
         $GLOBALS['TSFE']->id = 15;
-        $result = $this->subject->getExcludePidList([]);
+        $result = $this->subject::getExcludePidList([]);
 
         static::assertCount(1, $result);
         static::assertEquals(15, $result[0]);
@@ -134,7 +134,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'startingPid' => 16
         ];
 
-        $result = $this->subject->getExcludePidList($settings);
+        $result = $this->subject::getExcludePidList($settings);
 
         static::assertCount(2, $result);
         static::assertEquals(15, $result[0]);
@@ -163,7 +163,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'excludePidList' => '17, 18 ,19 '
         ];
 
-        $result = $this->subject->getExcludePidList($settings);
+        $result = $this->subject::getExcludePidList($settings);
 
         static::assertCount(5, $result);
         static::assertEquals(15, $result[0]);
@@ -190,7 +190,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getIncludePidList is called
          * Then the default rootline is returned
          */
-        $result = $this->subject->getIncludePidList([]);
+        $result = $this->subject::getIncludePidList([]);
         static::assertCount(2, $result);
         static::assertEquals(1, $result[0]);
         static::assertEquals(2, $result[1]);
@@ -218,7 +218,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $this->importDataSet(self::IMPORT_PATH .'/Check20.xml');
 
-        $result = $this->subject->getIncludePidList($settings);
+        $result = $this->subject::getIncludePidList($settings);
         static::assertCount(5, $result);
         static::assertEquals(161, $result[0]);
         static::assertEquals(1611, $result[1]);
@@ -249,7 +249,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $this->importDataSet(self::IMPORT_PATH .'/Check10.xml');
 
-        $result = $this->subject->getIncludePidList($settings);
+        $result = $this->subject::getIncludePidList($settings);
         static::assertCount(4, $result);
         static::assertEquals(15, $result[0]);
         static::assertEquals(151, $result[1]);
@@ -275,7 +275,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'startingPid' => 15
         ];
 
-        $result = $this->subject->getIncludePidList($settings);
+        $result = $this->subject::getIncludePidList($settings);
         static::assertCount(2, $result);
         static::assertEquals(1, $result[0]);
         static::assertEquals(2, $result[1]);
@@ -306,7 +306,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $this->importDataSet(self::IMPORT_PATH .'/Check30.xml');
 
-        $result = $this->subject->getIncludePidList($settings);
+        $result = $this->subject::getIncludePidList($settings);
         static::assertCount(4, $result);
         static::assertEquals(15, $result[0]);
         static::assertEquals(151, $result[1]);
@@ -337,7 +337,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $this->importDataSet(self::IMPORT_PATH .'/Check30.xml');
 
-        $result = $this->subject->getIncludePidList($settings);
+        $result = $this->subject::getIncludePidList($settings);
         static::assertCount(5, $result);
         static::assertEquals(161, $result[0]);
         static::assertEquals(1611, $result[1]);
@@ -367,7 +367,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $this->importDataSet(self::IMPORT_PATH .'/Check40.xml');
 
-        $result = $this->subject->getIncludePidList($settings);
+        $result = $this->subject::getIncludePidList($settings);
         static::assertCount(2, $result);
         static::assertEquals(17, $result[0]);
         static::assertEquals(18, $result[1]);
@@ -395,7 +395,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $this->importDataSet(self::IMPORT_PATH .'/Check40.xml');
 
-        $result = $this->subject->getIncludePidList($settings);
+        $result = $this->subject::getIncludePidList($settings);
         static::assertCount(6, $result);
         static::assertEquals(17, $result[0]);
         static::assertEquals(171, $result[1]);
@@ -430,7 +430,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $this->importDataSet(self::IMPORT_PATH .'/Check50.xml');
 
-        $result = $this->subject->getIncludePidList($settings);
+        $result = $this->subject::getIncludePidList($settings);
         static::assertCount(2, $result);
         static::assertEquals(17, $result[0]);
         static::assertEquals(18, $result[1]);
@@ -448,7 +448,8 @@ class FilterUtilityTest extends FunctionalTestCase
         /**
          * Scenario:
          *
-         * Given a filter is configured
+         * Given a filter is configured via settings
+         * Given this filter configured via settings is not a pagePropertyFilter
          * When getCombinedFilterByName is called
          * Then the configured filter is returned
          */
@@ -456,13 +457,38 @@ class FilterUtilityTest extends FunctionalTestCase
             'documentTypeList' => '15,16,18',
         ];
 
-        $result = $this->subject->getCombinedFilterByName('documentType', $settings);
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings);
         static::assertCount(3, $result);
         static::assertEquals(15, $result[0]);
         static::assertEquals(16, $result[1]);
         static::assertEquals(18, $result[2]);
 
     }
+
+
+    /**
+     * @test
+     */
+    public function getCombinedFilterByNameChecksForValidNames()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a filter is configured via settings
+         * Given this filter configured via settings is not a pagePropertyFilter
+         * When getCombinedFilterByName is called with invalid filter-name
+         * Then no filter returned
+         */
+        $settings = [
+            'documentTypeList' => '15,16,18',
+        ];
+
+        $result = $this->subject::getCombinedFilterByName('hurts', $settings);
+        static::assertCount(0, $result);
+
+    }
+
 
     /**
      * @test
@@ -473,7 +499,8 @@ class FilterUtilityTest extends FunctionalTestCase
         /**
          * Scenario:
          *
-         * Given a filter is configured
+         * Given a filter is configured via settings
+         * Given this filter configured via settings is not a pagePropertyFilter
          * Given that filter contains invalid characters
          * When getCombinedFilterByName is called
          * Then the sanitized configured filter is returned
@@ -482,7 +509,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'documentTypeList' => '>!,15,16-);,18',
         ];
 
-        $result = $this->subject->getCombinedFilterByName('documentType', $settings);
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings);
         static::assertCount(3, $result);
         static::assertEquals(15, $result[0]);
         static::assertEquals(16, $result[1]);
@@ -499,7 +526,8 @@ class FilterUtilityTest extends FunctionalTestCase
         /**
          * Scenario:
          *
-         * Given an external filter is given
+         * Given no settings are configured
+         * Given an external filter is set
          * When getCombinedFilterByName is called
          * Then the external filter is returned
          */
@@ -508,7 +536,40 @@ class FilterUtilityTest extends FunctionalTestCase
             'documentType' => '25,26,28',
         ];
 
-        $result = $this->subject->getCombinedFilterByName('documentType', $settings, $externalFilter);
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
+        static::assertCount(3, $result);
+        static::assertEquals(25, $result[0]);
+        static::assertEquals(26, $result[1]);
+        static::assertEquals(28, $result[2]);
+
+    }
+
+
+    /**
+     * @test
+     */
+    public function getCombinedFilterByNameReturnsExternalFilterWhenAsArray()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given no settings are configured
+         * Given an external filter is given
+         * Given the external filter is given as array
+         * When getCombinedFilterByName is called
+         * Then the external filter is returned
+         */
+        $settings = [];
+        $externalFilter = [
+            'documentType' => [
+                25,
+                26,
+                28
+            ]
+        ];
+
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
         static::assertCount(3, $result);
         static::assertEquals(25, $result[0]);
         static::assertEquals(26, $result[1]);
@@ -525,6 +586,7 @@ class FilterUtilityTest extends FunctionalTestCase
         /**
          * Scenario:
          *
+         * Given no settings are configured
          * Given an external filter is given
          * Given that filter contains invalid characters
          * When getCombinedFilterByName is called
@@ -535,7 +597,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'documentType' => '&(&;-25,<<>&%26,28',
         ];
 
-        $result = $this->subject->getCombinedFilterByName('documentType', $settings, $externalFilter);
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
         static::assertCount(3, $result);
         static::assertEquals(25, $result[0]);
         static::assertEquals(26, $result[1]);
@@ -552,6 +614,7 @@ class FilterUtilityTest extends FunctionalTestCase
         /**
          * Scenario:
          *
+         * Given no settings are configured
          * Given an external filter is given
          * Given that filter contains a zero
          * When getCombinedFilterByName is called
@@ -562,7 +625,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'documentType' => '0',
         ];
 
-        $result = $this->subject->getCombinedFilterByName('documentType', $settings, $externalFilter);
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
         static::assertCount(0, $result);
 
     }
@@ -576,8 +639,9 @@ class FilterUtilityTest extends FunctionalTestCase
         /**
          * Scenario:
          *
-         * Given an external filter is given
-         * Given a filter is configured
+         * Given a filter is configured via settings
+         * Given this filter configured via settings is not a pagePropertyFilter
+         * Given an external filter for the same filter-type is given
          * When getCombinedFilterByName is called
          * Then the external filter is returned
          */
@@ -589,7 +653,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'documentType' => '25,26,28',
         ];
 
-        $result = $this->subject->getCombinedFilterByName('documentType', $settings, $externalFilter);
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
         static::assertCount(3, $result);
         static::assertEquals(25, $result[0]);
         static::assertEquals(26, $result[1]);
@@ -605,8 +669,9 @@ class FilterUtilityTest extends FunctionalTestCase
         /**
          * Scenario:
          *
-         * Given an external filter is given
-         * Given a filter is configured
+         * Given a filter is configured via settings
+         * Given this filter configured via settings is not a pagePropertyFilter
+         * Given an external filter for the same filter-type is given
          * Given the external filter has the value of zero
          * When getCombinedFilterByName is called
          * Then the configured filter is returned
@@ -618,11 +683,43 @@ class FilterUtilityTest extends FunctionalTestCase
             'documentType' => '0',
         ];
 
-        $result = $this->subject->getCombinedFilterByName('documentType', $settings, $externalFilter);
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
         static::assertCount(0, $result);
 
     }
 
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getCombinedFilterByNameReturnsAlwaysPagePropertyFilterWhenSet()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a filter is configured via settings
+         * Given a pagePropertyFilter for the same filter-type is also set via settings
+         * Given an external filter for the same filter-type is given
+         * When getCombinedFilterByName is called
+         * Then the pagePropertyFilter is returned
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check180.xml');
+        $GLOBALS['TSFE']->id = 180;
+
+        $settings = [
+            'documentTypeList' => '15,16,18',
+            'pagePropertyFilter' => 'documentType,department'
+
+        ];
+        $externalFilter = [
+            'documentType' => '25,26,28',
+        ];
+
+        $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
+        static::assertCount(1, $result);
+        static::assertEquals(2, $result[0]);
+    }
 
 
     //=============================================
@@ -631,21 +728,140 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getProjectRecursiveReturnsProjectOfPage()
+    public function getPagePropertyFiltersReturnsFilters ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a pagePropertyFilter is configured
+         * Give the pagePropertyFilter is set with two valid values
+         * Given both configured values are set as properties in the page properties
+         * When getPagePropertyFilters is called
+         * Then both filters are returned with their object uids
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check160.xml');
+        $GLOBALS['TSFE']->id = 160;
+
+        $settings = [
+            'pagePropertyFilter' => 'department,documentType',
+        ];
+
+        $result = $this->subject::getPagePropertyFilters($settings);
+        static::assertCount(2, $result);
+        static::assertEquals(1, $result['department']);
+        static::assertEquals(2, $result['documentType']);
+
+
+    }
+
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getPagePropertyFiltersReturnsEmptyIfNotSet ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given no pagePropertyFilter is configured
+         * Given two valid values are set as properties in the page properties
+         * When getPagePropertyFilters is called
+         * Then no filter is returned
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check160.xml');
+        $GLOBALS['TSFE']->id = 160;
+
+        $settings = [];
+
+        $result = $this->subject::getPagePropertyFilters($settings);
+        static::assertCount(0, $result);
+
+    }
+
+
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getPagePropertyFiltersReturnsIgnoresInvalid ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a pagePropertyFilter is configured
+         * Given the pagePropertyFilter is set with two values
+         * Given one of the values in invalid
+         * Given two valid values are set as properties in the page properties
+         * When getPagePropertyFilters is called
+         * Then only the valid filter is returned with the object uid
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check160.xml');
+        $GLOBALS['TSFE']->id = 160;
+
+        $settings = [
+            'pagePropertyFilter' => 'departmenten,documentType',
+        ];
+
+        $result = $this->subject::getPagePropertyFilters($settings);
+        static::assertCount(1, $result);
+        static::assertEquals(2, $result['documentType']);
+    }
+
+
+
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getPagePropertyFiltersReturnsIgnoresNotDefined ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a pagePropertyFilter is configured
+         * Give the pagePropertyFilter is set with two valid values
+         * Given only one configured value is defined as property in the page properties
+         * When getPagePropertyFilters is called
+         * Then only the filter defined in page properties is returned with the object uid
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check170.xml');
+        $GLOBALS['TSFE']->id = 170;
+
+        $settings = [
+            'pagePropertyFilter' => 'department,documentType',
+        ];
+
+        $result = $this->subject::getPagePropertyFilters($settings);
+        static::assertCount(1, $result);
+        static::assertEquals(2, $result['documentType']);
+    }
+
+
+    //=============================================
+
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getPageProjectRecursiveReturnsProjectOfPage()
     {
 
         /**
          * Scenario:
          *
          * Given the current page has a project set
-         * When getProjectRecursive is called
+         * When getPageProjectRecursive is called
          * Then this project is returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check60.xml');
         $GLOBALS['TSFE']->id = 300;
 
         /** @var \RKW\RkwProjects\Domain\Model\Projects $result */
-        $result = $this->subject->getProjectRecursive();
+        $result = $this->subject::getPageProjectRecursive();
         static::assertInstanceOf('\RKW\RkwProjects\Domain\Model\Projects', $result);
         static::assertEquals(1, $result->getUid());
     }
@@ -655,7 +871,7 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getProjectRecursiveReturnsProjectOfPageInRootline()
+    public function getPageProjectRecursiveReturnsProjectOfPageInRootline()
     {
 
         /**
@@ -663,14 +879,14 @@ class FilterUtilityTest extends FunctionalTestCase
          *
          * Given the current page has no project set
          * Given the parent of the parent of the current page has a project set
-         * When getProjectRecursive is called
+         * When getPageProjectRecursive is called
          * Then this project is returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check70.xml');
         $GLOBALS['TSFE']->id = 3000;
 
         /** @var \RKW\RkwProjects\Domain\Model\Projects $result */
-        $result = $this->subject->getProjectRecursive();
+        $result = $this->subject::getPageProjectRecursive();
         static::assertInstanceOf('\RKW\RkwProjects\Domain\Model\Projects', $result);
         static::assertEquals(1, $result->getUid());
     }
@@ -680,7 +896,7 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getProjectRecursiveReturnsNull()
+    public function getPageProjectRecursiveReturnsNull()
     {
 
         /**
@@ -688,13 +904,13 @@ class FilterUtilityTest extends FunctionalTestCase
          *
          * Given the current page has no project set
          * Given no other page in the rootline has a project set
-         * When getProjectRecursive is called
+         * When getPageProjectRecursive is called
          * Then null is returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check80.xml');
         $GLOBALS['TSFE']->id = 3000;
 
-        $result = $this->subject->getProjectRecursive();
+        $result = $this->subject::getPageProjectRecursive();
         static::assertNull($result);
     }
 
@@ -705,7 +921,7 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getSysCategoriesReturnsCategoriesOfProject()
+    public function getPageSysCategoriesReturnsCategoriesOfProject()
     {
 
         /**
@@ -713,14 +929,14 @@ class FilterUtilityTest extends FunctionalTestCase
          *
          * Given the current page has a project set
          * Given that project has two categories set
-         * When getSysCategories is called
+         * When getPageSysCategories is called
          * Then the two categories of the project are returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check90.xml');
         $GLOBALS['TSFE']->id = 400;
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
-        $result = $this->subject->getSysCategories();
+        $result = $this->subject::getPageSysCategories();
         static::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
         static::assertCount(2, $result);
 
@@ -734,21 +950,21 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getSysCategoriesReturnsCategoriesOfPage()
+    public function getPageSysCategoriesReturnsCategoriesOfPage()
     {
 
         /**
          * Scenario:
          *
          * Given the current page has two categories set
-         * When getSysCategories is called
+         * When getPageSysCategories is called
          * Then the two categories of the page are returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check100.xml');
         $GLOBALS['TSFE']->id = 400;
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
-        $result = $this->subject->getSysCategories();
+        $result = $this->subject::getPageSysCategories();
         static::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
         static::assertCount(2, $result);
 
@@ -763,7 +979,7 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getSysCategoriesReturnsCategoriesOfPageAsFallback()
+    public function getPageSysCategoriesReturnsCategoriesOfPageAsFallback()
     {
 
         /**
@@ -772,14 +988,14 @@ class FilterUtilityTest extends FunctionalTestCase
          * Given the current page as a project set
          * Given that project has no categories set
          * Given the current page has two categories set
-         * When getSysCategories is called
+         * When getPageSysCategories is called
          * Then the two categories of the page are returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check110.xml');
         $GLOBALS['TSFE']->id = 400;
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
-        $result = $this->subject->getSysCategories();
+        $result = $this->subject::getPageSysCategories();
         static::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
         static::assertCount(2, $result);
 
@@ -793,7 +1009,7 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getSysCategoriesReturnsCategoriesOfProjectOverPage()
+    public function getPageSysCategoriesReturnsCategoriesOfProjectOverPage()
     {
 
         /**
@@ -802,14 +1018,14 @@ class FilterUtilityTest extends FunctionalTestCase
          * Given the current page as a project set
          * Given that project has two categories set
          * Given the current page has two categories set
-         * When getSysCategories is called
+         * When getPageSysCategories is called
          * Then the two categories of the project are returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check120.xml');
         $GLOBALS['TSFE']->id = 400;
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
-        $result = $this->subject->getSysCategories();
+        $result = $this->subject::getPageSysCategories();
         static::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
         static::assertCount(2, $result);
 
@@ -825,21 +1041,21 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getDepartmentRecursiveReturnsDepartmentOfPage()
+    public function getPageDepartmentRecursiveReturnsDepartmentOfPage()
     {
 
         /**
          * Scenario:
          *
          * Given the current page has a department set
-         * When getDepartmentRecursive is called
+         * When getPageDepartmentRecursive is called
          * Then this department is returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check130.xml');
         $GLOBALS['TSFE']->id = 300;
 
         /** @var \RKW\RkwBasics\Domain\Model\Department $result */
-        $result = $this->subject->getDepartmentRecursive();
+        $result = $this->subject::getPageDepartmentRecursive();
         static::assertInstanceOf('\RKW\RkwBasics\Domain\Model\Department', $result);
         static::assertEquals(1, $result->getUid());
     }
@@ -849,7 +1065,7 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getDepartmentRecursiveReturnsDepartmentOfPageInRootline()
+    public function getPageDepartmentRecursiveReturnsDepartmentOfPageInRootline()
     {
 
         /**
@@ -857,14 +1073,14 @@ class FilterUtilityTest extends FunctionalTestCase
          *
          * Given the current page has no department set
          * Given the parent of the parent of the current page has a department set
-         * When getDepartmentRecursive is called
+         * When getPageDepartmentRecursive is called
          * Then this department is returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check140.xml');
         $GLOBALS['TSFE']->id = 3000;
 
         /** @var \RKW\RkwBasics\Domain\Model\Department $result */
-        $result = $this->subject->getDepartmentRecursive();
+        $result = $this->subject::getPageDepartmentRecursive();
         static::assertInstanceOf('\RKW\RkwBasics\Domain\Model\Department', $result);
         static::assertEquals(1, $result->getUid());
     }
@@ -874,7 +1090,7 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getDepartmentRecursiveReturnsNull()
+    public function getPageDepartmentRecursiveReturnsNull()
     {
 
         /**
@@ -882,13 +1098,13 @@ class FilterUtilityTest extends FunctionalTestCase
          *
          * Given the current page has no department set
          * Given no other page in the rootline has a department set
-         * When getDepartmentRecursive is called
+         * When getPageDepartmentRecursive is called
          * Then null is returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check150.xml');
         $GLOBALS['TSFE']->id = 3000;
 
-        $result = $this->subject->getDepartmentRecursive();
+        $result = $this->subject::getPageDepartmentRecursive();
         static::assertNull($result);
     }
 

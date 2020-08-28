@@ -14,6 +14,8 @@ namespace RKW\RkwRelated\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * SelectPreselectViewHelper
  *
@@ -22,6 +24,7 @@ namespace RKW\RkwRelated\ViewHelpers;
  * @copyright Rkw Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @deprecated This class is deprecated and will be removed soon. Use RKW\RkwRelated\ViewHelpers\PreselectViewHelper instead.
  */
 class SelectPreselectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
@@ -32,22 +35,24 @@ class SelectPreselectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstrac
      */
     public function render($filterUid, $configList)
     {
-        $configList = explode(',', $configList);
+
+        GeneralUtility::logDeprecatedFunction();
+
+        if (! is_array($configList)) {
+            $configList = explode(',', $configList);
+        }
 
         // is a filter set?
         if (intval($filterUid)) {
             return intval($filterUid);
-            //===
         }
 
         // If only one item in the configList is set, we preselect this
         if (count($configList) == 1) {
             return $configList[0];
-            //===
         }
 
         return 0;
-        //===
     }
 
 }

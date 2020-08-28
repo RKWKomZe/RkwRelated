@@ -1,9 +1,0 @@
-{namespace rkw=RKW\RkwRelated\ViewHelpers}
-
-<p>
-	<label for="document-type-select" class="hide"><f:translate key="partials_more_list_filters_documenttype.labelLong" /></label>
-	<f:form.select value="<rkw:selectPreselect filterUid='{filter.documentType}' configList='{settingsArray.documentType}' />" id="document-type-select" name="filter[documentType]" class="secondary ajax" options="{documentTypeList}" optionValueField="uid" optionLabelField="name" prependOptionLabel="<f:translate key='partials_more_list_filters_documenttype.alltypes' />" prependOptionValue="0" />
-</p>
-
-
-

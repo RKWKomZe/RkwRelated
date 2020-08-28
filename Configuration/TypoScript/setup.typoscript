@@ -75,19 +75,41 @@ plugin.tx_rkwrelated_similarcontent {
 		cache {
 			ttl = {$plugin.tx_rkwrelated_similarcontent.settings.cache.ttl}
 		}
-        startingPid = {$plugin.tx_rkwrelated_morecontent.settings.startingPid}
-        startingPidList = {$plugin.tx_rkwrelated_morecontent.settings.startingPidList}
-        excludePidList = {$plugin.tx_rkwrelated_morecontent.settings.excludePidList}
-        pidList = {$plugin.tx_rkwrelated_morecontent.settings.pidList}
-        pidListRecursive = {$plugin.tx_rkwrelated_morecontent.settings.pidListRecursive}
-		itemsPerHundredSigns = {$plugin.tx_rkwrelated_similarcontent.settings.itemsPerHundredSigns}
+		version = {$plugin.tx_rkwrelated_similarcontent.settings.version}
+        startingPid = {$plugin.tx_rkwrelated_similarcontent.settings.startingPid}
+        startingPidList = {$plugin.tx_rkwrelated_similarcontent.settings.startingPidList}
+        excludePidList = {$plugin.tx_rkwrelated_similarcontent.settings.excludePidList}
+        pidList = {$plugin.tx_rkwrelated_similarcontent.settings.pidList}
+        pidListRecursive = {$plugin.tx_rkwrelated_similarcontent.settings.pidListRecursive}
+        sysCategoryParentUid = {$plugin.tx_rkwrelated_similarcontent.settings.sysCategoryParentUid}
+		staticInitialYearForFilter = {$plugin.tx_rkwrelated_similarcontent.settings.staticInitialYearForFilter}
+        poweredByImage = {$plugin.tx_rkwrelated_similarcontent.settings.poweredByImage}
+        detailPid {
+            default = {$plugin.tx_rkwrelated_similarcontent.settings.detailPid.default}
+            publication = {$plugin.tx_rkwrelated_similarcontent.settings.detailPid.publication}
+        }
+        textCropping {
+            header = {$plugin.tx_rkwrelated_similarcontent.settings.textCropping.header}
+            content = {$plugin.tx_rkwrelated_similarcontent.settings.textCropping.content}
+            footer = {$plugin.tx_rkwrelated_similarcontent.settings.textCropping.footer}
+        }
+        itemLimitPerPage {
+            default = {$plugin.tx_rkwrelated_similarcontent.settings.itemLimitPerPage.default}
+            home = {$plugin.tx_rkwrelated_similarcontent.settings.itemLimitPerPage.home}
+            reduced = {$plugin.tx_rkwrelated_similarcontent.settings.itemLimitPerPage.reduced}
+            below = {$plugin.tx_rkwrelated_similarcontent.settings.itemLimitPerPage.below}
+        }
+		        
+        # DEPRECATED BELOW!
+        itemsPerHundredSigns = {$plugin.tx_rkwrelated_similarcontent.settings.itemsPerHundredSigns}
 		minItems = {$plugin.tx_rkwrelated_similarcontent.settings.minItems}
 		colPosOfPagesMainContentElement = {$plugin.tx_rkwrelated_similarcontent.settings.colPosOfPageMainContentElement}
 		pageTypeAjaxSimilarcontent = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}
 		headerCrop = {$plugin.tx_rkwrelated_similarcontent.settings.headerCrop}
 		contentCrop = {$plugin.tx_rkwrelated_similarcontent.settings.contentCrop}
 		footerCrop = {$plugin.tx_rkwrelated_similarcontent.settings.footerCrop}
-        sysCategoryParentUid = {$plugin.tx_rkwrelated_similarcontent.settings.sysCategoryParentUid}
+                
+
 	}
 }
 
@@ -114,11 +136,12 @@ plugin.tx_rkwrelated_morecontent {
         excludePidList = {$plugin.tx_rkwrelated_morecontent.settings.excludePidList}
         pidList = {$plugin.tx_rkwrelated_morecontent.settings.pidList}
         pidListRecursive = {$plugin.tx_rkwrelated_morecontent.settings.pidListRecursive}
-		pageTypeAjaxMoreContent = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
-		pageTypeAjaxMoreContent2 = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
-		publicationCrop = {$plugin.tx_rkwrelated_morecontent.settings.publicationCrop}
 		staticInitialYearForFilter = {$plugin.tx_rkwrelated_morecontent.settings.staticInitialYearForFilter}
         poweredByImage = {$plugin.tx_rkwrelated_morecontent.settings.poweredByImage}
+        detailPid {
+            default = {$plugin.tx_rkwrelated_morecontent.settings.detailPid.default}
+            publication = {$plugin.tx_rkwrelated_morecontent.settings.detailPid.publication}
+        }
         textCropping {
             header = {$plugin.tx_rkwrelated_morecontent.settings.textCropping.header}
             content = {$plugin.tx_rkwrelated_morecontent.settings.textCropping.content}
@@ -128,13 +151,18 @@ plugin.tx_rkwrelated_morecontent {
             default = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.default}
             home = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.home}
             reduced = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.reduced}
+            below = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.below}
         }
 
         # DEPRECATED BELOW!
 		pageTypeAjaxMoreContentPublication = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContentPublication}
+        pageTypeAjaxMoreContent = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
+        pageTypeAjaxMoreContent2 = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
 		headerCrop = {$plugin.tx_rkwrelated_morecontent.settings.headerCrop}
 		contentCrop = {$plugin.tx_rkwrelated_morecontent.settings.contentCrop}
 		footerCrop = {$plugin.tx_rkwrelated_morecontent.settings.footerCrop}
+        publicationCrop = {$plugin.tx_rkwrelated_morecontent.settings.publicationCrop}
+
     }
 
 }

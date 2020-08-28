@@ -137,6 +137,11 @@
                                         <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.layout.I.reduced</numIndex>
                                         <numIndex index="1">Reduced</numIndex>
                                     </numIndex>
+                                    <!--
+                                    <numIndex index="3" type="array">
+                                        <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.layout.I.below</numIndex>
+                                        <numIndex index="1">Below</numIndex>
+                                    </numIndex>-->
                                 </items>
                             </config>
                         </TCEforms>
@@ -167,24 +172,12 @@
                             <type>check</type>
                         </config>
                     </settings.showMoreLink>
-                    <settings.disabledAutoLoad>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.autoload</label>
-                        <config>
-                            <type>check</type>
-                        </config>
-                    </settings.disabledAutoLoad>
                     <settings.openLinksInSameWindow>
                         <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.openwindow</label>
                         <config>
                             <type>check</type>
                         </config>
                     </settings.openLinksInSameWindow>
-                    <settings.showDate>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showdate</label>
-                        <config>
-                            <type>check</type>
-                        </config>
-                    </settings.showDate>
                 </el>
             </ROOT>
         </frontendoptions>
@@ -193,6 +186,7 @@
             <ROOT>
                 <TCEforms>
                     <sheetTitle>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.frontend_filter_options</sheetTitle>
+                    <displayCond>FIELD:frontendoptions.settings.layout:=:Default</displayCond>
                 </TCEforms>
                 <type>array</type>
                 <el>

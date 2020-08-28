@@ -47,10 +47,6 @@
 				<source>Document type</source>
 				<target>Dokument Typ</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.showmorelink">
-				<source>Show more link</source>
-				<target>Zeige mehr-Link</target>
-			</trans-unit>
             <trans-unit id="flexform.more.layout">
                 <source>Layout</source>
                 <target>Layout</target>
@@ -67,21 +63,21 @@
                 <source>Reduced</source>
                 <target>Reduziert</target>
             </trans-unit>
+            <trans-unit id="flexform.more.layout.I.below">
+                <source>Below</source>
+                <target>Unterhalb</target>
+            </trans-unit>
             <trans-unit id="flexform.more.showPoweredBy">
                 <source>Show "Powered by"-Logo</source>
                 <target>Förderlogo anzeigen</target>
             </trans-unit>
-			<trans-unit id="flexform.more.autoload">
-				<source>Deactivate more-link</source>
-				<target>Deaktiviere Auto-Load für Mehr-Link beim Erreichen des Seitenfußes</target>
+			<trans-unit id="flexform.more.showmorelink">
+				<source>Show more link</source>
+				<target>Zeige Mehr-Link</target>
 			</trans-unit>
 			<trans-unit id="flexform.more.openwindow">
 				<source>Open links in same window</source>
 				<target>Links in gleichem Fenster öffnen (Standard: neues Fenster)</target>
-			</trans-unit>
-			<trans-unit id="flexform.more.showdate">
-				<source>Show date</source>
-				<target>Datum in Boxen mit anzeigen</target>
 			</trans-unit>
 			<trans-unit id="flexform.more.pleasechoose">
 				<source>Please choose</source>

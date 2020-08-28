@@ -2,8 +2,6 @@
 
 namespace RKW\RkwRelated\Utilities;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Database\QueryGenerator;
 /*
 * This file is part of the TYPO3 CMS project.
 *
@@ -16,6 +14,12 @@ use TYPO3\CMS\Core\Database\QueryGenerator;
 *
 * The TYPO3 project - inspiring people to share!
 */
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\QueryGenerator;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use RKW\RkwRelated\Domain\Repository\PagesRepository;
 
 /**
 * Filter
@@ -30,19 +34,13 @@ class FilterUtility
 {
 
     /**
-     * pagesRepository
-     *
-     * @var \RKW\RkwRelated\Domain\Repository\PagesRepository
-     * @inject
+     * @const
      */
-    protected $pagesRepository = null;
-
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @inject
-     */
-    protected $objectManager;
+    const VALID_FILTERS = [
+        'documentType' => 'getTxRkwBasicsDocumentType',
+        'department' => 'getTxRkwbasicsDepartment',
+        'project' => 'getTxRkwprojectsProjectUid'
+    ];
 
 
     /**
@@ -51,7 +49,7 @@ class FilterUtility
      * @param array $settings
      * @return array
      */
-    public function getExcludePidList(array $settings)
+    public static function getExcludePidList(array $settings)
     {
 
         // if a special startingPid is set, set it as rootPid
@@ -76,8 +74,13 @@ class FilterUtility
      * @param array $settings
      * @return array
      */
-    public function getIncludePidList (array $settings)
+    public static function getIncludePidList (array $settings)
     {
+
+        $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
+
+        /** @var \RKW\RkwRelated\Domain\Repository\PagesRepository $pagesRepository */
+        $pagesRepository = $objectManager->get(PagesRepository::class);
 
         $rootPidList = [1];
         $includePages = [];
@@ -96,7 +99,7 @@ class FilterUtility
         // if there is an existing starting pid we use this
         } else if (
             ($settings['startingPid'])
-            && ($this->pagesRepository->findByIdentifier(intval($settings['startingPid'])))
+            && ($pagesRepository->findByIdentifier(intval($settings['startingPid'])))
         ) {
             $rootPidList = [intval($settings['startingPid'])];
 
@@ -129,13 +132,33 @@ class FilterUtility
      * @param array $externalFilter
      * @return array
      */
-    public function getCombinedFilterByName ($name, array $settings, array $externalFilter = [])
+    public static function getCombinedFilterByName (string $name, array $settings, array $externalFilter = [])
     {
 
+        if (!in_array($name, array_keys(self::VALID_FILTERS))) {
+            return [];
+        }
+
+        // page property filters take precedence if defined
+        if (
+            ($pagePropertyFilter = self::getPagePropertyFilters($settings))
+            && ($pagePropertyFilter[$name])
+        ) {
+            return [$pagePropertyFilter[$name]];
+        }
+
+
+        // take external filter
         $insecureValue = '';
         if (isset($externalFilter[$name])) {
-            $insecureValue = $externalFilter[$name];
 
+            if (is_array($externalFilter[$name])) {
+                $insecureValue = implode(',', $externalFilter[$name]);
+            } else {
+                $insecureValue = $externalFilter[$name];
+            }
+
+        // fallback to defined list
         } else if (isset($settings[$name . 'List'])) {
             $insecureValue = $settings[$name . 'List'];
         }
@@ -150,19 +173,67 @@ class FilterUtility
     }
 
 
+    /**
+     * Gets the filters based on existing page properties
+     *
+     * @param array settings
+     * @return array
+     */
+    public static function getPagePropertyFilters (array $settings)
+    {
+        $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
+
+        /** @var \RKW\RkwRelated\Domain\Repository\PagesRepository $pagesRepository */
+        $pagesRepository = $objectManager->get(PagesRepository::class);
+
+        /** @var \RKW\RkwRelated\Domain\Model\Pages $page */
+        if ($page = $pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id))) {
+
+            if (
+                ($settingFilters = GeneralUtility::trimExplode(',', $settings['pagePropertyFilter']))
+                && (is_array($settingFilters))
+            ) {
+
+                $filterList = [];
+                foreach ($settingFilters as $filter) {
+                    if (
+                        (isset(self::VALID_FILTERS[$filter]))
+                        && ($getter = self::VALID_FILTERS[$filter])
+                        && (method_exists($page, $getter))
+                        && ($result = $page->$getter())
+                    ){
+
+                        if ($result instanceof AbstractEntity) {
+                            $filterList[$filter] = $result->getUid();
+                        }
+                    }
+                }
+
+                return $filterList;
+            }
+        }
+
+        return [];
+    }
+
 
     /**
      * Gets the project assignment recursively
      *
      * @return \RKW\RkwProjects\Domain\Model\Projects|null
      */
-    public function getProjectRecursive ()
+    public static function getPageProjectRecursive ()
     {
 
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
 
+            $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
+
+            /** @var \RKW\RkwRelated\Domain\Repository\PagesRepository $pagesRepository */
+            $pagesRepository = $objectManager->get(PagesRepository::class);
+
             /** @var \RKW\RkwRelated\Domain\Model\Pages $page */
-            if ($page = $this->pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id))) {
+            if ($page = $pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id))) {
 
                 // current page has assignment - use this
                 if ($page->getTxRkwprojectsProjectUid()) {
@@ -176,7 +247,7 @@ class FilterUtility
 
                         do {
                             // Get parent
-                            $page = $this->pagesRepository->findByIdentifier($page->getPid());
+                            $page = $pagesRepository->findByIdentifier($page->getPid());
                             if (!$page) {
                                 return null;
                             }
@@ -205,13 +276,13 @@ class FilterUtility
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>|null
      */
-    public function getSysCategories ()
+    public static function getPageSysCategories ()
     {
 
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
 
             $sysCategories = null;
-            if ($project = $this->getProjectRecursive()) {
+            if ($project = self::getPageProjectRecursive()) {
                 $sysCategories = $project->getSysCategory();
             }
         }
@@ -221,8 +292,13 @@ class FilterUtility
             || (count($sysCategories) < 1)
         ) {
 
+            $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
+
+            /** @var \RKW\RkwRelated\Domain\Repository\PagesRepository $pagesRepository */
+            $pagesRepository = $objectManager->get(PagesRepository::class);
+
             /** @var \RKW\RkwRelated\Domain\Model\Pages $page */
-            if ($page = $this->pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id))) {
+            if ($page = $pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id))) {
                 $sysCategories = $page->getSysCategory();
             }
         }
@@ -236,12 +312,16 @@ class FilterUtility
      *
      * @return \RKW\RkwBasics\Domain\Model\Department|null
      */
-    public function getDepartmentRecursive ()
+    public static function getPageDepartmentRecursive ()
     {
 
+        $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
+
+        /** @var \RKW\RkwRelated\Domain\Repository\PagesRepository $pagesRepository */
+        $pagesRepository = $objectManager->get(PagesRepository::class);
 
         /** @var \RKW\RkwRelated\Domain\Model\Pages $page */
-        if ($page = $this->pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id))) {
+        if ($page = $pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id))) {
 
             // current page has assignment - use this
             if ($page->getTxRkwbasicsDepartment()) {
@@ -255,7 +335,7 @@ class FilterUtility
 
                     do {
                         // Get parent
-                        $page = $this->pagesRepository->findByIdentifier($page->getPid());
+                        $page = $pagesRepository->findByIdentifier($page->getPid());
                         if (!$page) {
                             return null;
                         }
