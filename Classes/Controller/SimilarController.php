@@ -68,62 +68,56 @@ class SimilarController extends AbstractController
         }
 
         $pageNumber++;
-        $limit = 8;
+        $itemsPerPage = 10;
 
         $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
-        // $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
+        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
 
         if (
             ($this->contentCache->hasContent())
-            // && ($this->countCache->hasContent())
+            && ($this->countCache->hasContent())
+            && (!$this->settings['noCache'])
         ) {
 
             // Cache exists
             $relatedPages = $this->contentCache->getContent();
-            // $limit = $this->countCache->getContent();
+            $nextRelatedPagesCount = $this->countCache->getContent();
 
             $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Loading cached results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
 
         } else {
 
             // Include & Exclude pages
-            $excludePidList = $this->filterUtility->getExcludePidList($this->settings);
-            $includePidList = $this->filterUtility->getIncludePidList($this->settings);
+            $excludePidList = $this->filterUtility::getExcludePidList($this->settings);
+            $includePidList = $this->filterUtility::getIncludePidList($this->settings);
 
             // extended filtering
-            $categories = $this->filterUtility->getSysCategories();
-            $project = $this->filterUtility->getProjectRecursive();
-            $department = $this->filterUtility->getDepartmentRecursive();
-            $limit = ($this->settings['minItems'] ? intval($this->settings['minItems']) : 8);
+            $categories = $this->filterUtility::getPageSysCategories();
+            $project = $this->filterUtility::getPageProjectRecursive();
+            $department = $this->filterUtility::getPageDepartmentRecursive();
 
-            /*
-             * @toDo: This won't work with gridElements
-            // calculate item count
-            $ttContentList = $this->ttContentRepository->findBodyTextElementsByPage($page, $currentSysLanguageUid, $this->settings);
+            // determine items per page
+            /** new version */
+            if ($this->settings['version'] == 2) {
+                if (is_array($this->settings['itemLimitPerPage'])) {
 
-            // set initial some value as fallback if $this->settings['itemsPerHundredSigns']) is not set
-            if (floatval($this->settings['itemsPerHundredSigns'])) {
-
-                $fullTextLength = 0;
-                /** @var \RKW\RkwRelated\Domain\Model\TtContent $ttContentElement
-                foreach ($ttContentList as $ttContentElement) {
-                    $fullTextLength += strlen(strip_tags($ttContentElement->getBodytext()));
+                    $layout = strtolower($this->settings['layout'] ? $this->settings['layout'] : 'default');
+                    if ($this->settings['itemLimitPerPage'][$layout]) {
+                        $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
+                    }
                 }
 
-                $this->limit = intval(floor($fullTextLength / 100 * floatval($this->settings['itemsPerHundredSigns'])));
-
-                if (($this->limit < intval($this->settings['minItems'])) && (intval($this->settings['minItems']))) {
-                    $this->limit = intval($this->settings['minItems']);
-                }
+            /** @deprecated old version*/
+            } else {
+                $itemsPerPage = ($this->settings['minItems'] ? intval($this->settings['minItems']) : 8);
+                $this->settings['itemsPerHundredSigns'] = PHP_INT_MAX;
             }
-            */
 
-            /** @deprecated */
-            $this->settings['itemsPerHundredSigns'] = PHP_INT_MAX;
 
             // Check for sysCategories or project
             // if there are no sysCategories we check for pages that belong to the same project
             $relatedPages = [];
+            $nextRelatedPages = [];
             if (
                 ($categories)
                 && count($categories)
@@ -135,12 +129,48 @@ class SimilarController extends AbstractController
                     $excludePidList,
                     $this->settings['sysCategoryParentUid'],
                     $pageNumber,
-                    $limit,
+                    $itemsPerPage,
+                    boolval($this->settings['ignoreVisibility'])
+                );
+
+                $nextRelatedPages = $this->pagesRepository->findBySysCategory(
+                    $categories,
+                    $excludePidList,
+                    $this->settings['sysCategoryParentUid'],
+                    ($pageNumber+1),
+                    $itemsPerPage,
                     boolval($this->settings['ignoreVisibility'])
                 );
 
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using category filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
             }
+
+
+            if (
+                ($department)
+                && (count($relatedPages) < 1)
+            ){
+                $relatedPages = $this->pagesRepository->findByDepartment(
+                    $department,
+                    $excludePidList,
+                    $includePidList,
+                    $pageNumber,
+                    $itemsPerPage,
+                    boolval($this->settings['ignoreVisibility'])
+                );
+
+                $nextRelatedPages = $this->pagesRepository->findByDepartment(
+                    $department,
+                    $excludePidList,
+                    $includePidList,
+                    ($pageNumber+1),
+                    $itemsPerPage,
+                    boolval($this->settings['ignoreVisibility'])
+                );
+
+                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using department filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
+            }
+
 
             if (
                 ($project)
@@ -152,29 +182,27 @@ class SimilarController extends AbstractController
                     $excludePidList,
                     $includePidList,
                     $pageNumber,
-                    $limit,
+                    $itemsPerPage,
+                    boolval($this->settings['ignoreVisibility'])
+                );
+
+                $nextRelatedPages = $this->pagesRepository->findByProject(
+                    $project,
+                    $excludePidList,
+                    $includePidList,
+                    ($pageNumber+1),
+                    $itemsPerPage,
                     boolval($this->settings['ignoreVisibility'])
                 );
 
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using project filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
             }
 
-            if (
-                ($department)
-                && (count($relatedPages) < 1)
-            ){
-                $relatedPages = $this->pagesRepository->findByDepartment(
-                    $department,
-                    $excludePidList,
-                    $includePidList,
-                    $pageNumber,
-                    $limit,
-                    boolval($this->settings['ignoreVisibility'])
-                );
-
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using department filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
+            // get available items for next page
+            $nextRelatedPagesCount = 0;
+            if ($nextRelatedPages) {
+                $nextRelatedPagesCount = count($nextRelatedPages);
             }
-
 
             if (
                 ($relatedPages)
@@ -186,16 +214,18 @@ class SimilarController extends AbstractController
                     $relatedPages,
                     $cacheTtl
                 );
-                /*$this->countCache->setContent(
-                    $limit,
+                $this->countCache->setContent(
+                    $nextRelatedPagesCount,
                     $cacheTtl
-                );*/
+                );
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Caching results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
 
             } else {
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::WARNING, sprintf('Plugin %s: No results found for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
             }
         }
+
+        $showMoreLink = ($nextRelatedPagesCount < 1) ? false : !boolval($this->settings['hideMoreLink']);
 
         /** New version */
         if ($this->settings['version'] == 2) {
@@ -204,8 +234,9 @@ class SimilarController extends AbstractController
                 'layout'                      => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
                 'relatedPagesList'            => $relatedPages,
                 'pageNumber'                  => $pageNumber,
+                'showMoreLink'                => $showMoreLink,
                 'currentPluginName'           => $this->request->getPluginName(),
-                'limit'                       => $limit,
+                'itemsPerPage'                => $itemsPerPage,
             ];
 
 
@@ -223,7 +254,7 @@ class SimilarController extends AbstractController
                 'currentPluginNameStrtolower' => strtolower($this->request->getPluginName()),
                 'pageTypeAjax'                => intval($this->settings['pageTypeAjaxSimilarcontent']),
                 'itemsPerHundredSigns'        => floatval($this->settings['itemsPerHundredSigns']), // do not load float value in view -> this can produce ajax issues. Or write a ViewHelper ;-)
-                'limit'                       => $limit,
+                'limit'                       => $itemsPerPage,
                 'settingsArray'               => $this->settings, // do not access settings in view the normal way -> this would produce ajax issues
                 'ttContentUid'                => $ttContentUid
             ];

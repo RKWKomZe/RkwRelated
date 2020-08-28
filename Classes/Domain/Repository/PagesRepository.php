@@ -49,8 +49,14 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    public function findByProject($project, $excludePidList, $includePidList, $pageNumber = 1, $limit = 5, $ignoreVisibility = false)
-    {
+    public function findByProject(
+        \RKW\RkwProjects\Domain\Model\Projects $project,
+        array $excludePidList,
+        array $includePidList,
+        int $pageNumber = 1,
+        int $limit = 5,
+        bool $ignoreVisibility = false
+    ) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
@@ -111,12 +117,12 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             );
         }
 
+        $offset = ((intval($pageNumber) - 1) * $limit);
         if ($pageNumber <= 1) {
-            $query->setOffset(0);
-        } else {
-            $query->setOffset((intval($pageNumber) - 1) * $limit);
+            $offset = 0;
         }
-        $query->setLimit($limit + 1);
+        $query->setOffset($offset);
+        $query->setLimit($limit);
 
         return $query->execute();
     }
@@ -135,8 +141,14 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    public function findByDepartment($department, $excludePidList, $includePidList, $pageNumber = 1, $limit = 5, $ignoreVisibility = false)
-    {
+    public function findByDepartment(
+        \RKW\RkwBasics\Domain\Model\Department $department,
+        array $excludePidList,
+        array $includePidList,
+        int $pageNumber = 1,
+        int $limit = 5,
+        bool $ignoreVisibility = false
+    ) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
@@ -197,14 +209,12 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             );
         }
 
-
+        $offset = ((intval($pageNumber) - 1) * $limit);
         if ($pageNumber <= 1) {
-            $query->setOffset(0);
-        } else {
-            $query->setOffset((intval($pageNumber) - 1) * $limit);
+            $offset = 0;
         }
-
-        $query->setLimit($limit + 1);
+        $query->setOffset($offset);
+        $query->setLimit($limit);
 
         return $query->execute();
     }
@@ -222,8 +232,14 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param bool $ignoreVisibility
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findBySysCategory($sysCategories, $excludePidList, $parentCategory = 0, $pageNumber = 1, $limit = 5, $ignoreVisibility = false)
-    {
+    public function findBySysCategory(
+        \TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategories,
+        array $excludePidList,
+        int $parentCategory = 0,
+        int $pageNumber = 1,
+        int $limit = 5,
+        bool $ignoreVisibility = false
+    ) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $select = array_keys($GLOBALS['TCA']['pages']['columns']);
@@ -304,7 +320,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 
             // 5. Offset
-            $offset = ((intval($pageNumber) - 1) * $limit) + 1;
+            $offset = ((intval($pageNumber) - 1) * $limit);
             if ($pageNumber <= 1) {
                 $offset = 0;
             }
@@ -322,7 +338,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 GROUP BY pages.uid
                 ORDER BY counter ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
                 . ', ' . implode(',', $order) . '
-                LIMIT ' . ($limit + 1) . '
+                LIMIT ' . ($limit) . '
                 OFFSET ' . $offset . '
             ');
 
@@ -348,8 +364,15 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    public function findByConfiguration($excludePidList, $includePidList, $filterList, $findPublications = 0, $pageNumber = 0, $limit = 10, $ignoreVisibility = false)
-    {
+    public function findByConfiguration(
+        array $excludePidList,
+        array $includePidList,
+        array $filterList,
+        int $findPublications = 0,
+        int $pageNumber = 0,
+        int $limit = 10,
+        bool $ignoreVisibility = false
+    ) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
@@ -428,25 +451,20 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         // NOW: construct final query!
         $query->matching($query->logicalAnd($constraints));
-
         $query->setOrderings(
             array(
                 'lastUpdated' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
             )
         );
 
-        if ($pageNumber) {
-            if ($pageNumber <= 1) {
-                $query->setOffset(0);
-            } else {
-                $query->setOffset((intval($pageNumber) - 1) * intval($limit));
-            }
-            $query->setLimit(intval($limit));
+        $offset = ((intval($pageNumber) - 1) * $limit);
+        if ($pageNumber <= 1) {
+            $offset = 0;
         }
+        $query->setOffset($offset);
+        $query->setLimit(intval($limit));
 
         return $query->execute();
     }
-
-
 
 }

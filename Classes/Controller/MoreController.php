@@ -43,6 +43,7 @@ class MoreController extends AbstractController
         $this->year = $this->settings['staticInitialYearForFilter'] ? intval($this->settings['staticInitialYearForFilter']) : $this->year;
     }
 
+
     /**
      * listAction
      *
@@ -69,7 +70,6 @@ class MoreController extends AbstractController
             $isFilterRequest = true;
         }
 
-
         //  Set cache-identifiers
         $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
         $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
@@ -83,7 +83,7 @@ class MoreController extends AbstractController
         ) {
             // Cache exists
             $relatedPages = $this->contentCache->getContent();
-            $relatedPagesCount = $this->countCache->getContent();
+            $nextRelatedPagesCount = $this->countCache->getContent();
 
             $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Loading cached results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
 
@@ -110,22 +110,22 @@ class MoreController extends AbstractController
             }
 
             // Include & Exclude pages
-            $excludePidList = $this->filterUtility->getExcludePidList($this->settings);
-            $includePidList = $this->filterUtility->getIncludePidList($this->settings);
+            $excludePidList = $this->filterUtility::getExcludePidList($this->settings);
+            $includePidList = $this->filterUtility::getIncludePidList($this->settings);
 
             // get advanced filters
             $filterList = [
-                'documentType' => $this->filterUtility->getCombinedFilterByName(
+                'documentType' => $this->filterUtility::getCombinedFilterByName(
                     'documentType',
                     $this->settings,
                     $filter
                 ),
-                'department' => $this->filterUtility->getCombinedFilterByName(
+                'department' => $this->filterUtility::getCombinedFilterByName(
                     'department',
                     $this->settings,
                     $filter
                 ),
-                'project' => $this->filterUtility->getCombinedFilterByName(
+                'project' => $this->filterUtility::getCombinedFilterByName(
                     'project',
                     $this->settings,
                     $filter
@@ -155,15 +155,21 @@ class MoreController extends AbstractController
                 boolval($this->settings['ignoreVisibility'])
             );
 
-            $relatedPagesCount = $this->pagesRepository->findByConfiguration(
+            $nextRelatedPages = $this->pagesRepository->findByConfiguration(
                 $excludePidList,
                 $includePidList,
                 $filterList,
                 $findPublications,
-                0,
+                ($pageNumber+1),
                 $itemsPerPage,
                 boolval($this->settings['ignoreVisibility'])
             );
+
+            // get available items for next page
+            $nextRelatedPagesCount = 0;
+            if ($nextRelatedPages) {
+                $nextRelatedPagesCount = count($nextRelatedPages);
+            }
 
             // Cache it!
             if (
@@ -176,7 +182,7 @@ class MoreController extends AbstractController
                     $cacheTtl
                 );
                 $this->countCache->setContent(
-                    $relatedPagesCount,
+                    $nextRelatedPagesCount,
                     $cacheTtl
                 );
 
@@ -187,18 +193,19 @@ class MoreController extends AbstractController
             }
         }
 
-        $resultCount = is_countable($relatedPagesCount) ? count($relatedPagesCount) : 0;
-        $moreItemsAvailable = ($pageNumber * $itemsPerPage) < $resultCount ? true : false;
-
-        /** @deprecated completely obsolete in version 2 - including the following two lines after this comment blog
+        $showMoreLink = ($nextRelatedPagesCount < 1) ? false : !boolval($this->settings['hideMoreLink']);
+        /** @deprecated completely obsolete in version 2
         if (intval($this->settings['maximumShownResults'])) {
             $showMoreLink = ($pageNumber * $itemsPerPage) < intval($this->settings['maximumShownResults']) ? true : false;
         } else {
             $this->settings['maximumShownResults'] = PHP_INT_MAX;
             $showMoreLink = true;
         }*/
+
+        /** @deprecated */
+        $moreItemsAvailable = $showMoreLink;
         $this->settings['maximumShownResults'] = PHP_INT_MAX;
-        $this->settings['showMoreLink'] = $showMoreLink = true;
+        $this->settings['showMoreLink'] = $showMoreLink;
 
 
         // to avoid dependence to RkwProject, we're calling the repository this way
@@ -218,13 +225,13 @@ class MoreController extends AbstractController
                 'relatedPagesList'            => $relatedPages,
                 'pageNumber'                  => $pageNumber,
                 'showMoreLink'                => $showMoreLink,
-                'moreItemsAvailable'          => $moreItemsAvailable,
                 'currentPluginName'           => $this->request->getPluginName(),
                 'departmentList'              => $this->departmentRepository->findAllByVisibility(),
                 'documentTypeList'            => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
                 'projectList'                 => $projectList,
                 'years'                       => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
                 'filter'                      => $filter,
+                'filterFull'                  => $filterList,
                 'sysLanguageUid'              => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
             ];
 

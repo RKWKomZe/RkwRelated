@@ -58,8 +58,7 @@ class RelatedHook
 
             // 1.) clear extension page cache of current page when plugin filter is changed
             // @toDo: Since everytime a tt_content- element is changed, the page is also stored, we don't need this separate hook here!
-            /*
-             * if (
+            if (
                 ($table == 'tt_content')
                 && (is_int($id))
                 && ($record = BackendUtility::getRecord('tt_content', $id))
@@ -73,7 +72,7 @@ class RelatedHook
                     $cacheManager->flushCachesByTag('tx_rkwrelated_' . intval($record['pid']));
                     $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Cleared extension cache by tag for page %s. Triggered by element with uid %s in table "%s".', intval($record['pid']), $id, $table));
                 }
-            }*/
+            }
 
 
             // 2.) clear extension cache of current page and all caches of defined pages when a page is changed

@@ -1,0 +1,75 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true">
+
+	<f:section name="Default">
+		<li class="iconlist__item more">
+			<f:if condition="{currentPluginName} == 'Morecontent'">
+				<f:link.action
+					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
+					rel="nofollow"
+					pageUid="{settings.detailPid.default}"
+					controller="More"
+					extensionName="RkwRelated"
+					pluginName="Morecontent"
+					action="list"
+					additionalParams="{tx_rkwrelated_morecontent: '{filter: filterFull}'}">
+					<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
+				</f:link.action>
+			</f:if>
+
+			<f:if condition="{currentPluginName} == 'Morecontent2'">
+				<f:link.action
+					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
+					rel="nofollow"
+					pageUid="{settings.detailPid.default}"
+					controller="More"
+					extensionName="RkwRelated"
+					pluginName="Morecontent"
+					action="list"
+					additionalParams="{tx_rkwrelated_morecontent2: '{filter: filterFull}'}">
+					<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
+				</f:link.action>
+			</f:if>
+		</li>
+	</f:section>
+
+
+	<f:section name="Publication">
+
+		<li class="iconlist__item more">
+			<f:if condition="{currentPluginName} == 'Morecontent'">
+				<f:link.action
+					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
+					rel="nofollow"
+					pageUid="{settings.detailPid.publication}"
+					controller="More"
+					extensionName="RkwRelated"
+					pluginName="Morecontent"
+					action="list"
+					additionalParams="{tx_rkwrelated_morecontent: '{filter: filterFull}'}">
+					<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
+				</f:link.action>
+			</f:if>
+
+			<f:if condition="{currentPluginName} == 'Morecontent2'">
+				<f:link.action
+					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
+					rel="nofollow"
+					pageUid="{settings.detailPid.publication}"
+					controller="More"
+					extensionName="RkwRelated"
+					pluginName="Morecontent"
+					action="list"
+					additionalParams="{tx_rkwrelated_morecontent2: '{filter: filterFull}'}">
+					<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
+				</f:link.action>
+			</f:if>
+
+
+		</li>
+	</f:section>
+
+
+</html>
+
+

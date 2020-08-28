@@ -1,0 +1,30 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+    <f:section name="Flex3">
+        <f:if condition="{pageNumber} == 1">
+            <f:if condition="{settings.poweredByImage}">
+                <div class="flex-item flex-basis-3">
+                    <div class="tile has-logo is-stretch">
+                        <div class="tile__content">
+                            <f:cObject typoscriptObjectPath="lib.txRkwRelated.responsiveLogoThumbnail" data="{settings.poweredByImage}"/></figure>
+                        </div>
+                    </div>
+                </div>
+            </f:if>
+        </f:if>
+    </f:section>
+
+    <f:section name="Flex4">
+        <f:if condition="{pageNumber} == 1">
+            <f:if condition="{settings.poweredByImage}">
+                <div class="flex-item flex-basis-3">
+                    <div class="tile has-logo is-stretch">
+                        <div class="tile__content">
+                            <f:cObject typoscriptObjectPath="lib.txRkwRelated.responsiveLogoThumbnail" data="{settings.poweredByImage}"/></figure>
+                        </div>
+                    </div>
+                </div>
+            </f:if>
+        </f:if>
+    </f:section>
+</html>

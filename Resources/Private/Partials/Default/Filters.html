@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true">
+
+	<f:if condition="{settings.showFilter}">
+
+		<f:form
+			noCacheHash="true"
+			action="list"
+			controller="More"
+			extensionName="RkwRelated"
+			pluginName="{currentPluginName}"
+			class="ajax"
+			additionalParams="{rkw_ajax : '{key: ajaxHelper.key, cid: ajaxHelper.contentUid, idl: \'1\'}'}" >
+
+			<div class="btn-list btn-list--desktop">
+				<f:if condition="{settings.showDepartment}">
+					<f:render partial="{layout}/Filters/Department" arguments="{_all}" />
+				</f:if>
+				<f:if condition="{settings.showDocumentType}">
+					<f:render partial="{layout}/Filters/DocumentType" arguments="{_all}" />
+				</f:if>
+				<f:if condition="{settings.showProject}">
+					<f:render partial="{layout}/Filters/Project" arguments="{_all}" />
+				</f:if>
+				<f:if condition="{settings.showYear}">
+					<f:render partial="{layout}/Filters/Year" arguments="{_all}" />
+				</f:if>
+			</div>
+		</f:form>
+
+	</f:if>
+</html>
