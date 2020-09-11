@@ -104,7 +104,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
             $query->setOrderings(
                 array(
-                    'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+                    // 'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                     'lastUpdated'             => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                 )
             );
@@ -196,7 +196,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')) {
             $query->setOrderings(
                 array(
-                    'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+                 //   'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                     'lastUpdated'             => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                 )
             );

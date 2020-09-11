@@ -110,6 +110,9 @@ class SimilarController extends AbstractController
                     if ($this->settings['itemLimitPerPage'][$layout]) {
                         $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
                     }
+                    if ($this->settings['itemLimitPerPageOverride']) {
+                        $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
+                    }
                 }
 
             /** @deprecated old version*/
@@ -236,12 +239,13 @@ class SimilarController extends AbstractController
         if ($this->settings['version'] == 2) {
 
             $assignments = [
-                'layout'                      => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
-                'relatedPagesList'            => $relatedPages,
-                'pageNumber'                  => $pageNumber,
-                'showMoreLink'                => $showMoreLink,
-                'currentPluginName'           => $this->request->getPluginName(),
-                'itemsPerPage'                => $itemsPerPage,
+                'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
+                'relatedPagesList'       => $relatedPages,
+                'pageNumber'             => $pageNumber,
+                'showMoreLink'           => $showMoreLink,
+                'currentPluginName'      => $this->request->getPluginName(),
+                'itemsPerPage'           => $itemsPerPage,
+                'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
             ];
 
 

@@ -5,6 +5,13 @@
 
 	<f:section name="Header">
 		<div class="tile__header has-img">
+			<f:if condition="{pages.txRkwbasicsDocumentType} && {pages.txRkwbasicsDocumentType.visibility}">
+				<div class="tile__label-wrapper">
+					<span class="tile__label">
+						{pages.txRkwbasicsDocumentType.name}
+					</span>
+				</div>
+			</f:if>
 			<div class="tile__img">
 				<f:if condition="{pages.txRkwbasicsTeaserImage}" >
 					<f:then>

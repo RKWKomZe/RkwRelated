@@ -11,7 +11,7 @@
 
 				<f:render partial="Default/Boxes/Default/Inner" section="Footer" arguments="{_all}" />
 
-				<f:link.page pageUid="{pages.uid}" class="tile__link-overlay" target="{f:if(condition: '{settings.openLinksInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
+				<f:link.page pageUid="{pages.uid}" class="tile__link-overlay" target="{f:if(condition: '{linkInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
 					{pages.title}
 				</f:link.page>
 			</div>
@@ -30,7 +30,7 @@
 
 				<f:render partial="Default/Boxes/Default/Inner" section="Footer" arguments="{_all}" />
 
-				<f:link.page pageUid="{pages.uid}" class="tile__link-overlay" target="{f:if(condition: '{settings.openLinksInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
+				<f:link.page pageUid="{pages.uid}" class="tile__link-overlay" target="{f:if(condition: '{linkInSameWindow}', then: '', else: '_blank')}" title="{pages.title}">
 					{pages.title}
 				</f:link.page>
 			</div>

@@ -52,6 +52,9 @@ plugin.tx_rkwrelated_similarcontent {
         # cat=plugin.tx_rkwrelated_similarcontent//a; type=string; label=Path to powered-by image
         poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwi-logo2.png
 
+        # cat=plugin.tx_rkwrelated_similarcontent//f; type=int; label=Override opening of links in same window (empty to deactivate override)
+        openLinksInSameWindowOverride =
+
         detailPid {
 
             # cat=plugin.tx_rkwrelated_similarcontent//f; type=string; label=Detail pid (default)
@@ -163,6 +166,9 @@ plugin.tx_rkwrelated_morecontent {
 
         # cat=plugin.tx_rkwrelated_morecontent//a; type=string; label=Path to powered-by image
         poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwi-logo2.png
+
+        # cat=plugin.tx_rkwrelated_morecontent//f; type=boolean; label=Override opening of links in same window (empty to deactivate override)
+        openLinksInSameWindowOverride =
 
         detailPid {
 

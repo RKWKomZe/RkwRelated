@@ -105,6 +105,9 @@ class MoreController extends AbstractController
                     if ($this->settings['itemLimitPerPage'][$layout]) {
                         $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
                     }
+                    if ($this->settings['itemLimitPerPageOverride']) {
+                        $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
+                    }
                 }
 
             /** @deprecated old version*/
@@ -226,18 +229,19 @@ class MoreController extends AbstractController
         if ($this->settings['version'] == 2) {
 
             $assignments = [
-                'layout'                      => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
-                'relatedPagesList'            => $relatedPages,
-                'pageNumber'                  => $pageNumber,
-                'showMoreLink'                => $showMoreLink,
-                'currentPluginName'           => $this->request->getPluginName(),
-                'departmentList'              => $this->departmentRepository->findAllByVisibility(),
-                'documentTypeList'            => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
-                'projectList'                 => $projectList,
-                'years'                       => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
-                'filter'                      => $filter,
-                'filterFull'                  => $filterList,
-                'sysLanguageUid'              => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
+                'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
+                'relatedPagesList'       => $relatedPages,
+                'pageNumber'             => $pageNumber,
+                'showMoreLink'           => $showMoreLink,
+                'currentPluginName'      => $this->request->getPluginName(),
+                'departmentList'         => $this->departmentRepository->findAllByVisibility(),
+                'documentTypeList'       => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
+                'projectList'            => $projectList,
+                'years'                  => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
+                'filter'                 => $filter,
+                'filterFull'             => $filterList,
+                'sysLanguageUid'         => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
+                'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
             ];
 
             $this->view->assignMultiple($assignments);
