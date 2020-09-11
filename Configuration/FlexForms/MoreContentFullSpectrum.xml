@@ -172,12 +172,12 @@
                             <type>check</type>
                         </config>
                     </settings.showMoreLink>
-                    <settings.openLinksInSameWindow>
+                    <!-- <settings.openLinksInSameWindow>
                         <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.openwindow</label>
                         <config>
                             <type>check</type>
                         </config>
-                    </settings.openLinksInSameWindow>
+                    </settings.openLinksInSameWindow>-->
                 </el>
             </ROOT>
         </frontendoptions>
