@@ -9,7 +9,7 @@
 
         <f:if condition="{relatedPagesList}">
             <div class="tiles flex-container flex-container--margin">
-                <f:for each="{relatedPagesList}" as="pages" iteration="iterator">
+                <f:for each="{relatedPagesList}" as="page" iteration="iterator">
                     <f:render partial="Default/Boxes/Default" section="Flex4" arguments="{_all}" />
                 </f:for>
             </div>

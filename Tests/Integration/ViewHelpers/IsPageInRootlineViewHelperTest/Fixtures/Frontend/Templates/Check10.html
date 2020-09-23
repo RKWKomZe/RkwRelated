@@ -1,0 +1,14 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rkwRelated="http://typo3.org/ns/RKW/RkwRelated/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:if condition="<rkwRelated:isPageInRootline pageUid='{pid}' />">
+        <f:then>
+            TRUE
+        </f:then>
+        <f:else>
+            FALSE
+        </f:else>
+    </f:if>
+
+</html>
