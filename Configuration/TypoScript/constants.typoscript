@@ -55,6 +55,9 @@ plugin.tx_rkwrelated_similarcontent {
         # cat=plugin.tx_rkwrelated_similarcontent//f; type=int; label=Override opening of links in same window (empty to deactivate override)
         openLinksInSameWindowOverride =
 
+        # cat=plugin.tx_rkwrelated_similarcontent//f; type=boolean; label=Hide authors label
+        hideAuthors = 0
+
         detailPid {
 
             # cat=plugin.tx_rkwrelated_similarcontent//f; type=string; label=Detail pid (default)
@@ -73,7 +76,7 @@ plugin.tx_rkwrelated_similarcontent {
             content = 150
 
             # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default footer text cropping
-            footer = 24
+            footer = 20
         }
 
         itemLimitPerPage {
@@ -170,6 +173,9 @@ plugin.tx_rkwrelated_morecontent {
         # cat=plugin.tx_rkwrelated_morecontent//f; type=boolean; label=Override opening of links in same window (empty to deactivate override)
         openLinksInSameWindowOverride =
 
+        # cat=plugin.tx_rkwrelated_morecontent//f; type=boolean; label=Hide authors label
+        hideAuthors = 0
+
         detailPid {
 
             # cat=plugin.tx_rkwrelated_morecontent//f; type=string; label=Detail pid (default)
@@ -188,7 +194,7 @@ plugin.tx_rkwrelated_morecontent {
             content = 150
 
             # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default footer text cropping
-            footer = 24
+            footer = 20
         }
 
         itemLimitPerPage {
