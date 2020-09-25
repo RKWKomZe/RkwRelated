@@ -70,14 +70,16 @@ abstract class CacheAbstract implements \TYPO3\CMS\Core\SingletonInterface
      * @param string $plugin
      * @param int $contentId
      * @param int $page
+     * @param array $settings
      * @return $this
      */
-    public function setIdentifier($plugin, $contentId, $page)
+    public function setIdentifier($plugin, $contentId, $page, $settings = [])
     {
         $pid = intval($GLOBALS['TSFE']->id);
         $languageUid = intval($GLOBALS['TSFE']->config['config']['sys_language_uid']);
+        $settingsMd5 = md5(serialize($settings));
 
-        $this->_identifier = $this->_key . '_' . strtolower($plugin) . '_' . $pid . '_' . $contentId . '_' . $languageUid . '_' . intval($page);
+        $this->_identifier = $this->_key . '_' . strtolower($plugin) . '_' . $pid . '_' . $contentId . '_' . $languageUid . '_' . intval($page) . '_' . $settingsMd5;
         $this->setTags($plugin);
 
         return $this;
