@@ -14,7 +14,6 @@ namespace RKW\RkwRelated\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class SimilarController
@@ -68,15 +67,15 @@ class SimilarController extends AbstractController
 
         /** @deprecated - making old version work with new ajax */
         } else if ($ttContentUid) {
-            $this->ajaxHelper->init(['cid' => $ttContentUid]);
+            $this->ajaxHelper->setContentUid($ttContentUid);
             $this->loadSettingsFromFlexForm();
         }
 
         $pageNumber++;
         $itemsPerPage = 10;
 
-        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
-        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
+        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, $this->settings);
+        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, $this->settings);
 
         if (
             ($this->contentCache->hasContent())
@@ -138,18 +137,20 @@ class SimilarController extends AbstractController
                     $this->settings['sysCategoryParentUid'],
                     $pageNumber,
                     $itemsPerPage,
-                    boolval($this->settings['ignoreVisibility'])
+                    boolval($this->settings['ignoreVisibility']),
+                    boolval($this->settings['hideMoreLink'])
                 );
 
-                $nextRelatedPages = $this->pagesRepository->findBySysCategory(
-                    $categories,
-                    $excludePidList,
-                    $this->settings['sysCategoryParentUid'],
-                    ($pageNumber+1),
-                    $itemsPerPage,
-                    boolval($this->settings['ignoreVisibility'])
-                );
-
+                if (!boolval($this->settings['hideMoreLink'])) {
+                    $nextRelatedPages = $this->pagesRepository->findBySysCategory(
+                        $categories,
+                        $excludePidList,
+                        $this->settings['sysCategoryParentUid'],
+                        ($pageNumber + 1),
+                        $itemsPerPage,
+                        boolval($this->settings['ignoreVisibility'])
+                    );
+                }
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using category filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
             }
 
@@ -164,17 +165,20 @@ class SimilarController extends AbstractController
                     $includePidList,
                     $pageNumber,
                     $itemsPerPage,
-                    boolval($this->settings['ignoreVisibility'])
+                    boolval($this->settings['ignoreVisibility']),
+                    boolval($this->settings['hideMoreLink'])
                 );
 
-                $nextRelatedPages = $this->pagesRepository->findByDepartment(
-                    $department,
-                    $excludePidList,
-                    $includePidList,
-                    ($pageNumber+1),
-                    $itemsPerPage,
-                    boolval($this->settings['ignoreVisibility'])
-                );
+                if (!boolval($this->settings['hideMoreLink'])) {
+                    $nextRelatedPages = $this->pagesRepository->findByDepartment(
+                        $department,
+                        $excludePidList,
+                        $includePidList,
+                        ($pageNumber + 1),
+                        $itemsPerPage,
+                        boolval($this->settings['ignoreVisibility'])
+                    );
+                }
 
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using department filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
             }
@@ -191,18 +195,20 @@ class SimilarController extends AbstractController
                     $includePidList,
                     $pageNumber,
                     $itemsPerPage,
-                    boolval($this->settings['ignoreVisibility'])
+                    boolval($this->settings['ignoreVisibility']),
+                    boolval($this->settings['hideMoreLink'])
                 );
 
-                $nextRelatedPages = $this->pagesRepository->findByProject(
-                    $project,
-                    $excludePidList,
-                    $includePidList,
-                    ($pageNumber+1),
-                    $itemsPerPage,
-                    boolval($this->settings['ignoreVisibility'])
-                );
-
+                if (!boolval($this->settings['hideMoreLink'])) {
+                    $nextRelatedPages = $this->pagesRepository->findByProject(
+                        $project,
+                        $excludePidList,
+                        $includePidList,
+                        ($pageNumber + 1),
+                        $itemsPerPage,
+                        boolval($this->settings['ignoreVisibility'])
+                    );
+                }
                 $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using project filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
             }
 
@@ -247,7 +253,6 @@ class SimilarController extends AbstractController
                 'itemsPerPage'           => $itemsPerPage,
                 'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
             ];
-
 
             $this->view->assignMultiple($assignments);
 

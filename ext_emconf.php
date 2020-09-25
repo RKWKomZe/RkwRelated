@@ -27,6 +27,7 @@ $EM_CONF[$_EXTKEY] = [
             'typo3' => '7.6.0-7.6.99',
             'rkw_basics' => '8.7.0-8.7.99',
             'rkw_projects' => '8.7.0-8.7.99',
+            'rkw_ajax' => '8.7.6-8.7.99',
 		],
 		'conflicts' => [
 		],

@@ -36,6 +36,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $querySettings->setRespectStoragePage(false);
     }
 
+
     /**
      * Get pages with equal projects - except the current pid
      * Sorting: Last created / edited pages first!
@@ -46,16 +47,19 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param integer $pageNumber
      * @param integer $limit
      * @param bool $ignoreVisibility
+     * @param bool $randomResult
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function findByProject(
+
         \RKW\RkwProjects\Domain\Model\Projects $project,
         array $excludePidList,
         array $includePidList,
         int $pageNumber = 1,
         int $limit = 5,
-        bool $ignoreVisibility = false
+        bool $ignoreVisibility = false,
+        bool $randomResult = false
     ) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -117,13 +121,14 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             );
         }
 
-        $offset = ((intval($pageNumber) - 1) * $limit);
-        if ($pageNumber <= 1) {
-            $offset = 0;
+        // random sorting overrides offset, so pagination is not possible
+        if($randomResult) {
+            $query->setOffset($this->getRandomOffset($query, $limit));
+        } else {
+            $query->setOffset($this->getDefaultOffset($limit, $pageNumber));
         }
-        $query->setOffset($offset);
-        $query->setLimit($limit);
 
+        $query->setLimit($limit);
         return $query->execute();
     }
 
@@ -138,6 +143,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param integer $pageNumber
      * @param integer $limit
      * @param bool $ignoreVisibility
+     * @param bool $randomResult
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
@@ -147,7 +153,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         array $includePidList,
         int $pageNumber = 1,
         int $limit = 5,
-        bool $ignoreVisibility = false
+        bool $ignoreVisibility = false,
+        bool $randomResult = false
     ) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -209,13 +216,14 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             );
         }
 
-        $offset = ((intval($pageNumber) - 1) * $limit);
-        if ($pageNumber <= 1) {
-            $offset = 0;
+        // random sorting overrides offset, so pagination is not possible
+        if($randomResult) {
+            $query->setOffset($this->getRandomOffset($query, $limit));
+        } else {
+            $query->setOffset($this->getDefaultOffset($limit, $pageNumber));
         }
-        $query->setOffset($offset);
-        $query->setLimit($limit);
 
+        $query->setLimit($limit);
         return $query->execute();
     }
 
@@ -230,6 +238,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param integer $pageNumber
      * @param integer $limit
      * @param bool $ignoreVisibility
+     * @param bool $randomResult
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findBySysCategory(
@@ -238,10 +247,10 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         int $parentCategory = 0,
         int $pageNumber = 1,
         int $limit = 5,
-        bool $ignoreVisibility = false
+        bool $ignoreVisibility = false,
+        bool $randomResult = false
     ) {
-        $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false);
+
         $select = array_keys($GLOBALS['TCA']['pages']['columns']);
         $order = array();
 
@@ -319,14 +328,9 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $order[] = 'lastUpdated ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
 
 
-            // 5. Offset
-            $offset = ((intval($pageNumber) - 1) * $limit);
-            if ($pageNumber <= 1) {
-                $offset = 0;
-            }
 
-            // 6. Final statement
-            $query->statement('
+            // 5. Final statement
+            $finalStatement = '
                 SELECT count(pages.uid) as counter, pages.uid, ' . implode(', pages.', $select) . ' FROM pages 
                 ' . $leftJoin . '
                 WHERE 
@@ -337,10 +341,28 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 '
                 GROUP BY pages.uid
                 ORDER BY counter ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
-                . ', ' . implode(',', $order) . '
+                . ', ' . implode(',', $order);
+
+
+            // random sorting overrides offset, so pagination is not possible
+            if($randomResult) {
+                $query = $this->createQuery();
+                $query->getQuerySettings()->setRespectStoragePage(false);
+                $query->statement($finalStatement);
+                $offset = $this->getRandomOffset($query, $limit);
+
+            } else {
+                $offset = $this->getDefaultOffset($limit, $pageNumber);
+            }
+
+            // build final query
+            $query = $this->createQuery();
+            $query->getQuerySettings()->setRespectStoragePage(false);
+            $query->statement(
+                $finalStatement . '
                 LIMIT ' . ($limit) . '
-                OFFSET ' . $offset . '
-            ');
+                OFFSET ' . $offset
+            );
 
             return $query->execute();
         }
@@ -361,6 +383,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param integer $pageNumber
      * @param integer $limit
      * @param bool $ignoreVisibility
+     * @param bool $randomResult
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
@@ -371,7 +394,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         int $findPublications = 0,
         int $pageNumber = 0,
         int $limit = 10,
-        bool $ignoreVisibility = false
+        bool $ignoreVisibility = false,
+        bool $randomResult = false
     ) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -457,14 +481,48 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             )
         );
 
+        // random sorting overrides offset, so pagination is not possible
+        if($randomResult) {
+            $query->setOffset($this->getRandomOffset($query, $limit));
+        } else {
+            $query->setOffset($this->getDefaultOffset($limit, $pageNumber));
+        }
+
+        $query->setLimit(intval($limit));
+        return $query->execute();
+    }
+
+
+
+    /**
+     * Get random offset
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param int $limit
+     * @return integer
+     */
+    protected function getRandomOffset(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $limit)
+    {
+        $rowCount = $query->execute()->count();
+        $offset = mt_rand(0, max(0, ($rowCount - $limit - 1)));
+        return $offset;
+    }
+
+
+    /**
+     * Get default offset
+     *
+     * @param int $limit
+     * @param int $pageNumber
+     * @return integer
+     */
+    protected function getDefaultOffset($limit, $pageNumber)
+    {
         $offset = ((intval($pageNumber) - 1) * $limit);
         if ($pageNumber <= 1) {
             $offset = 0;
         }
-        $query->setOffset($offset);
-        $query->setLimit(intval($limit));
-
-        return $query->execute();
+        return $offset;
     }
 
 }

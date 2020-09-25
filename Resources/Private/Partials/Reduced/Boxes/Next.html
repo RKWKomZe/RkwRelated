@@ -3,7 +3,7 @@
 
 	<f:section name="Default">
 		<li class="iconlist__item more">
-			<f:if condition="{currentPluginName} == 'Morecontent'">
+			<f:if condition="({currentPluginName} == 'Morecontent') || ({currentPluginName} == 'Similarcontent')">
 				<f:link.action
 					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
 					rel="nofollow"
@@ -37,7 +37,7 @@
 	<f:section name="Publication">
 
 		<li class="iconlist__item more">
-			<f:if condition="{currentPluginName} == 'Morecontent'">
+			<f:if condition="({currentPluginName} == 'Morecontent') || ({currentPluginName} == 'Similarcontent')">
 				<f:link.action
 					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
 					rel="nofollow"

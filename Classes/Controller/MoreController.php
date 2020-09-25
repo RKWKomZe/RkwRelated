@@ -63,7 +63,7 @@ class MoreController extends AbstractController
 
         /** @deprecated - making old version work with new ajax */
         } else if ($ttContentUid) {
-            $this->ajaxHelper->init(['cid' => $ttContentUid]);
+            $this->ajaxHelper->setContentUid($ttContentUid);
             $this->loadSettingsFromFlexForm();
         }
 
@@ -76,8 +76,8 @@ class MoreController extends AbstractController
         }
 
         //  Set cache-identifiers
-        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
-        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber);
+        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, $this->settings);
+        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, $this->settings);
 
         // Current state: No caching if someone is filtering via frontend form
         if (
