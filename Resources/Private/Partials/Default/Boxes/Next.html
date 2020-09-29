@@ -42,4 +42,18 @@
 			<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
 		</f:link.action>
 	</f:if>
+
+	<f:if condition="{currentPluginName} == 'Morecontentpublication'">
+		<f:link.action
+			class="btn btn--primary btn--centered mt-1 ajax"
+			title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
+			rel="nofollow"
+			extensionName="RkwRelated"
+			pluginName="Morecontentpublication"
+			controller="More"
+			action="list"
+			additionalParams="{tx_rkwrelated_morecontentpublication: '{pageNumber: pageNumber, filter: filter}', rkw_ajax : '{key: ajaxHelper.key, cid: ajaxHelper.contentUid, idl: \'2,3\'}'}">
+			<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
+		</f:link.action>
+	</f:if>
 </html>
