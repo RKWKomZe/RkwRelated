@@ -414,8 +414,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $dateFrom = strtotime(intval($filterList['year']) . '-01-01');
             $dateUntil = strtotime(intval($filterList['year']) . '-12-31');
             $constraints[] = $query->logicalAnd(
-                $query->greaterThanOrEqual('crdate', $dateFrom),
-                $query->lessThanOrEqual('crdate', $dateUntil)
+                $query->greaterThanOrEqual('lastUpdated', $dateFrom),
+                $query->lessThanOrEqual('lastUpdated', $dateUntil)
             );
         }
 
