@@ -108,6 +108,12 @@ class MoreController extends AbstractController
                     if ($this->settings['itemLimitPerPageOverride']) {
                         $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
                     }
+                    if (
+                        ($this->settings['itemsPerPage'])
+                        && (intval($this->settings['itemsPerPage']) <  $itemsPerPage)
+                    ){
+                        $itemsPerPage = intval($this->settings['itemsPerPage']);
+                    }
                 }
 
             /** @deprecated old version*/
