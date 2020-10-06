@@ -71,35 +71,35 @@
                 <source>Show "Powered by"-Logo</source>
                 <target>Förderlogo anzeigen</target>
             </trans-unit>
-			<trans-unit id="flexform.more.showmorelink">
+			<trans-unit id="flexform.more.showMoreLink">
 				<source>Show more link</source>
 				<target>Zeige Mehr-Link</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.openwindow">
+			<trans-unit id="flexform.more.itemsPerPage">
+				<source>Reduce number of items to (overrides defaults if lower)</source>
+				<target>Anzahl der angezeigten Elemente reduzieren auf (überschreibt Standard, wenn kleiner)</target>
+			</trans-unit>
+			<trans-unit id="flexform.more.openWindow">
 				<source>Open links in same window</source>
 				<target>Links in gleichem Fenster öffnen (Standard: neues Fenster)</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.pleasechoose">
-				<source>Please choose</source>
-				<target>Bitte wählen</target>
-			</trans-unit>
-			<trans-unit id="flexform.more.showfilter">
+			<trans-unit id="flexform.more.showFilter">
 				<source>Show frontend filter</source>
 				<target>Filter im Frontend anzeigen</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.showdepartment">
+			<trans-unit id="flexform.more.showDepartment">
 				<source>Show topic option</source>
 				<target>Option "Thema" anbieten</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.showdocumenttype">
+			<trans-unit id="flexform.more.showDocumentType">
 				<source>Show document type option</source>
 				<target>Option "Dokumentenart" anbieten</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.showproject">
+			<trans-unit id="flexform.more.showProject">
 				<source>Show project option</source>
 				<target>Option "Projekt" anbieten</target>
 			</trans-unit>
-			<trans-unit id="flexform.more.showyear">
+			<trans-unit id="flexform.more.showYear">
 				<source>Show year option</source>
 				<target>Option "Nach Jahr" anbieten</target>
 			</trans-unit>

@@ -2,12 +2,12 @@
 	xmlns:rkwAjax="http://typo3.org/ns/RKW/Ajax/ViewHelpers"
 	data-namespace-typo3-fluid="true">
 
-	<f:if condition="{showMoreLink}">
-		<rkwAjax:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="replace" ajaxId="3">
+	<rkwAjax:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="replace" ajaxId="3">
+		<f:if condition="{showMoreLink}">
 			<div class="flex-container flex-basis-12">
 				<f:render partial="Default/Boxes/Next" arguments="{_all}" />
 			</div>
-		</rkwAjax:ajaxWrapper>
-	</f:if>
+		</f:if>
+	</rkwAjax:ajaxWrapper>
 
 </html>

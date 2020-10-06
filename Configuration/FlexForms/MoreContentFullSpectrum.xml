@@ -167,13 +167,24 @@
                         </config>
                     </settings.displayPublications>
                     <settings.showMoreLink>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showmorelink</label>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showMoreLink</label>
                         <config>
                             <type>check</type>
                         </config>
                     </settings.showMoreLink>
+                    <settings.itemsPerPage>
+                        <TCEforms>
+                            <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.itemsPerPage</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>4</max>
+                                <eval>trim,int</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.itemsPerPage>
                     <!-- <settings.openLinksInSameWindow>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.openwindow</label>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.openWindow</label>
                         <config>
                             <type>check</type>
                         </config>
@@ -191,31 +202,31 @@
                 <type>array</type>
                 <el>
                     <settings.showFilter>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showfilter</label>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showFilter</label>
                         <config>
                             <type>check</type>
                         </config>
                     </settings.showFilter>
                     <settings.showDepartment>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showdepartment</label>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showDepartment</label>
                         <config>
                             <type>check</type>
                         </config>
                     </settings.showDepartment>
                     <settings.showDocumentType>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showdocumenttype</label>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showDocumentType</label>
                         <config>
                             <type>check</type>
                         </config>
                     </settings.showDocumentType>
                     <settings.showProject>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showproject</label>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showProject</label>
                         <config>
                             <type>check</type>
                         </config>
                     </settings.showProject>
                     <settings.showYear>
-                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showyear</label>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showYear</label>
                         <config>
                             <type>check</type>
                         </config>
