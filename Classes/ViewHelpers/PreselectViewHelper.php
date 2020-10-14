@@ -39,8 +39,8 @@ class PreselectViewHelper extends AbstractViewHelper
 
 
     /**
-     * @param array                     $arguments
-     * @param \Closure                  $renderChildrenClosure
+     * @param array  $arguments
+     * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
      * @return bool|int
      */
@@ -72,6 +72,7 @@ class PreselectViewHelper extends AbstractViewHelper
         if (
             ($filterList = $arguments['filterList'])
             && (is_array($filterList))
+            && (count($filterList) == 1)  // select only ONE - or nothing
         ){
             return $filterList[0];
         }
