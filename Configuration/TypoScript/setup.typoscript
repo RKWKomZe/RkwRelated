@@ -82,6 +82,9 @@ plugin.tx_rkwrelated_similarcontent {
         pidList = {$plugin.tx_rkwrelated_similarcontent.settings.pidList}
         pidListRecursive = {$plugin.tx_rkwrelated_similarcontent.settings.pidListRecursive}
         sysCategoryParentUid = {$plugin.tx_rkwrelated_similarcontent.settings.sysCategoryParentUid}
+        noCategorySearch = {$plugin.tx_rkwrelated_similarcontent.settings.noCategorySearch}
+        noDepartmentSearch = {$plugin.tx_rkwrelated_similarcontent.settings.noDepartmentSearch}
+        noProjectSearch = {$plugin.tx_rkwrelated_similarcontent.settings.noProjectSearch}
 		staticInitialYearForFilter = {$plugin.tx_rkwrelated_similarcontent.settings.staticInitialYearForFilter}
         poweredByImage = {$plugin.tx_rkwrelated_similarcontent.settings.poweredByImage}
         openLinksInSameWindowOverride = {$plugin.tx_rkwrelated_similarcontent.settings.openLinksInSameWindowOverride}

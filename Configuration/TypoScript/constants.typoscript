@@ -43,8 +43,17 @@ plugin.tx_rkwrelated_similarcontent {
         # cat=plugin.tx_rkwrelated_similarcontent//f; type=boolean; label=Use pidList recursively
         pidListRecursive = 0
 
-        # cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=ID of parent sys_category for similar search
+        # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=ID of parent sys_category for similar search
         sysCategoryParentUid = 0
+
+        # cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Do not search for similar contents based on category
+        noCategorySearch = 0
+
+        # cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Do not search for similar contents based on department
+        noDepartmentSearch = 0
+
+        # cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Do not search for similar contents based on project
+        noProjectSearch = 0
 
 		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Starting year of filter option "sort by year" (default:2011)
 		staticInitialYearForFilter =

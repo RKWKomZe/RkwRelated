@@ -127,6 +127,7 @@ class SimilarController extends AbstractController
             $nextRelatedPages = [];
             if (
                 ($categories)
+                && (! $this->settings['noCategorySearch'])
                 && count($categories)
             ) {
 
@@ -157,6 +158,7 @@ class SimilarController extends AbstractController
 
             if (
                 ($department)
+                && (! $this->settings['noDepartmentSearch'])
                 && (count($relatedPages) < 1)
             ){
                 $relatedPages = $this->pagesRepository->findByDepartment(
@@ -186,6 +188,7 @@ class SimilarController extends AbstractController
 
             if (
                 ($project)
+                && (! $this->settings['noProjectSearch'])
                 && (count($relatedPages) < 1)
             ){
 
