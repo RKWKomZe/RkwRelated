@@ -74,37 +74,39 @@
 
 
 	<f:section name="Footer">
-		<div class="tile__footer tile__contact">
-			<div class="tile__contact-text">
-				<svg class="icon icon--16"><use xlink:href="#ic-date" /></svg>
-				<f:if condition="{page.lastUpdated}">
-					<f:then>
-						<f:format.date format="d.m.Y">{page.lastUpdated}</f:format.date>
-					</f:then>
-					<f:else>
-						-
-					</f:else>
-				</f:if>
-			</div>
-
-			<f:if condition="! {settings.hideAuthors}">
-				<f:if condition="{page.txRkwauthorsAuthorship}">
-					<f:if condition="<f:count>{page.txRkwauthorsAuthorship}</f:count> == 1">
+		<f:if condition="{page.lastUpdated} || (! {settings.hideAuthors} && {page.txRkwauthorsAuthorship})">
+			<div class="tile__footer tile__contact">
+				<div class="tile__contact-text">
+					<svg class="icon icon--16"><use xlink:href="#ic-date" /></svg>
+					<f:if condition="{page.lastUpdated}">
 						<f:then>
-							<div class="tile__footer-author">
-								<f:translate key="partials.default.more.boxes.default.inner.byAuthor" extensionName="RkwRelated" />
-								&nbsp;<f:format.crop maxCharacters="{settings.textCropping.footer}" respectWordBoundaries="false"><rkwAuthors:GetCombinedName author="{page.txRkwauthorsAuthorship.0}"/></f:format.crop>
-							</div>
+							<f:format.date format="d.m.Y">{page.lastUpdated}</f:format.date>
 						</f:then>
 						<f:else>
-							<div class="tile__footer-author">
-								<f:translate key="partials.default.more.boxes.default.inner.severalAuthors" extensionName="RkwRelated" />
-							</div>
+							-
 						</f:else>
 					</f:if>
+				</div>
+
+				<f:if condition="! {settings.hideAuthors}">
+					<f:if condition="{page.txRkwauthorsAuthorship}">
+						<f:if condition="<f:count>{page.txRkwauthorsAuthorship}</f:count> == 1">
+							<f:then>
+								<div class="tile__footer-author">
+									<f:translate key="partials.default.more.boxes.default.inner.byAuthor" extensionName="RkwRelated" />
+									&nbsp;<f:format.crop maxCharacters="{settings.textCropping.footer}" respectWordBoundaries="false"><rkwAuthors:GetCombinedName author="{page.txRkwauthorsAuthorship.0}"/></f:format.crop>
+								</div>
+							</f:then>
+							<f:else>
+								<div class="tile__footer-author">
+									<f:translate key="partials.default.more.boxes.default.inner.severalAuthors" extensionName="RkwRelated" />
+								</div>
+							</f:else>
+						</f:if>
+					</f:if>
 				</f:if>
-			</f:if>
-		</div>
+			</div>
+		</f:if>
 	</f:section>
 
 </html>
