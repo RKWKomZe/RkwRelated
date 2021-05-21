@@ -166,6 +166,12 @@
                             </items>
                         </config>
                     </settings.displayPublications>
+                    <settings.imageOnly>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.imageOnly</label>
+                        <config>
+                            <type>check</type>
+                        </config>
+                    </settings.imageOnly>
                     <settings.showMoreLink>
                         <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showMoreLink</label>
                         <config>

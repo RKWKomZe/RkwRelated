@@ -55,6 +55,9 @@
             <trans-unit id="flexform.more.showPoweredBy">
                 <source>Show "Powered by"-Logo</source>
             </trans-unit>
+            <trans-unit id="flexform.more.imageOnly">
+                <source>Show only the image (no title, no text, no type)</source>
+            </trans-unit>
 			<trans-unit id="flexform.more.showMoreLink">
 				<source>Show more link</source>
 			</trans-unit>

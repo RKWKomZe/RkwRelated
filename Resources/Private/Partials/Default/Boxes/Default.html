@@ -5,13 +5,23 @@
 	<f:section name="Flex3">
 		<div class="flex-item flex-basis-3">
 			<div class="tile">
-				<f:render partial="Default/Boxes/Default/Inner" section="Header" arguments="{_all}" />
-				<div class="tile__content">
-					<f:render partial="Default/Boxes/Default/Inner" section="Title" arguments="{_all}" />
-					<f:render partial="Default/Boxes/Default/Inner" section="Text" arguments="{_all}" />
-				</div>
 
-				<f:render partial="Default/Boxes/Default/Inner" section="Footer" arguments="{_all}" />
+				<f:if condition="{settings.imageOnly} == 1">
+					<f:then>
+						<f:render partial="Default/Boxes/Default/Inner" section="HeaderImageOnly" arguments="{_all}" />
+					</f:then>
+
+					<f:else>
+						<f:render partial="Default/Boxes/Default/Inner" section="Header" arguments="{_all}" />
+						<div class="tile__content">
+							<f:render partial="Default/Boxes/Default/Inner" section="Title" arguments="{_all}" />
+							<f:render partial="Default/Boxes/Default/Inner" section="Text" arguments="{_all}" />
+						</div>
+
+						<f:render partial="Default/Boxes/Default/Inner" section="Footer" arguments="{_all}" />
+					</f:else>
+				</f:if>
+
 
 				<f:link.page
 					pageUid="{page.uid}"
