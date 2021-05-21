@@ -89,6 +89,7 @@ plugin.tx_rkwrelated_similarcontent {
         poweredByImage = {$plugin.tx_rkwrelated_similarcontent.settings.poweredByImage}
         openLinksInSameWindowOverride = {$plugin.tx_rkwrelated_similarcontent.settings.openLinksInSameWindowOverride}
         hideAuthors = {$plugin.tx_rkwrelated_similarcontent.settings.hideAuthors}
+        imageOnly = {$plugin.tx_rkwrelated_similarcontent.settings.imageOnly}
         detailPid {
             default = {$plugin.tx_rkwrelated_similarcontent.settings.detailPid.default}
             publication = {$plugin.tx_rkwrelated_similarcontent.settings.detailPid.publication}
@@ -145,6 +146,7 @@ plugin.tx_rkwrelated_morecontent {
         poweredByImage = {$plugin.tx_rkwrelated_morecontent.settings.poweredByImage}
         openLinksInSameWindowOverride = {$plugin.tx_rkwrelated_morecontent.settings.openLinksInSameWindowOverride}
         hideAuthors = {$plugin.tx_rkwrelated_similarcontent.settings.hideAuthors}
+        imageOnly = {$plugin.tx_rkwrelated_similarcontent.settings.imageOnly}
         detailPid {
             default = {$plugin.tx_rkwrelated_morecontent.settings.detailPid.default}
             publication = {$plugin.tx_rkwrelated_morecontent.settings.detailPid.publication}

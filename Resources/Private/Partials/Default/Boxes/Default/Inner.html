@@ -27,6 +27,23 @@
 
 	<!-- ================================================================================ -->
 
+	<f:section name="HeaderImageOnly">
+		<div class="tile__header has-img img-only">
+			<div class="tile__img">
+				<f:if condition="{page.txRkwbasicsTeaserImage}" >
+					<f:then>
+						<f:cObject typoscriptObjectPath="lib.txRkwRelated.responsiveImageThumbnail" data="{page.txRkwbasicsTeaserImage.uid}"/>
+					</f:then>
+					<f:else>
+						&nbsp;
+					</f:else>
+				</f:if>
+			</div>
+		</div>
+	</f:section>
+
+	<!-- ================================================================================ -->
+
 
 	<f:section name="Title">
 		<h3 class="tile__title icon">

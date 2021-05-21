@@ -71,6 +71,10 @@
                 <source>Show "Powered by"-Logo</source>
                 <target>Förderlogo anzeigen</target>
             </trans-unit>
+            <trans-unit id="flexform.more.imageOnly">
+                <source>Show only the image (no title, no text, no type)</source>
+                <target>Nur Bild anzeigen (kein Titel, kein Text, kein Typ)</target>
+            </trans-unit>
 			<trans-unit id="flexform.more.showMoreLink">
 				<source>Show more link</source>
 				<target>Zeige Mehr-Link</target>
