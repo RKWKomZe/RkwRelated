@@ -75,9 +75,29 @@ class MoreController extends AbstractController
             $isFilterRequest = true;
         }
 
+        // get advanced filters
+        $filterList = [
+            'documentType' => $this->filterUtility::getCombinedFilterByName(
+                'documentType',
+                $this->settings,
+                $filter
+            ),
+            'department' => $this->filterUtility::getCombinedFilterByName(
+                'department',
+                $this->settings,
+                $filter
+            ),
+            'project' => $this->filterUtility::getCombinedFilterByName(
+                'project',
+                $this->settings,
+                $filter
+            ),
+            'year' => intval($filter['year'])
+        ];
+
         //  Set cache-identifiers
-        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, $this->settings);
-        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, $this->settings);
+        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, array_merge($this->settings, $filter));
+        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, array_merge($this->settings, $filter));
 
         // Current state: No caching if someone is filtering via frontend form
         if (
@@ -127,26 +147,6 @@ class MoreController extends AbstractController
             $excludePidList = $this->filterUtility::getExcludePidList($this->settings);
             $includePidList = $this->filterUtility::getIncludePidList($this->settings);
 
-            // get advanced filters
-            $filterList = [
-                'documentType' => $this->filterUtility::getCombinedFilterByName(
-                    'documentType',
-                    $this->settings,
-                    $filter
-                ),
-                'department' => $this->filterUtility::getCombinedFilterByName(
-                    'department',
-                    $this->settings,
-                    $filter
-                ),
-                'project' => $this->filterUtility::getCombinedFilterByName(
-                    'project',
-                    $this->settings,
-                    $filter
-                ),
-                'year' => intval($filter['year'])
-            ];
-            
             // settings for publications including fallback to old solution
             $findPublications = intval($this->settings['displayPublications']);
 
