@@ -239,7 +239,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param integer $limit
      * @param bool $ignoreVisibility
      * @param bool $randomResult
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return null|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findBySysCategory(
         \TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategories,
@@ -249,6 +249,75 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         int $limit = 5,
         bool $ignoreVisibility = false,
         bool $randomResult = false
+    ) {
+
+        $result = null;
+
+        // build query for matching pages
+        /** @var \TYPO3\CMS\Extbase\Persistence\QueryInterface $queryPages */
+        $queryPages = $this->buildQueryFindBySysCategory(
+            $sysCategories,
+            $excludePidList,
+            $parentCategory,
+            $pageNumber,
+            $limit,
+            $ignoreVisibility,
+            $randomResult,
+            0
+        );
+
+        // build second best version: query with matching projects
+        /** @var \TYPO3\CMS\Extbase\Persistence\QueryInterface $queryProjects */
+        $queryProjects = $this->buildQueryFindBySysCategory(
+            $sysCategories,
+            $excludePidList,
+            $parentCategory,
+            $pageNumber,
+            $limit,
+            $ignoreVisibility,
+            $randomResult,
+            1
+        );
+
+        if ($queryPages) {
+
+            // check for matching pages - if nothing is found, take project-matches instead!
+            $result = $queryPages->execute();
+            if (
+                (! $result)
+                && ($queryProjects)
+            ) {
+                $result = $queryProjects->execute();
+            }
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * Get pages with equal categories - except the current pid
+     * Sorting: Last created / edited pages first!
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategories
+     * @param array $excludePidList
+     * @param integer parentCategory
+     * @param integer $pageNumber
+     * @param integer $limit
+     * @param bool $ignoreVisibility
+     * @param bool $randomResult
+     * @param int $type
+     * @return null|\TYPO3\CMS\Extbase\Persistence\QueryInterface
+     */
+    protected function buildQueryFindBySysCategory(
+        \TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategories,
+        array $excludePidList,
+        int $parentCategory = 0,
+        int $pageNumber = 1,
+        int $limit = 5,
+        bool $ignoreVisibility = false,
+        bool $randomResult = false,
+        int $type = 0
     ) {
 
         $select = array_keys($GLOBALS['TCA']['pages']['columns']);
@@ -277,7 +346,10 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     AND sys_category.deleted = 0
             ';
 
-            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
+            if (
+                (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects'))
+                && ($type == 1)
+            ){
                 $leftJoin = '
                     LEFT JOIN tx_rkwprojects_domain_model_projects AS tx_rkwprojects_domain_model_projects 
                         ON pages.tx_rkwprojects_project_uid=tx_rkwprojects_domain_model_projects.uid
@@ -298,7 +370,6 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             // 3. set constraints
             $constraints = array(
                 '(((sys_category.sys_language_uid IN (0,-1))) OR sys_category.uid IS NULL)',
-                '(((tx_rkwprojects_domain_model_projects.sys_language_uid IN (0,-1))) OR tx_rkwprojects_domain_model_projects.uid IS NULL)',
                 'NOT(pages.uid IN (' . implode(',', $excludePidList) . '))',
                 'pages.doktype IN (\'1\')',
                 'pages.no_search = 0',
@@ -306,6 +377,13 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
             if (! $ignoreVisibility) {
                 $constraints[] = '((SELECT visibility FROM tx_rkwbasics_domain_model_documenttype WHERE uid = pages.tx_rkwbasics_document_type) = 1)';
+            }
+
+            if (
+                (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects'))
+                && ($type == 1)
+            ){
+                $constraints[] = '(((tx_rkwprojects_domain_model_projects.sys_language_uid IN (0,-1))) OR tx_rkwprojects_domain_model_projects.uid IS NULL)';
             }
 
             // exclude txBmpdf2contentIsImportSub
@@ -326,8 +404,6 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
             // 4. set second ordering
             $order[] = 'lastUpdated ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
-
-
 
             // 5. Final statement
             $finalStatement = '
@@ -364,12 +440,11 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 OFFSET ' . $offset
             );
 
-            return $query->execute();
+            return $query;
         }
 
         return null;
     }
-
 
 
     /**
