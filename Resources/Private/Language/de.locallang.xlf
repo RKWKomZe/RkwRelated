@@ -11,7 +11,7 @@
 			</trans-unit>
 			<trans-unit id="partials.default.more.boxes.default.inner.severalAuthors">
 				<source>Several Authors</source>
-				<target>Mehrere Autoren</target>
+				<target>Mehrere Verfassende</target>
 			</trans-unit>
             <trans-unit id="partials.default.more.boxes.more.labelMore">
                 <source>Show more</source>
