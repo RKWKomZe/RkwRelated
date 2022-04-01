@@ -16,6 +16,7 @@ namespace RKW\RkwRelated\Tests\Integration\Utilities;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use RKW\RkwRelated\Utilities\FilterUtility;
+use RKW\RkwBasics\Utility\FrontendSimulatorUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -75,10 +76,10 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->setUpFrontendRootPage(
             1,
             [
-                'EXT:rkw_basics/Configuration/TypoScript/setup.txt',
-                'EXT:rkw_authors/Configuration/TypoScript/setup.txt',
-                'EXT:rkw_projects/Configuration/TypoScript/setup.txt',
-                'EXT:rkw_related/Configuration/TypoScript/setup.txt',
+                'EXT:rkw_basics/Configuration/TypoScript/setup.typoscript',
+                'EXT:rkw_authors/Configuration/TypoScript/setup.typoscript',
+                'EXT:rkw_projects/Configuration/TypoScript/setup.typoscript',
+                'EXT:rkw_related/Configuration/TypoScript/setup.typoscript',
                 'EXT:rkw_related/Tests/Integration/FilterUtilityTest/Frontend/Configuration/Rootpage.typoscript',
             ]
         );
@@ -86,6 +87,8 @@ class FilterUtilityTest extends FunctionalTestCase
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->subject = $this->objectManager->get(FilterUtility::class);
+
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
 
     }
 
@@ -1115,6 +1118,7 @@ class FilterUtilityTest extends FunctionalTestCase
     protected function tearDown()
     {
         parent::tearDown();
+        FrontendSimulatorUtility::resetFrontendEnvironment();
     }
 
 

@@ -49,7 +49,7 @@ class FilterUtility
      * @param array $settings
      * @return array
      */
-    public static function getExcludePidList(array $settings)
+    public static function getExcludePidList(array $settings): array
     {
 
         // if a special startingPid is set, set it as rootPid
