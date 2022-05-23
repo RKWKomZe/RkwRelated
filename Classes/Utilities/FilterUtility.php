@@ -50,7 +50,7 @@ class FilterUtility
      * @param array $settings
      * @return array
      */
-    public static function getExcludePidList(array $settings)
+    public static function getExcludePidList(array $settings): array
     {
 
         // if a special startingPid is set, set it as rootPid
@@ -152,7 +152,14 @@ class FilterUtility
         $insecureValue = '';
         if (
             isset($externalFilter[$name])
-            && $externalFilter[$name] !== '0'
+            && (
+                // !! Important: The field "department" has an inverted logic !!
+                $name != 'department' ||
+                (
+                    $name == 'department'
+                    && $externalFilter[$name]
+                )
+            )
         ) {
 
             if (is_array($externalFilter[$name])) {
@@ -164,15 +171,8 @@ class FilterUtility
         // fallback to defined list
         } else if (isset($settings[$name . 'List'])) {
 
-            // FIX: Avoid "department" filter because it's have an inverted logic (default / fallback instead of allowed options)
-            // if "department" is not set (null), then use fallback. But if filter is used and value is '0', then avoid (do not set fallback value)
-            if (
-                $name != 'department'
-                && $externalFilter[$name] === '0'
-            ) {
-                // standard
-                $insecureValue = $settings[$name . 'List'];
-            }
+            // standard
+            $insecureValue = $settings[$name . 'List'];
         }
 
         return array_filter(

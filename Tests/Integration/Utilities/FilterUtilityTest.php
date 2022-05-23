@@ -14,9 +14,9 @@ namespace RKW\RkwRelated\Tests\Integration\Utilities;
  * The TYPO3 project - inspiring people to share!
  */
 
-use RKW\RkwBasics\Utility\FrontendSimulatorUtility;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use RKW\RkwRelated\Utilities\FilterUtility;
+use RKW\RkwBasics\Utility\FrontendSimulatorUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -33,10 +33,6 @@ class FilterUtilityTest extends FunctionalTestCase
 
     const IMPORT_PATH = __DIR__ . '/FilterUtilityTest/Fixtures/Database';
 
-    /**
-     * @const
-     */
-    const FIXTURE_PATH = __DIR__ . '/FilterUtilityTest/Fixtures';
 
     /**
      * @var string[]
@@ -80,11 +76,11 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->setUpFrontendRootPage(
             1,
             [
-                'EXT:rkw_basics/Configuration/TypoScript/setup.txt',
-                'EXT:rkw_authors/Configuration/TypoScript/setup.txt',
-                'EXT:rkw_projects/Configuration/TypoScript/setup.txt',
-                'EXT:rkw_related/Configuration/TypoScript/setup.txt',
-                self::FIXTURE_PATH . '/FilterUtilityTest/Frontend/Configuration/Rootpage.typoscript',
+                'EXT:rkw_basics/Configuration/TypoScript/setup.typoscript',
+                'EXT:rkw_authors/Configuration/TypoScript/setup.typoscript',
+                'EXT:rkw_projects/Configuration/TypoScript/setup.typoscript',
+                'EXT:rkw_related/Configuration/TypoScript/setup.typoscript',
+                'EXT:rkw_related/Tests/Integration/FilterUtilityTest/Frontend/Configuration/Rootpage.typoscript',
             ]
         );
 
@@ -92,7 +88,8 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->subject = $this->objectManager->get(FilterUtility::class);
 
-        FrontendSimulatorUtility::simulateFrontendEnvironment();
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
+
     }
 
 
@@ -690,8 +687,7 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-
-        static::assertCount(3, $result);
+        static::assertCount(0, $result);
 
     }
 
@@ -726,6 +722,74 @@ class FilterUtilityTest extends FunctionalTestCase
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
         static::assertCount(1, $result);
         static::assertEquals(2, $result[0]);
+    }
+
+
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getCombinedFilterBySpecificDepartmentReturnsThatDepartment()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a filter is configured via settings
+         * Given a pagePropertyFilter for the same filter-type is also set via settings
+         * Given an external filter for the same filter-type is given
+         * When getCombinedFilterByName is called
+         * Then the pagePropertyFilter is returned
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check190.xml');
+        $GLOBALS['TSFE']->id = 190;
+
+        $settings = [
+            'departmentList' => '1, 2',
+            'pagePropertyFilter' => 'department'
+        ];
+        $externalFilter = [
+            'department' => '1',
+        ];
+
+        $result = $this->subject::getCombinedFilterByName('department', $settings, $externalFilter);
+        static::assertCount(1, $result);
+        static::assertEquals(1, $result[0]);
+    }
+
+
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getCombinedFilterByAllDepartmentsReturnsDefaultDepartmentList()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a filter is configured via settings
+         * Given a pagePropertyFilter for the same filter-type is also set via settings
+         * Given an external filter for the same filter-type is given
+         * When getCombinedFilterByName is called
+         * Then the pagePropertyFilter is returned
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check190.xml');
+        $GLOBALS['TSFE']->id = 190;
+
+        $settings = [
+            'departmentList' => '1, 2, 4',
+            'pagePropertyFilter' => 'department'
+        ];
+        $externalFilter = [
+            'department' => '0',
+        ];
+
+        $result = $this->subject::getCombinedFilterByName('department', $settings, $externalFilter);
+        static::assertCount(3, $result);
+        static::assertEquals(1, $result[0]);
+        static::assertEquals(2, $result[1]);
+        static::assertEquals(4, $result[2]);
     }
 
 
@@ -1122,6 +1186,7 @@ class FilterUtilityTest extends FunctionalTestCase
     protected function tearDown()
     {
         parent::tearDown();
+        FrontendSimulatorUtility::resetFrontendEnvironment();
     }
 
 
