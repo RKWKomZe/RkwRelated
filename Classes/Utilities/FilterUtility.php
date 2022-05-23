@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use RKW\RkwRelated\Domain\Repository\PagesRepository;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
 * Filter
@@ -147,10 +148,12 @@ class FilterUtility
             return [$pagePropertyFilter[$name]];
         }
 
-
-        // take external filter
+        // take external filter (except there is nothing specific selected)
         $insecureValue = '';
-        if (isset($externalFilter[$name])) {
+        if (
+            isset($externalFilter[$name])
+            && $externalFilter[$name] !== '0'
+        ) {
 
             if (is_array($externalFilter[$name])) {
                 $insecureValue = implode(',', $externalFilter[$name]);
@@ -160,7 +163,16 @@ class FilterUtility
 
         // fallback to defined list
         } else if (isset($settings[$name . 'List'])) {
-            $insecureValue = $settings[$name . 'List'];
+
+            // FIX: Avoid "department" filter because it's have an inverted logic (default / fallback instead of allowed options)
+            // if "department" is not set (null), then use fallback. But if filter is used and value is '0', then avoid (do not set fallback value)
+            if (
+                $name != 'department'
+                && $externalFilter[$name] === '0'
+            ) {
+                // standard
+                $insecureValue = $settings[$name . 'List'];
+            }
         }
 
         return array_filter(

@@ -14,6 +14,7 @@ namespace RKW\RkwRelated\Tests\Integration\Utilities;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwBasics\Utility\FrontendSimulatorUtility;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use RKW\RkwRelated\Utilities\FilterUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -32,6 +33,10 @@ class FilterUtilityTest extends FunctionalTestCase
 
     const IMPORT_PATH = __DIR__ . '/FilterUtilityTest/Fixtures/Database';
 
+    /**
+     * @const
+     */
+    const FIXTURE_PATH = __DIR__ . '/FilterUtilityTest/Fixtures';
 
     /**
      * @var string[]
@@ -79,7 +84,7 @@ class FilterUtilityTest extends FunctionalTestCase
                 'EXT:rkw_authors/Configuration/TypoScript/setup.txt',
                 'EXT:rkw_projects/Configuration/TypoScript/setup.txt',
                 'EXT:rkw_related/Configuration/TypoScript/setup.txt',
-                'EXT:rkw_related/Tests/Integration/FilterUtilityTest/Frontend/Configuration/Rootpage.typoscript',
+                self::FIXTURE_PATH . '/FilterUtilityTest/Frontend/Configuration/Rootpage.typoscript',
             ]
         );
 
@@ -87,6 +92,7 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->subject = $this->objectManager->get(FilterUtility::class);
 
+        FrontendSimulatorUtility::simulateFrontendEnvironment();
     }
 
 
@@ -684,7 +690,8 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(0, $result);
+
+        static::assertCount(3, $result);
 
     }
 
