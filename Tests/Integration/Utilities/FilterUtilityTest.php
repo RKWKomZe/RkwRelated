@@ -725,6 +725,76 @@ class FilterUtilityTest extends FunctionalTestCase
     }
 
 
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getCombinedFilterBySpecificDepartmentReturnsThatDepartment()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a filter is configured via settings
+         * Given a pagePropertyFilter for the same filter-type is also set via settings
+         * Given an external filter for the same filter-type is given
+         * When getCombinedFilterByName is called
+         * Then the pagePropertyFilter is returned
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check190.xml');
+        $GLOBALS['TSFE']->id = 190;
+
+        $settings = [
+            'departmentList' => '1, 2',
+            'pagePropertyFilter' => 'department'
+        ];
+        $externalFilter = [
+            'department' => '1',
+        ];
+
+        $result = $this->subject::getCombinedFilterByName('department', $settings, $externalFilter);
+        static::assertCount(1, $result);
+        static::assertEquals(1, $result[0]);
+    }
+
+
+    /**
+     * @test
+     * @throws \Nimut\TestingFramework\Exception\Exception
+     */
+    public function getCombinedFilterByAllDepartmentsReturnsAllDepartmentRecords()
+    {
+
+        /**
+         * SPECIAL CASE! IF NO DEPARTMENT IS SELECTED, RETURN 0! AND NOT THE DEFAULT "departmentList" !
+         * (The value "0" will ensure, that the repository is searching in all department-records)
+         *
+         *
+         * Scenario:
+         *
+         * Given a filter is configured via settings
+         * Given a pagePropertyFilter for the same filter-type is also set via settings
+         * Given an external filter for the same filter-type is given
+         * When getCombinedFilterByName is called
+         * Then NOTHING is returned
+         */
+        $this->importDataSet(self::IMPORT_PATH .'/Check190.xml');
+        $GLOBALS['TSFE']->id = 190;
+
+        $settings = [
+            'departmentList' => '1, 2, 4',
+            'pagePropertyFilter' => 'department'
+        ];
+        $externalFilter = [
+            'department' => '0',
+        ];
+
+        $result = $this->subject::getCombinedFilterByName('department', $settings, $externalFilter);
+        static::assertCount(0, $result);
+
+    }
+
+
     //=============================================
 
     /**
