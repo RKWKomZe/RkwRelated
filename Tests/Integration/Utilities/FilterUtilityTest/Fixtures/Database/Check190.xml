@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <pages>
+        <uid>180</uid>
+        <pid>1</pid>
+        <title>Page Test</title>
+        <doktype>1</doktype>
+        <tx_rkwbasics_department>1</tx_rkwbasics_department>
+        <tx_rkwbasics_document_type>2</tx_rkwbasics_document_type>
+    </pages>
+
+
+    <tx_rkwbasics_domain_model_department>
+        <uid>1</uid>
+        <pid>1</pid>
+        <name>Quality Assurance</name>
+    </tx_rkwbasics_domain_model_department>
+
+    <tx_rkwbasics_domain_model_department>
+        <uid>2</uid>
+        <pid>1</pid>
+        <name>Department2</name>
+    </tx_rkwbasics_domain_model_department>
+
+    <tx_rkwbasics_domain_model_department>
+        <uid>3</uid>
+        <pid>1</pid>
+        <name>Department3</name>
+    </tx_rkwbasics_domain_model_department>
+
+    <tx_rkwbasics_domain_model_department>
+        <uid>4</uid>
+        <pid>1</pid>
+        <name>Department4</name>
+    </tx_rkwbasics_domain_model_department>
+
+</dataset>
+

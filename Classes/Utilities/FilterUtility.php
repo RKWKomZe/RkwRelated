@@ -49,7 +49,7 @@ class FilterUtility
      * @param array $settings
      * @return array
      */
-    public static function getExcludePidList(array $settings)
+    public static function getExcludePidList(array $settings): array
     {
 
         // if a special startingPid is set, set it as rootPid
@@ -147,10 +147,19 @@ class FilterUtility
             return [$pagePropertyFilter[$name]];
         }
 
-
-        // take external filter
+        // take external filter (except there is nothing specific selected)
         $insecureValue = '';
-        if (isset($externalFilter[$name])) {
+        if (
+            isset($externalFilter[$name])
+            && (
+                // !! Important: The field "department" has an inverted logic !!
+                $name != 'department' ||
+                (
+                    $name == 'department'
+                    && $externalFilter[$name]
+                )
+            )
+        ) {
 
             if (is_array($externalFilter[$name])) {
                 $insecureValue = implode(',', $externalFilter[$name]);
@@ -160,7 +169,11 @@ class FilterUtility
 
         // fallback to defined list
         } else if (isset($settings[$name . 'List'])) {
-            $insecureValue = $settings[$name . 'List'];
+
+            // standard
+            if ($name != 'department') {
+                $insecureValue = $settings[$name . 'List'];
+            }
         }
 
         return array_filter(
