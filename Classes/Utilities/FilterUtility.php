@@ -172,7 +172,9 @@ class FilterUtility
         } else if (isset($settings[$name . 'List'])) {
 
             // standard
-            $insecureValue = $settings[$name . 'List'];
+            if ($name != 'department') {
+                $insecureValue = $settings[$name . 'List'];
+            }
         }
 
         return array_filter(

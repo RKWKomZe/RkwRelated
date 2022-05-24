@@ -762,17 +762,21 @@ class FilterUtilityTest extends FunctionalTestCase
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getCombinedFilterByAllDepartmentsReturnsDefaultDepartmentList()
+    public function getCombinedFilterByAllDepartmentsReturnsAllDepartmentRecords()
     {
 
         /**
+         * SPECIAL CASE! IF NO DEPARTMENT IS SELECTED, RETURN 0! AND NOT THE DEFAULT "departmentList" !
+         * (The value "0" will ensure, that the repository is searching in all department-records)
+         *
+         *
          * Scenario:
          *
          * Given a filter is configured via settings
          * Given a pagePropertyFilter for the same filter-type is also set via settings
          * Given an external filter for the same filter-type is given
          * When getCombinedFilterByName is called
-         * Then the pagePropertyFilter is returned
+         * Then NOTHING is returned
          */
         $this->importDataSet(self::IMPORT_PATH .'/Check190.xml');
         $GLOBALS['TSFE']->id = 190;
@@ -786,10 +790,8 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('department', $settings, $externalFilter);
-        static::assertCount(3, $result);
-        static::assertEquals(1, $result[0]);
-        static::assertEquals(2, $result[1]);
-        static::assertEquals(4, $result[2]);
+        static::assertCount(0, $result);
+
     }
 
 
