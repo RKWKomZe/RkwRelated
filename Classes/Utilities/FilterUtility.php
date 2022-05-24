@@ -20,7 +20,6 @@ use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use RKW\RkwRelated\Domain\Repository\PagesRepository;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
 * Filter
