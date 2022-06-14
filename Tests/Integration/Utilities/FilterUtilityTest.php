@@ -687,7 +687,7 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(0, $result);
+        static::assertCount(3, $result);
 
     }
 
@@ -758,17 +758,19 @@ class FilterUtilityTest extends FunctionalTestCase
     }
 
 
+    //=============================================
+
+
     /**
      * @test
      * @throws \Nimut\TestingFramework\Exception\Exception
      */
-    public function getCombinedFilterByAllDepartmentsReturnsAllDepartmentRecords()
+    public function getCombinedFilterForDepartmentByAllDepartmentsReturnsAllDepartmentRecords()
     {
 
         /**
          * SPECIAL CASE! IF NO DEPARTMENT IS SELECTED, RETURN 0! AND NOT THE DEFAULT "departmentList" !
          * (The value "0" will ensure, that the repository is searching in all department-records)
-         *
          *
          * Scenario:
          *
@@ -789,7 +791,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'department' => '0',
         ];
 
-        $result = $this->subject::getCombinedFilterByName('department', $settings, $externalFilter);
+        $result = $this->subject::getCombinedFilterForDepartment($settings, $externalFilter);
         static::assertCount(0, $result);
 
     }
