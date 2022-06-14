@@ -82,8 +82,7 @@ class MoreController extends AbstractController
                 $this->settings,
                 $filter
             ),
-            'department' => $this->filterUtility::getCombinedFilterByName(
-                'department',
+            'department' => $this->filterUtility::getCombinedFilterForDepartment(
                 $this->settings,
                 $filter
             ),
