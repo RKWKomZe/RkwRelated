@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use RKW\RkwRelated\Domain\Repository\PagesRepository;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
 * Filter
@@ -128,7 +129,7 @@ class FilterUtility
      * Gets the combined filter by name
      *
      * @param string $name
-     * @param array settings
+     * @param array $settings
      * @param array $externalFilter
      * @return array
      */
@@ -150,15 +151,8 @@ class FilterUtility
         // take external filter (except there is nothing specific selected)
         $insecureValue = '';
         if (
-            isset($externalFilter[$name])
-            && (
-                // !! Important: The field "department" has an inverted logic !!
-                $name != 'department' ||
-                (
-                    $name == 'department'
-                    && $externalFilter[$name]
-                )
-            )
+            isset($externalFilter[$name]) &&
+            $externalFilter[$name] != '0'
         ) {
 
             if (is_array($externalFilter[$name])) {
@@ -169,12 +163,53 @@ class FilterUtility
 
         // fallback to defined list
         } else if (isset($settings[$name . 'List'])) {
+            $insecureValue = $settings[$name . 'List'];
+        }
 
-            // standard
-            if ($name != 'department') {
-                $insecureValue = $settings[$name . 'List'];
+        return array_filter(
+            GeneralUtility::trimExplode(
+                ',',
+                preg_replace('/[^0-9a-z,]+/', '', $insecureValue),
+                true
+            )
+        );
+    }
+
+
+    /**
+     * Gets the combined filter for department
+     *
+     * !! Important: The field "department" has an inverted logic !!
+     * -> If no department is selected, to not use the default value as fallback!
+     *
+     * @param array  $settings
+     * @param array  $externalFilter
+     * @return array
+     */
+    public static function getCombinedFilterForDepartment (array $settings, array $externalFilter = [])
+    {
+        $name = "department";
+
+        // page property filters take precedence if defined
+        if (
+            ($pagePropertyFilter = self::getPagePropertyFilters($settings))
+            && ($pagePropertyFilter[$name])
+        ) {
+            return [$pagePropertyFilter[$name]];
+        }
+
+        // take external filter (except there is nothing specific selected)
+        $insecureValue = '';
+        if ($externalFilter[$name] != '0') {
+
+            if (is_array($externalFilter[$name])) {
+                $insecureValue = implode(',', $externalFilter[$name]);
+            } else {
+                $insecureValue = $externalFilter[$name];
             }
         }
+
+        // ELSE: Do nothing! Do not use a predefined value
 
         return array_filter(
             GeneralUtility::trimExplode(
