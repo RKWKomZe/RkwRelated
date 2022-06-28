@@ -200,16 +200,24 @@ class FilterUtility
 
         // take external filter (except there is nothing specific selected)
         $insecureValue = '';
-        if ($externalFilter[$name] != '0') {
+        if (
+            $externalFilter[$name] != '0'
+            && $externalFilter[$name] != null
+        ) {
 
             if (is_array($externalFilter[$name])) {
                 $insecureValue = implode(',', $externalFilter[$name]);
             } else {
                 $insecureValue = $externalFilter[$name];
             }
-        }
 
-        // ELSE: Do nothing! Do not use a predefined value
+            // ELSE: Do not use a predefined value by default here. Only if no external filter is given
+        } else if (
+            $externalFilter[$name] == null
+            && isset($settings[$name . 'List'])
+        ) {
+            $insecureValue = $settings[$name . 'List'];
+        }
 
         return array_filter(
             GeneralUtility::trimExplode(
