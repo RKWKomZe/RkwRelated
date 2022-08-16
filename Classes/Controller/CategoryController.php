@@ -1,6 +1,6 @@
 <?php
 
-namespace RKW\RkwRelated\Domain\Model;
+namespace RKW\RkwRelated\Controller;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,38 +15,40 @@ namespace RKW\RkwRelated\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwBasics\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /**
- * Class SysCategory
+ * Class CategoryController
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
- * @author Steffen Kroggel <developer@steffenkroggel.de>
  * @copyright Rkw Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class SysCategory extends \TYPO3\CMS\Extbase\Domain\Model\Category
+class CategoryController extends AbstractController
 {
+
     /**
-     * txRkwrelatedLink
+     * sysCategoryRepository
      *
-     * @var \RKW\RkwRelated\Domain\Model\Pages
+     * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository
+     * @inject
      */
-    protected $txRkwrelatedLink = null;
+    protected $sysCategoryRepository = null;
 
     /**
-     * @return $txRkwrelatedLink
+     * showSelected
+     *
+     * @return void
      */
-    public function getTxRkwrelatedLink()
+    public function showSelectedAction()
     {
-        return $this->txRkwrelatedLink;
+        $this->view->assign(
+            'categoryList',
+            $this->sysCategoryRepository->findByUidList(
+                GeneralUtility::trimExplode(',', $this->settings['categorySelect']['categories'])
+            )
+        );
     }
-
-    /**
-     * @param \RKW\RkwRelated\Domain\Model\Pages $txRkwrelatedLink
-     */
-    public function setTxRkwrelatedLink(\RKW\RkwRelated\Domain\Model\Pages $txRkwrelatedLink): void
-    {
-        $this->txRkwrelatedLink = $txRkwrelatedLink;
-    }
-
 }
