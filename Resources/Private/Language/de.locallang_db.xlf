@@ -181,6 +181,41 @@
                 <source>Reduced</source>
                 <target>Reduziert</target>
             </trans-unit>
+
+
+            <!-- ========================================================== -->
+            <!-- Flexform: SelectedCategories  -->
+            <!-- ========================================================== -->
+            <trans-unit id="flexform.selected_categories.categories">
+                <source>Options</source>
+                <target>Einstellungen</target>
+            </trans-unit>
+            <trans-unit id="flexform.selected_categories.categorySelect.title">
+                <source>Title</source>
+                <target>Titel (optional)</target>
+            </trans-unit>
+            <trans-unit id="flexform.selected_categories.categorySelect.categories">
+                <source>Select categories</source>
+                <target>Kategorien zur Anzeige auswählen (!! Hinweis: Nur Kategorien mit Link werden auch angezeigt !!)</target>
+            </trans-unit>
+            <trans-unit id="flexform.selected_categories.categorySelect.backgroundImage">
+                <source>Background image</source>
+                <target>Hintergrundbild (optional)</target>
+            </trans-unit>
+            <trans-unit id="flexform.selected_categories.categorySelect.links.target">
+                <source>Open links in in new windows</source>
+                <target>Links in einem neuen Browser-Fenster öffnen</target>
+            </trans-unit>
+
+
+            <!-- ========================================================== -->
+            <!-- TCA OVERRIDE -->
+            <!-- ========================================================== -->
+            <trans-unit id="tx_rkwrelated_domain_model_syscategory.tx_rkwrelated_link">
+                <source>Link</source>
+                <target>Link (Optional: Kommt u.a. in diversen Plugins zum Einsatz, die eine Verlinkung voraussetzen)</target>
+            </trans-unit>
+
 		</body>
 	</file>
 </xliff>

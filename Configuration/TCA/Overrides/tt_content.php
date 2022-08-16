@@ -25,6 +25,11 @@ defined('TYPO3_MODE') || die('Access denied.');
     'Morecontentpublication',
     'RKW Related: Mehr zum Thema - Publikationen'
 );
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    'RKW.RkwRelated',
+    'Selectedcategories',
+    'RKW Related: Kategorien (Auswahl)'
+);
 
 
 
@@ -104,4 +109,13 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
     $pluginSignature,
     'FILE:EXT:' . $extKey . '/Configuration/FlexForms/SimilarContent.xml'
+);
+
+$pluginName = strtolower('Selectedcategories');
+$pluginSignature = $extensionName . '_' . $pluginName;
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    $pluginSignature,
+    'FILE:EXT:' . $extKey . '/Configuration/FlexForms/SelectedCategories.xml'
 );
