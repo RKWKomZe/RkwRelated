@@ -4,6 +4,12 @@
 		<header/>
 		<body>
 
+		    <!-- Templates -->
+            <trans-unit id="templates.category.title">
+                <source>And with which topic can we support you?</source>
+                <target>Und bei welchem Thema können wir Sie unterstützen?</target>
+            </trans-unit>
+
         	<!-- Partials -->
 			<trans-unit id="partials.default.more.boxes.default.inner.byAuthor">
 				<source>by</source>
