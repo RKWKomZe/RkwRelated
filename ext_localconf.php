@@ -61,6 +61,19 @@ call_user_func(
 
             )
         );
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'RKW.' . $extKey,
+            'Selectedcategories',
+            array(
+                'Category' => 'showSelected',
+
+            ),
+            // non-cacheable actions
+            array(
+                'Category' => 'showSelected',
+
+            )
+        );
 
 
         //=================================================================
