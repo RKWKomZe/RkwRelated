@@ -1,57 +1,51 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-    <div class="slider owl-carousel owl-loaded owl-drag">
-        <div class="owl-stage-outer">
-            <div class="owl-stage">
-                <div class="owl-item active">
-                    <div class="slider-item">
-                        <div class="wizard">
-                            <picture class="wizard__img">
-                                <source srcset="{settings.categorySelect.backgroundImage}" media="(min-width: 1025px)">
-                                <source srcset="{settings.categorySelect.backgroundImage}" media="(min-width:769px)">
-                                <source srcset="{settings.categorySelect.backgroundImage}" media="(min-width:481px)">
-                                <source srcset="{settings.categorySelect.backgroundImage}" media="(min-width:321px)">
-                                <source srcset="{settings.categorySelect.backgroundImage}">
-                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" alt="Bild" height="460">
-                            </picture>
 
-                            <div class="wizard__text">
+        <div class="slider-item">
+            <div class="wizard">
+                <picture class="wizard__img">
+                    <source srcset="{settings.categorySelect.backgroundImage}" media="(min-width: 1025px)">
+                    <source srcset="{settings.categorySelect.backgroundImage}" media="(min-width:769px)">
+                    <source srcset="{settings.categorySelect.backgroundImage}" media="(min-width:481px)">
+                    <source srcset="{settings.categorySelect.backgroundImage}" media="(min-width:321px)">
+                    <source srcset="{settings.categorySelect.backgroundImage}">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" alt="Bild" height="460">
+                </picture>
 
-                                <h2 class="wizard__headline">
-                                    <f:if condition="{settings.categorySelect.title}">
-                                        <f:then>
-                                            {settings.categorySelect.title}
-                                        </f:then>
-                                        <f:else>
-                                            <f:translate key="templates.category.title" extensionName="RkwRelated" />
-                                        </f:else>
-                                    </f:if>
-                                </h2>
+                <div class="wizard__text">
 
-                                <div class="btn-list wizard__list">
-                                    <f:for each="{categoryList}" as="category">
-                                        <f:if condition="{category.txRkwrelatedLink}">
-                                            <f:if condition="{settings.categorySelect.links.target}">
-                                                <f:then>
-                                                    <f:link.page target="_blank" class="btn btn--white" pageUid="{category.txRkwrelatedLink.uid}">
-                                                        {category.title}
-                                                    </f:link.page>
-                                                </f:then>
-                                                <f:else>
-                                                    <f:link.page class="btn btn--white" pageUid="{category.txRkwrelatedLink.uid}">
-                                                        {category.title}
-                                                    </f:link.page>
-                                                </f:else>
-                                            </f:if>
-                                        </f:if>
-                                    </f:for>
-                                </div>
-                            </div>
-                        </div>
+                    <h2 class="wizard__headline">
+                        <f:if condition="{settings.categorySelect.title}">
+                            <f:then>
+                                {settings.categorySelect.title}
+                            </f:then>
+                            <f:else>
+                                <f:translate key="templates.category.title" extensionName="RkwRelated" />
+                            </f:else>
+                        </f:if>
+                    </h2>
+
+                    <div class="btn-list wizard__list">
+                        <f:for each="{categoryList}" as="category">
+                            <f:if condition="{category.txRkwrelatedLink}">
+                                <f:if condition="{settings.categorySelect.links.target}">
+                                    <f:then>
+                                        <f:link.page target="_blank" class="btn btn--white" pageUid="{category.txRkwrelatedLink.uid}">
+                                            {category.title}
+                                        </f:link.page>
+                                    </f:then>
+                                    <f:else>
+                                        <f:link.page class="btn btn--white" pageUid="{category.txRkwrelatedLink.uid}">
+                                            {category.title}
+                                        </f:link.page>
+                                    </f:else>
+                                </f:if>
+                            </f:if>
+                        </f:for>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
 
 </html>
