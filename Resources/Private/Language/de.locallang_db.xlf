@@ -200,7 +200,7 @@
             </trans-unit>
             <trans-unit id="flexform.selected_categories.categorySelect.backgroundImage">
                 <source>Background image</source>
-                <target>Hintergrundbild (optional)</target>
+                <target>Hintergrundbild</target>
             </trans-unit>
             <trans-unit id="flexform.selected_categories.categorySelect.links.target">
                 <source>Open links in in new windows</source>
