@@ -57,7 +57,7 @@
                                 <type>select</type>
                                 <foreign_table>tx_rkwbasics_domain_model_documenttype</foreign_table>
                                 <foreign_table_where>
-                                    AND tx_rkwbasics_domain_model_documenttype.type != "events" AND tx_rkwbasics_domain_model_documenttype.deleted = 0 AND tx_rkwbasics_domain_model_documenttype.hidden = 0 ORDER BY tx_rkwbasics_domain_model_documenttype.name
+                                    AND tx_rkwbasics_domain_model_documenttype.sys_language_uid = ###REC_FIELD_sys_language_uid### AND tx_rkwbasics_domain_model_documenttype.type != "events" AND tx_rkwbasics_domain_model_documenttype.deleted = 0 AND tx_rkwbasics_domain_model_documenttype.hidden = 0 ORDER BY tx_rkwbasics_domain_model_documenttype.name
                                 </foreign_table_where>
                             </config>
                         </TCEforms>
@@ -72,7 +72,7 @@
                                 <type>select</type>
                                 <foreign_table>tx_rkwbasics_domain_model_department</foreign_table>
                                 <foreign_table_where>
-                                    AND tx_rkwbasics_domain_model_department.deleted = 0 AND tx_rkwbasics_domain_model_department.hidden = 0 ORDER BY tx_rkwbasics_domain_model_department.name
+                                    AND tx_rkwbasics_domain_model_department.sys_language_uid = ###REC_FIELD_sys_language_uid### AND tx_rkwbasics_domain_model_department.deleted = 0 AND tx_rkwbasics_domain_model_department.hidden = 0 ORDER BY tx_rkwbasics_domain_model_department.name
                                 </foreign_table_where>
                             </config>
                         </TCEforms>
