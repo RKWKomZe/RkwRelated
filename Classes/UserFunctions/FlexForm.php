@@ -18,8 +18,6 @@ namespace RKW\RkwRelated\UserFunctions;
 use RKW\RkwBasics\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class FlexForm
