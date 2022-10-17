@@ -25,7 +25,7 @@
 			</trans-unit>
 			<trans-unit id="flexform.more.department">
 				<source>Topic</source>
-				<target>Thema</target>
+				<target>Schwerpunkt</target>
 			</trans-unit>
 			<trans-unit id="flexform.more.startingPid">
 				<source>Starting Pid for Search</source>
@@ -93,7 +93,7 @@
 			</trans-unit>
 			<trans-unit id="flexform.more.showDepartment">
 				<source>Show topic option</source>
-				<target>Option "Thema" anbieten</target>
+				<target>Option "Schwerpunkt" anbieten</target>
 			</trans-unit>
 			<trans-unit id="flexform.more.showDocumentType">
 				<source>Show document type option</source>
