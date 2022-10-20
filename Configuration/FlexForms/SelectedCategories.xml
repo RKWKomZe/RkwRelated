@@ -1,0 +1,68 @@
+<T3DataStructure>
+    <sheets>
+        <filteroptions>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.selected_categories.categories</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.categorySelect.title>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.selected_categories.categorySelect.title</label>
+                        <config>
+                            <type>input</type>
+                            <size>30</size>
+                            <max>100</max>
+                            <eval>trim</eval>
+                        </config>
+                    </settings.categorySelect.title>
+                    <settings.categorySelect.backgroundImage>
+                        <TCEforms>
+                            <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.selected_categories.categorySelect.backgroundImage</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>file</internal_type>
+                                <allowed>jpg, jpeg, gif, png</allowed>
+                                <show_thumbs>1</show_thumbs>
+                                <minitems>1</minitems>
+                                <maxitems>1</maxitems>
+                                <size>1</size>
+                            </config>
+                        </TCEforms>
+                    </settings.categorySelect.backgroundImage>
+                    <settings.categorySelect.links.target>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.selected_categories.categorySelect.links.target</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
+                    </settings.categorySelect.links.target>
+                    <settings.categorySelect.categories>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.selected_categories.categorySelect.categories</label>
+                            <config>
+                                <type>select</type>
+                                <autoSizeMax>50</autoSizeMax>
+                                <foreign_table>sys_category</foreign_table>
+                                <foreign_table_where> AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.title ASC</foreign_table_where>
+                                <maxitems>9999</maxitems>
+                                <renderMode>tree</renderMode>
+                                <size>10</size>
+                                <treeConfig>
+                                    <appearance>
+                                        <expandAll>1</expandAll>
+                                        <showHeader>1</showHeader>
+                                    </appearance>
+                                    <parentField>parent</parentField>
+                                </treeConfig>
+                            </config>
+                        </TCEforms>
+                    </settings.categorySelect.categories>
+                </el>
+            </ROOT>
+        </filteroptions>
+
+
+    </sheets>
+</T3DataStructure>

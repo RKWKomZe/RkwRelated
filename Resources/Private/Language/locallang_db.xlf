@@ -141,6 +141,34 @@
                 <source>Reduced</source>
             </trans-unit>
 
+
+            <!-- ========================================================== -->
+            <!-- Flexform: SelectedCategories  -->
+            <!-- ========================================================== -->
+            <trans-unit id="flexform.selected_categories.categories">
+                <source>Options</source>
+            </trans-unit>
+            <trans-unit id="flexform.selected_categories.categorySelect.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="flexform.selected_categories.categorySelect.categories">
+                <source>Select categories</source>
+            </trans-unit>
+            <trans-unit id="flexform.selected_categories.categorySelect.backgroundImage">
+                <source>Background image</source>
+            </trans-unit>
+            <trans-unit id="flexform.selected_categories.categorySelect.links.target">
+                <source>Open links in in new windows</source>
+            </trans-unit>
+
+
+            <!-- ========================================================== -->
+            <!-- TCA OVERRIDE -->
+            <!-- ========================================================== -->
+            <trans-unit id="tx_rkwrelated_domain_model_syscategory.tx_rkwrelated_link">
+                <source>Link</source>
+            </trans-unit>
+
 		</body>
 	</file>
 </xliff>
