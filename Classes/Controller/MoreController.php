@@ -149,7 +149,7 @@ class MoreController extends AbstractController
             // settings for publications including fallback to old solution
             $findPublications = intval($this->settings['displayPublications']);
 
-            /** @deprectated old setting */
+            /** @deprecated old setting */
             if (
                 ($this->settings['everythingWithoutPublications'])
                 || ($this->request->getPluginName() == 'Morecontentpublication')
@@ -298,7 +298,7 @@ class MoreController extends AbstractController
             } else {
 
                 // get JSON helper
-                /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
+                /** @var \RKW\RkwAjax\Encoder\JsonTemplateEncoder $jsonHelper */
                 $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
 
                 // get new list

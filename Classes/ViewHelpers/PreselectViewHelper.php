@@ -32,9 +32,9 @@ class PreselectViewHelper extends AbstractViewHelper
      */
     public function initializeArguments()
     {
+        parent::initializeArguments();
         $this->registerArgument('filterList', 'array', 'An array of filter set.');
         $this->registerArgument('value', 'scalar', 'The value to compare the filters with.');
-
     }
 
 

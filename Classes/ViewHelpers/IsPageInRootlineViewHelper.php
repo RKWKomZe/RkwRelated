@@ -15,6 +15,7 @@ namespace RKW\RkwRelated\ViewHelpers;
  */
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * PreselectViewHelper
@@ -27,11 +28,14 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class IsPageInRootlineViewHelper extends AbstractViewHelper
 {
 
+    use CompileWithRenderStatic;
+
     /**
      * Initialize arguments
      */
     public function initializeArguments()
     {
+        parent::initializeArguments();
         $this->registerArgument('pageUid', 'integer', 'An pageUid to check against the current rootline.');
     }
 

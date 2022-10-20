@@ -131,7 +131,7 @@ class SimilarController extends AbstractController
                 && count($categories)
             ) {
 
-                /** @toDo: if language is not the standard one (= not "0"), use pagesLanguageOverlayRepository -- really needed? */
+                /** @todo if language is not the standard one (= not "0"), use pagesLanguageOverlayRepository -- really needed? */
                 $relatedPages = $this->pagesRepository->findBySysCategory(
                     $categories,
                     $excludePidList,
@@ -287,7 +287,7 @@ class SimilarController extends AbstractController
             } else {
 
                 // get JSON helper
-                /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
+                /** @var \RKW\RkwAjax\Encoder\JsonTemplateEncoder $jsonHelper */
                 $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
 
                 $jsonHelper->setHtml(

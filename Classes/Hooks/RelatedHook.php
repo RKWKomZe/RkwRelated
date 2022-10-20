@@ -4,6 +4,7 @@ namespace RKW\RkwRelated\Hooks;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\RootlineUtility;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -57,7 +58,7 @@ class RelatedHook
             $cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
 
             // 1.) clear extension page cache of current page when plugin filter is changed
-            // @toDo: Since everytime a tt_content- element is changed, the page is also stored, we don't need this separate hook here!
+            // @todo Since everytime a tt_content- element is changed, the page is also stored, we don't need this separate hook here!
             if (
                 ($table == 'tt_content')
                 && (is_int($id))
@@ -102,7 +103,7 @@ class RelatedHook
                         $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Cleared extension cache by tag for page %s. Trigged by clearCachePageList.', $pid));
 
                         // clear page cache
-                        // @toDo: Do we really need this? No plugin of this extension is cached in page-cache!
+                        // @todo Do we really need this? No plugin of this extension is cached in page-cache!
                         // GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\CacheService')->clearPageCache($pid);
                         // $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Cleared page cache by tag for page %s. Trigged by clearCachePageList.', $pid));
 
@@ -144,9 +145,8 @@ class RelatedHook
         $template->tt_track = 0;
         $template->init();
 
-        /** @var \TYPO3\CMS\Frontend\Page\PageRepository $sysPage */
-        $sysPage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
-        $rootLine = $sysPage->getRootLine(intval($pageId));
+        /** @var array $rootLine */
+        $rootLine = GeneralUtility::makeInstance(RootlineUtility::class, intval($pageId))->get();
         $template->runThroughTemplates($rootLine, 0);
         $template->generateConfig();
 

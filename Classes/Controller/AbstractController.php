@@ -30,7 +30,7 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      * pagesRepository
      *
      * @var \RKW\RkwRelated\Domain\Repository\PagesRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $pagesRepository = null;
 
@@ -38,7 +38,7 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      * pagesLanguageOverlayRepository
      *
      * @var \RKW\RkwRelated\Domain\Repository\PagesLanguageOverlayRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $pagesLanguageOverlayRepository = null;
 
@@ -46,7 +46,7 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      * ttContentRepository
      *
      * @var \RKW\RkwRelated\Domain\Repository\TtContentRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $ttContentRepository = null;
 
@@ -55,7 +55,7 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      * departmentRepository
      *
      * @var \RKW\RkwBasics\Domain\Repository\DepartmentRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $departmentRepository = null;
 
@@ -63,7 +63,7 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      * documentTypeRepository
      *
      * @var \RKW\RkwBasics\Domain\Repository\DocumentTypeRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $documentTypeRepository = null;
 
@@ -72,21 +72,21 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      * filterUtility
      *
      * @var \RKW\RkwRelated\Utilities\FilterUtility
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $filterUtility;
 
 
     /**
      * @var \RKW\RkwRelated\Cache\ContentCache
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $contentCache;
 
 
     /**
      * @var \RKW\RkwRelated\Cache\CountCache
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $countCache;
 
