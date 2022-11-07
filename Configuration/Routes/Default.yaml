@@ -1,0 +1,25 @@
+routeEnhancers:
+  RkwRelated:
+    type: Extbase
+    extension: 'rkwRelated'
+    plugin: 'morecontent'
+    routes:
+      - { routePath: '/show-more/', _controller: 'More::list' }
+      - { routePath: '/show-more//{pageNumber}', _controller: 'More::list' }
+      - { routePath: '/show-more/{ttContentUid}', _controller: 'More::list' }
+      - { routePath: '/show-more/{ttContentUid}/{pageNumber}', _controller: 'More::list' }
+    requirements:
+      pageNumber: '[0-9]{1,100}'
+      ttContentUid: '[0-9]{1,100}'
+  RkwRelated2:
+    type: Extbase
+    extension: 'rkwRelated'
+    plugin: 'morecontent2'
+    routes:
+      - { routePath: '/show-more2/', _controller: 'More::list' }
+      - { routePath: '/show-more2//{pageNumber}', _controller: 'More::list' }
+      - { routePath: '/show-more2/{ttContentUid}', _controller: 'More::list' }
+      - { routePath: '/show-more2/{ttContentUid}/{pageNumber}', _controller: 'More::list' }
+    requirements:
+      pageNumber: '[0-9]{1,100}'
+      ttContentUid: '[0-9]{1,100}'
