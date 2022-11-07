@@ -123,7 +123,7 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
             $this->standAloneViewHelper->render()
         );
 
-        static::assertEquals($result, 'FALSE');
+        self::assertEquals($result, 'FALSE');
     }
 
 
@@ -155,7 +155,7 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
             $this->standAloneViewHelper->render()
         );
 
-        static::assertEquals($result, 'TRUE');
+        self::assertEquals($result, 'TRUE');
     }
 
 
