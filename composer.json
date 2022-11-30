@@ -25,7 +25,8 @@
     "require": {
         "php": ">=7.4",
         "typo3/cms-core": "~9.5.0",
-        "rkw/rkw-basics": "~9.5.0 || dev-feature/upgrade9.5",
+		"madj2k/accelerator": "~9.5.0",
+		"rkw/rkw-basics": "~9.5.0 || dev-feature/upgrade9.5",
         "rkw/rkw-projects": "~9.5.0 || dev-feature/upgrade9.5",
         "rkw/rkw-ajax": "~9.5.0 || dev-feature/upgrade9.5"
     },
