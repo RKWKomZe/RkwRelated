@@ -22,7 +22,7 @@ use RKW\RkwBasics\Helper\QueryTypo3;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -337,9 +337,9 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
             // 2. set leftJoin over categories
             $leftJoin = '
-                LEFT JOIN sys_category_record_mm AS sys_category_record_mm 
-                    ON pages.uid=sys_category_record_mm.uid_foreign 
-                    AND sys_category_record_mm.tablenames = \'pages\' 
+                LEFT JOIN sys_category_record_mm AS sys_category_record_mm
+                    ON pages.uid=sys_category_record_mm.uid_foreign
+                    AND sys_category_record_mm.tablenames = \'pages\'
                     AND sys_category_record_mm.fieldname = \'categories\'
                 LEFT JOIN sys_category AS sys_category
                     ON sys_category_record_mm.uid_local=sys_category.uid
@@ -351,11 +351,11 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 && ($type == 1)
             ){
                 $leftJoin = '
-                    LEFT JOIN tx_rkwprojects_domain_model_projects AS tx_rkwprojects_domain_model_projects 
+                    LEFT JOIN tx_rkwprojects_domain_model_projects AS tx_rkwprojects_domain_model_projects
                         ON pages.tx_rkwprojects_project_uid=tx_rkwprojects_domain_model_projects.uid
-                    LEFT JOIN sys_category_record_mm AS sys_category_record_mm 
-                        ON tx_rkwprojects_domain_model_projects.uid=sys_category_record_mm.uid_foreign 
-                        AND sys_category_record_mm.tablenames = \'tx_rkwprojects_domain_model_projects\' 
+                    LEFT JOIN sys_category_record_mm AS sys_category_record_mm
+                        ON tx_rkwprojects_domain_model_projects.uid=sys_category_record_mm.uid_foreign
+                        AND sys_category_record_mm.tablenames = \'tx_rkwprojects_domain_model_projects\'
                         AND sys_category_record_mm.fieldname = \'sys_category\'
                     LEFT JOIN sys_category AS sys_category
                         ON sys_category_record_mm.uid_local=sys_category.uid
@@ -392,7 +392,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     (
                         pages.tx_rkwpdf2content_is_import = 1
                         AND pages.tx_rkwpdf2content_is_import_sub = 0
-                    ) 
+                    )
                     OR pages.tx_rkwpdf2content_is_import = 0
                 )';
 
@@ -407,9 +407,9 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
             // 5. Final statement
             $finalStatement = '
-                SELECT count(pages.uid) as counter, pages.uid, ' . implode(', pages.', $select) . ' FROM pages 
+                SELECT count(pages.uid) as counter, pages.uid, ' . implode(', pages.', $select) . ' FROM pages
                 ' . $leftJoin . '
-                WHERE 
+                WHERE
                     sys_category.uid IN(' . implode(',', $sysCategoriesList) . ')
                     AND ' . implode(' AND ', $constraints) .
                 QueryTypo3::getWhereClauseForEnableFields('pages') .

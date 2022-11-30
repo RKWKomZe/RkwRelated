@@ -15,18 +15,21 @@ namespace RKW\RkwRelated\Utilities;
 * The TYPO3 project - inspiring people to share!
 */
 
+use RKW\RkwBasics\Domain\Model\Department;
+use RKW\RkwProjects\Domain\Model\Projects;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use RKW\RkwRelated\Domain\Repository\PagesRepository;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
 * Filter
 *
 * @author Steffen Kroggel <developer@steffenkroggel.de>
-* @copyright Rkw Kompetenzzentrum
+* @copyright RKW Kompetenzzentrum
 * @package RKW_Related
 * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
 */
@@ -75,7 +78,7 @@ class FilterUtility
      * @param array $settings
      * @return array
      */
-    public static function getIncludePidList (array $settings)
+    public static function getIncludePidList (array $settings): array
     {
 
         $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
@@ -133,7 +136,7 @@ class FilterUtility
      * @param array $externalFilter
      * @return array
      */
-    public static function getCombinedFilterByName (string $name, array $settings, array $externalFilter = [])
+    public static function getCombinedFilterByName (string $name, array $settings, array $externalFilter = []): array
     {
 
         if (!in_array($name, array_keys(self::VALID_FILTERS))) {
@@ -186,7 +189,7 @@ class FilterUtility
      * @param array  $externalFilter
      * @return array
      */
-    public static function getCombinedFilterForDepartment (array $settings, array $externalFilter = [])
+    public static function getCombinedFilterForDepartment (array $settings, array $externalFilter = []): array
     {
         $name = "department";
 
@@ -235,7 +238,7 @@ class FilterUtility
      * @param array settings
      * @return array
      */
-    public static function getPagePropertyFilters (array $settings)
+    public static function getPagePropertyFilters (array $settings): array
     {
         $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
 
@@ -278,7 +281,7 @@ class FilterUtility
      *
      * @return \RKW\RkwProjects\Domain\Model\Projects|null
      */
-    public static function getPageProjectRecursive ()
+    public static function getPageProjectRecursive () :? Projects
     {
 
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
@@ -332,7 +335,7 @@ class FilterUtility
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>|null
      */
-    public static function getPageSysCategories ()
+    public static function getPageSysCategories () :? ObjectStorage
     {
 
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
@@ -368,7 +371,7 @@ class FilterUtility
      *
      * @return \RKW\RkwBasics\Domain\Model\Department|null
      */
-    public static function getPageDepartmentRecursive ()
+    public static function getPageDepartmentRecursive () :? Department
     {
 
         $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);

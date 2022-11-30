@@ -20,7 +20,7 @@ namespace RKW\RkwRelated\Controller;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -60,11 +60,6 @@ class MoreController extends AbstractController
         // Attention: Following line doesn't work in ajax-context (return PID instead of plugins content element uid)
         if (!$ttContentUid) {
             $ttContentUid = $this->ajaxHelper->getContentUid();
-
-        /** @deprecated - making old version work with new ajax */
-        } else if ($ttContentUid) {
-            $this->ajaxHelper->setContentUid($ttContentUid);
-            $this->loadSettingsFromFlexForm();
         }
 
         $pageNumber++;
@@ -116,28 +111,19 @@ class MoreController extends AbstractController
             // determine items per page
             $itemsPerPage = 10;
 
-            /** new version */
-            if ($this->settings['version'] == 2) {
-                if (is_array($this->settings['itemLimitPerPage'])) {
+            if (is_array($this->settings['itemLimitPerPage'])) {
 
-                    $layout = strtolower($this->settings['layout'] ? $this->settings['layout'] : 'default');
-                    if ($this->settings['itemLimitPerPage'][$layout]) {
-                        $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
-                    }
-                    if ($this->settings['itemLimitPerPageOverride']) {
-                        $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
-                    }
-                    if (
-                        ($this->settings['itemsPerPage'])
-                        && (intval($this->settings['itemsPerPage']) <  $itemsPerPage)
-                    ){
-                        $itemsPerPage = intval($this->settings['itemsPerPage']);
-                    }
+                $layout = strtolower($this->settings['layout'] ? $this->settings['layout'] : 'default');
+                if ($this->settings['itemLimitPerPage'][$layout]) {
+                    $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
                 }
-
-            /** @deprecated old version*/
-            } else {
-                if ($this->settings['itemsPerPage']) {
+                if ($this->settings['itemLimitPerPageOverride']) {
+                    $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
+                }
+                if (
+                    ($this->settings['itemsPerPage'])
+                    && (intval($this->settings['itemsPerPage']) <  $itemsPerPage)
+                ){
                     $itemsPerPage = intval($this->settings['itemsPerPage']);
                 }
             }
@@ -148,14 +134,6 @@ class MoreController extends AbstractController
 
             // settings for publications including fallback to old solution
             $findPublications = intval($this->settings['displayPublications']);
-
-            /** @deprecated old setting */
-            if (
-                ($this->settings['everythingWithoutPublications'])
-                || ($this->request->getPluginName() == 'Morecontentpublication')
-            ){
-                $findPublications = ($this->request->getPluginName() == 'Morecontentpublication' ? 1 : ($this->settings['everythingWithoutPublications'] ? 2 : 0));
-            }
 
             // get pages
             $relatedPages = $this->pagesRepository->findByConfiguration(
@@ -207,19 +185,10 @@ class MoreController extends AbstractController
         }
 
         $showMoreLink = ($nextRelatedPagesCount < 1) ? false : !boolval($this->settings['hideMoreLink']);
-        /** @deprecated completely obsolete in version 2
-        if (intval($this->settings['maximumShownResults'])) {
-            $showMoreLink = ($pageNumber * $itemsPerPage) < intval($this->settings['maximumShownResults']) ? true : false;
-        } else {
-            $this->settings['maximumShownResults'] = PHP_INT_MAX;
-            $showMoreLink = true;
-        }*/
 
         /** @deprecated */
-        $moreItemsAvailable = $showMoreLink;
         $this->settings['maximumShownResults'] = PHP_INT_MAX;
         $this->settings['showMoreLink'] = $showMoreLink;
-
 
         // to avoid dependence to RkwProject, we're calling the repository this way
         $projectList = null;
@@ -230,92 +199,24 @@ class MoreController extends AbstractController
             $projectList = $projectsRepository->findAllByVisibility();
         }
 
-        /** New version */
-        if ($this->settings['version'] == 2) {
+        $assignments = [
+            'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
+            'relatedPagesList'       => $relatedPages,
+            'pageNumber'             => $pageNumber,
+            'showMoreLink'           => $showMoreLink,
+            'currentPluginName'      => $this->request->getPluginName(),
+            'departmentList'         => $this->departmentRepository->findAllByVisibility(),
+            'documentTypeList'       => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
+            'projectList'            => $projectList,
+            'years'                  => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
+            'filter'                 => $filter,
+            'filterFull'             => $filterList,
+            'sysLanguageUid'         => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
+            'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
+        ];
 
-            $assignments = [
-                'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
-                'relatedPagesList'       => $relatedPages,
-                'pageNumber'             => $pageNumber,
-                'showMoreLink'           => $showMoreLink,
-                'currentPluginName'      => $this->request->getPluginName(),
-                'departmentList'         => $this->departmentRepository->findAllByVisibility(),
-                'documentTypeList'       => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
-                'projectList'            => $projectList,
-                'years'                  => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
-                'filter'                 => $filter,
-                'filterFull'             => $filterList,
-                'sysLanguageUid'         => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
-                'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
-            ];
+        $this->view->assignMultiple($assignments);
 
-            $this->view->assignMultiple($assignments);
-
-        /** @depreacted  */
-        } else {
-
-            // get correct typeNum of plugin
-            $pageTypeAjax = '';
-            if ($this->request->getPluginName() == "Morecontent") {
-                $pageTypeAjax = intval($this->settings['pageTypeAjaxMoreContent']);
-            }
-            if ($this->request->getPluginName() == "Morecontent2") {
-                $pageTypeAjax = intval($this->settings['pageTypeAjaxMoreContent2']);
-            }
-            if ($this->request->getPluginName() == "Morecontentpublication") {
-                $pageTypeAjax = intval($this->settings['pageTypeAjaxMoreContentPublication']);
-            }
-
-            // Choose kind of view. Either normal templating, or its ajax-more functionality
-            // Use normal view on page 1. Else use ajax api for more items
-            // But if no ajax is used on a further page (robots eg), use normal view
-            $assignments = [
-                'relatedPagesList'            => $relatedPages,
-                'pageNumber'                  => $pageNumber,
-                'pageTypeAjax'                => $pageTypeAjax,
-                'settingsArray'               => $this->settings,  // do not access settings in view the normal way -> this would produce ajax issues
-                'ttContentUid'                => $ttContentUid,
-                'showMoreLink'                => $showMoreLink,
-                'moreItemsAvailable'          => $moreItemsAvailable,
-                'currentPluginName'           => $this->request->getPluginName(),
-                'currentPluginNameStrtolower' => strtolower($this->request->getPluginName()),
-                'departmentList'              => $this->departmentRepository->findAllByVisibility(),
-                'documentTypeList'            => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
-                'projectList'                 => $projectList,
-                'years'                       => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
-                'filter'                      => $filter,
-                'sysLanguageUid'              => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
-            ];
-
-            if (
-                ($pageNumber == 1)
-                && (!$this->isAjaxCall())
-                // && !$isFilterRequest
-            ) {
-
-                $this->view->assignMultiple($assignments);
-
-            } else {
-
-                // get JSON helper
-                /** @var \RKW\RkwAjax\Encoder\JsonTemplateEncoder $jsonHelper */
-                $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
-
-                // get new list
-                $assignments['requestType'] = $kindOfRequest = $isFilterRequest ? 'replace' : 'append';
-                $divId = $isFilterRequest ? 'tx-rkwrelated-result-section-' . strtolower($this->request->getPluginName()) . '-' . $ttContentUid : 'tx-rkwrelated-boxes-grid-' . strtolower($this->request->getPluginName()) . '-' . $ttContentUid;
-
-                $jsonHelper->setHtml(
-                    $divId,
-                    $assignments,
-                    $kindOfRequest,
-                    'Ajax/List/More.html'
-                );
-
-                print (string)$jsonHelper;
-                exit();
-            }
-        }
     }
 
 }

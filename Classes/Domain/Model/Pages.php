@@ -19,7 +19,7 @@ namespace RKW\RkwRelated\Domain\Model;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -40,13 +40,6 @@ class Pages extends PagesAbstract
      */
     protected $txRkwpdf2contentIsImport;
 
-    /**
-     * txRkwsearchPubdate
-     *
-     * @var integer
-     * @deprecated
-     */
-    protected $txRkwsearchPubdate;
 
     /**
      * txRkwauthorsAuthorship
@@ -131,19 +124,6 @@ class Pages extends PagesAbstract
      */
     public function getTxRkwpdf2contentIsImport() {
         return $this->txRkwpdf2contentIsImport;
-    }
-
-
-
-    /**
-     * Returns the txRkwsearchPubdate
-     *
-     * @return integer
-     * @deprecated
-     */
-    public function getTxRkwsearchPubdate()
-    {
-        return $this->txRkwsearchPubdate;
     }
 
 

@@ -24,7 +24,7 @@ use TYPO3\CMS\Core\Utility\RootlineUtility;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -108,7 +108,7 @@ class RelatedHook
                         // $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Cleared page cache by tag for page %s. Trigged by clearCachePageList.', $pid));
 
                         // trigger cleaning of varnish cache
-                        GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher')->dispatch(__CLASS__, self::SIGNAL_CLEAR_PAGE_VARNISH, array($pid));
+                        GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class)->dispatch(__CLASS__, self::SIGNAL_CLEAR_PAGE_VARNISH, array($pid));
                         $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Cleared varnish cache for page %s. Trigged by clearCachePageList.', $pid));
                     }
                 }

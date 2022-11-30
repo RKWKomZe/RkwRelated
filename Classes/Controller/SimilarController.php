@@ -20,7 +20,7 @@ namespace RKW\RkwRelated\Controller;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -64,11 +64,6 @@ class SimilarController extends AbstractController
         // Attention: Following line doesn't work in ajax-context (return PID instead of plugins content element uid)
         if (!$ttContentUid) {
             $ttContentUid = $this->ajaxHelper->getContentUid();
-
-        /** @deprecated - making old version work with new ajax */
-        } else if ($ttContentUid) {
-            $this->ajaxHelper->setContentUid($ttContentUid);
-            $this->loadSettingsFromFlexForm();
         }
 
         $pageNumber++;
@@ -101,23 +96,15 @@ class SimilarController extends AbstractController
             $department = $this->filterUtility::getPageDepartmentRecursive();
 
             // determine items per page
-            /** new version */
-            if ($this->settings['version'] == 2) {
-                if (is_array($this->settings['itemLimitPerPage'])) {
+            if (is_array($this->settings['itemLimitPerPage'])) {
 
-                    $layout = strtolower($this->settings['layout'] ? $this->settings['layout'] : 'default');
-                    if ($this->settings['itemLimitPerPage'][$layout]) {
-                        $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
-                    }
-                    if ($this->settings['itemLimitPerPageOverride']) {
-                        $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
-                    }
+                $layout = strtolower($this->settings['layout'] ? $this->settings['layout'] : 'default');
+                if ($this->settings['itemLimitPerPage'][$layout]) {
+                    $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
                 }
-
-            /** @deprecated old version*/
-            } else {
-                $itemsPerPage = ($this->settings['minItems'] ? intval($this->settings['minItems']) : 8);
-                $this->settings['itemsPerHundredSigns'] = PHP_INT_MAX;
+                if ($this->settings['itemLimitPerPageOverride']) {
+                    $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
+                }
             }
 
 
@@ -244,62 +231,16 @@ class SimilarController extends AbstractController
 
         $showMoreLink = ($nextRelatedPagesCount < 1) ? false : !boolval($this->settings['hideMoreLink']);
 
-        /** New version */
-        if ($this->settings['version'] == 2) {
+        $assignments = [
+            'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
+            'relatedPagesList'       => $relatedPages,
+            'pageNumber'             => $pageNumber,
+            'showMoreLink'           => $showMoreLink,
+            'currentPluginName'      => $this->request->getPluginName(),
+            'itemsPerPage'           => $itemsPerPage,
+            'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
+        ];
 
-            $assignments = [
-                'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
-                'relatedPagesList'       => $relatedPages,
-                'pageNumber'             => $pageNumber,
-                'showMoreLink'           => $showMoreLink,
-                'currentPluginName'      => $this->request->getPluginName(),
-                'itemsPerPage'           => $itemsPerPage,
-                'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
-            ];
-
-            $this->view->assignMultiple($assignments);
-
-        /** @depreacted  */
-        } else {
-
-
-            $assignments = [
-                'layout'                      => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
-                'relatedPagesList'            => $relatedPages,
-                'pageNumber'                  => $pageNumber,
-                'currentPluginName'           => $this->request->getPluginName(),
-                'currentPluginNameStrtolower' => strtolower($this->request->getPluginName()),
-                'pageTypeAjax'                => intval($this->settings['pageTypeAjaxSimilarcontent']),
-                'itemsPerHundredSigns'        => floatval($this->settings['itemsPerHundredSigns']), // do not load float value in view -> this can produce ajax issues. Or write a ViewHelper ;-)
-                'limit'                       => $itemsPerPage,
-                'settingsArray'               => $this->settings, // do not access settings in view the normal way -> this would produce ajax issues
-                'ttContentUid'                => $ttContentUid
-            ];
-
-
-            // Choose kind of view. Either normal templating, or its ajax-more functionality
-            // Use normal view on pageNumber == 1
-            // Else use ajax api for more items
-            if ($pageNumber == 1 || $this->isAjaxCall() == false) {
-
-                $this->view->assignMultiple($assignments);
-
-            } else {
-
-                // get JSON helper
-                /** @var \RKW\RkwAjax\Encoder\JsonTemplateEncoder $jsonHelper */
-                $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
-
-                $jsonHelper->setHtml(
-                    'tx-rkwrelated-result-section-' . strtolower($this->request->getPluginName()),
-                    $assignments,
-                    'append',
-                    'Ajax/List/Similar.html'
-                );
-
-                print (string)$jsonHelper;
-                exit();
-            }
-        }
+        $this->view->assignMultiple($assignments);
     }
 }

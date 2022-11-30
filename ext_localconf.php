@@ -89,7 +89,7 @@ call_user_func(
             /**
              * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
              */
-            $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+            $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
             $signalSlotDispatcher->connect(
                 'RKW\\RkwRelated\\Hooks\\TtContentHook',
                 \RKW\RkwRelated\Hooks\RelatedHook::SIGNAL_CLEAR_PAGE_VARNISH,
