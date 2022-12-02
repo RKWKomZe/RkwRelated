@@ -25,7 +25,7 @@ use TYPO3\CMS\Core\Log\LogManager;
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractController
+abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstractController
 {
 
     /**

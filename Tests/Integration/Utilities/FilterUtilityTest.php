@@ -16,7 +16,7 @@ namespace RKW\RkwRelated\Tests\Integration\Utilities;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use RKW\RkwRelated\Utilities\FilterUtility;
-use RKW\RkwBasics\Utility\FrontendSimulatorUtility;
+use Madj2k\CoreExtended\Utility\FrontendSimulatorUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 

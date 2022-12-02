@@ -2,7 +2,7 @@
 
 namespace RKW\RkwRelated\Domain\Repository;
 
-use RKW\RkwBasics\Helper\QueryTypo3;
+use Madj2k\CoreExtended\Utility\QueryUtility;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -412,8 +412,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 WHERE
                     sys_category.uid IN(' . implode(',', $sysCategoriesList) . ')
                     AND ' . implode(' AND ', $constraints) .
-                QueryTypo3::getWhereClauseForEnableFields('pages') .
-                QueryTypo3::getWhereClauseForDeleteFields('pages') .
+                QueryTypo3::getWhereClauseEnabled('pages') .
+                QueryTypo3::getWhereClauseDeleted('pages') .
                 '
                 GROUP BY pages.uid
                 ORDER BY counter ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
