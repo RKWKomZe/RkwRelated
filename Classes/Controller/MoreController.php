@@ -15,6 +15,11 @@ namespace RKW\RkwRelated\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Doctrine\Common\Util\Debug;
+use RKW\RkwBasics\Utility\GeneralUtility;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /**
  * Class MoreController
  *
@@ -91,16 +96,31 @@ class MoreController extends AbstractController
                 $this->settings,
                 $filter
             ),
+            'categories' => $this->filterUtility::getCombinedFilterByName(
+                'categories',
+                $this->settings,
+                $filter
+            ),
             'year' => intval($filter['year'])
         ];
 
         //  Set cache-identifiers
-        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, array_merge($this->settings, $filter));
-        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, array_merge($this->settings, $filter));
+        $this->contentCache->setIdentifier(
+            $this->request->getPluginName(),
+            $ttContentUid,
+            $pageNumber,
+            array_merge($this->settings, $filter)
+        );
+        $this->countCache->setIdentifier(
+            $this->request->getPluginName(),
+            $ttContentUid,
+            $pageNumber,
+            array_merge($this->settings, $filter)
+        );
 
         // Current state: No caching if someone is filtering via frontend form
         if (
-           ($this->contentCache->hasContent())
+            ($this->contentCache->hasContent())
             && ($this->countCache->hasContent())
             && (!$filter)
             && (!$this->settings['noCache'])
@@ -220,7 +240,6 @@ class MoreController extends AbstractController
         $this->settings['maximumShownResults'] = PHP_INT_MAX;
         $this->settings['showMoreLink'] = $showMoreLink;
 
-
         // to avoid dependence to RkwProject, we're calling the repository this way
         $projectList = null;
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
@@ -228,6 +247,21 @@ class MoreController extends AbstractController
             /** @var \RKW\RkwProjects\Domain\Repository\ProjectsRepository $projectsRepository */
             $projectsRepository = $objectManager->get('RKW\\RkwProjects\\Domain\\Repository\\ProjectsRepository');
             $projectList = $projectsRepository->findAllByVisibility();
+        }
+
+        // Get CategoryList for Filter
+        $categoryList = [];
+        // -> Hint: We only want that list, if there is a "SysCategory parent UID" is defined via TSCONFIG
+        $pageTsConfig = GeneralUtility::removeDotsFromTS(BackendUtility::getPagesTSconfig(intval($GLOBALS['TSFE']->id)));
+        // check either if path exists AND if there is a value!
+        if (
+            isset($pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid'])
+            && $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid']
+        ) {
+            $categoryParentRootUid = $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid'];
+            if ($categoryParentRootUid) {
+                $categoryList = $this->categoryRepository->findByParentRecursive([$categoryParentRootUid]);
+            }
         }
 
         /** New version */
@@ -241,6 +275,7 @@ class MoreController extends AbstractController
                 'currentPluginName'      => $this->request->getPluginName(),
                 'departmentList'         => $this->departmentRepository->findAllByVisibility(),
                 'documentTypeList'       => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
+                'categoryList'           => $categoryList,
                 'projectList'            => $projectList,
                 'years'                  => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
                 'filter'                 => $filter,
@@ -281,6 +316,7 @@ class MoreController extends AbstractController
                 'currentPluginNameStrtolower' => strtolower($this->request->getPluginName()),
                 'departmentList'              => $this->departmentRepository->findAllByVisibility(),
                 'documentTypeList'            => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
+                'categoryList'                => $categoryList,
                 'projectList'                 => $projectList,
                 'years'                       => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
                 'filter'                      => $filter,

@@ -48,6 +48,28 @@ class FlexForm
     protected $configurationManager;
 
     /**
+     * Returns true, if TSCONFIG entry exists
+     *
+     * @return bool
+     */
+    public function categoryTreeVisibility()
+    {
+        // @toDo: Possible improvement idea: Instead of a static path we could read the given flexform property path and check for it
+
+
+        $pageTsConfig = GeneralUtility::removeDotsFromTS(BackendUtility::getPagesTSconfig($this->getCurrentPageIdentifier()));
+        // check either if path exists AND if there is a value!
+        if (
+            isset($pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid'])
+            && $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid']
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Returns items from a given database table (set specific PID via TsConfig, see following line)
      *
      * Example PID entry TsConfig: "TCEFORM.tx_rkwprojects_domain_model_projects.PAGE_TSCONFIG_IDLIST = 123456"

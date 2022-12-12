@@ -109,6 +109,30 @@
                             -->
                         </TCEforms>
                     </settings.projectList>
+                    <settings.categoriesList>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.categoriesList</label>
+                            <config>
+                                <type>select</type>
+                                <autoSizeMax>20</autoSizeMax>
+                                <foreign_table>sys_category</foreign_table>
+                                <foreign_table_where> AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.title ASC</foreign_table_where>
+                                <maxitems>9999</maxitems>
+                                <renderMode>tree</renderMode>
+                                <size>10</size>
+                                <treeConfig>
+                                    <appearance>
+                                        <expandAll>1</expandAll>
+                                        <showHeader>1</showHeader>
+                                    </appearance>
+                                    <parentField>parent</parentField>
+                                </treeConfig>
+                            </config>
+                            <!-- do only show it, if it's configured! -->
+                            <displayCond>USER:RKW\RkwRelated\UserFunctions\FlexForm->categoryTreeVisibility</displayCond>
+                        </TCEforms>
+                    </settings.categoriesList>
                     <settings.noCache>
                         <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.no_cache</label>
                         <config>
@@ -238,6 +262,12 @@
                             <type>check</type>
                         </config>
                     </settings.showProject>
+                    <settings.showCategory>
+                        <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showCategory</label>
+                        <config>
+                            <type>check</type>
+                        </config>
+                    </settings.showCategory>
                     <settings.showYear>
                         <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.more.showYear</label>
                         <config>

@@ -22,6 +22,9 @@
 				<f:if condition="{settings.showProject}">
 					<f:render partial="{layout}/Filters/Project" arguments="{_all}" />
 				</f:if>
+				<f:if condition="{settings.showCategory} && <f:count>{categoryList}</f:count>">
+					<f:render partial="{layout}/Filters/Category" arguments="{_all}" />
+				</f:if>
 				<f:if condition="{settings.showYear}">
 					<f:render partial="{layout}/Filters/Year" arguments="{_all}" />
 				</f:if>
