@@ -57,6 +57,18 @@
 			<trans-unit id="partials_more_filters.showAll">
 				<source>All topics</source>
 			</trans-unit>
+			<trans-unit id="partials.default.more.filters.project.showAll">
+				<source>All Projects</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.category.showAll">
+				<source>All Categories</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.documentType.showAll">
+				<source>All Documents</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.years.showAll">
+				<source>All Years</source>
+			</trans-unit>
 			<trans-unit id="partials_more_filters.topics">
 				<source>Topics</source>
 			</trans-unit>

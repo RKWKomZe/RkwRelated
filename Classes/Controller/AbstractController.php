@@ -67,6 +67,13 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      */
     protected $documentTypeRepository = null;
 
+    /**
+     * categoryRepository
+     *
+     * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository
+     * @inject
+     */
+    protected $categoryRepository = null;
 
     /**
      * filterUtility

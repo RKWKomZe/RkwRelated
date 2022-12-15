@@ -14,7 +14,10 @@ namespace RKW\RkwRelated\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwRelated\Domain\Model\SysCategory;
+use SJBR\StaticInfoTables\Domain\Model\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * SysCategoryRepository
@@ -57,6 +60,30 @@ class SysCategoryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 )
             )
             ->execute();
+    }
+
+
+    /**
+     * get category list recursive by set parent(s)
+     *
+     * @param array $parentCategoryList     One or more parent categories as objects or ID's
+     * @param array $categoryList           Is build by recursive handling by the function itself
+     */
+    public function findByParentRecursive(array $parentCategoryList, &$categoryList = [])
+    {
+        foreach ($parentCategoryList as $parentCategory) {
+            $categoryId = $parentCategory instanceof AbstractEntity ? $parentCategory->getUid() : $parentCategory;
+            $childrenCategoryList = $this->findByParent($categoryId)->toArray();
+
+            if ($childrenCategoryList) {
+                $this->findByParentRecursive($childrenCategoryList, $categoryList);
+            }
+
+            foreach ($childrenCategoryList as $childCategory) {
+                $categoryList[] = $childCategory;
+            }
+        }
+        return $categoryList;
     }
 
 }

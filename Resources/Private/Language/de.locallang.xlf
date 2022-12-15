@@ -51,6 +51,10 @@
 				<source>All Projects</source>
 				<target>Alle Projekte</target>
 			</trans-unit>
+			<trans-unit id="partials.default.more.filters.category.showAll">
+				<source>All Categories</source>
+				<target>Alle Kategorien</target>
+			</trans-unit>
 			<trans-unit id="partials.default.more.filters.documentType.showAll">
 				<source>All Documents</source>
 				<target>Alle Dokumentenarten</target>
