@@ -101,6 +101,8 @@
                                     <parentField>parent</parentField>
                                 </treeConfig>
                             </config>
+                            <!-- do only show it, if it's configured! -->
+                            <displayCond>USER:RKW\RkwRelated\UserFunctions\FlexForm->categoryTreeVisibility</displayCond>
                         </TCEforms>
                     </settings.categoriesList>
                     <settings.noCache>
