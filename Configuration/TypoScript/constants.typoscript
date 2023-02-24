@@ -20,9 +20,6 @@ plugin.tx_rkwrelated_similarcontent {
 	}
 	settings {
 
-        # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=Version to use
-        version = 2
-
 		cache {
 			# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Cache time to live
 			ttl = 86400
@@ -105,36 +102,6 @@ plugin.tx_rkwrelated_similarcontent {
             # cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Items per page for below layout
             below = 3
         }
-
-
-        # DEPRECATED BELOW THIS LINE!!!!!
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Include jQuery? 1 = yes
-		includeJqueryLib = 0
-
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=boolean; label=Include AjaxJS? 1 = yes
-		includeAjaxJS = 0
-
-        # cat=plugin.tx_rkwrelated_similarcontent//a; type=float; label=Items per hundred signs
-		itemsPerHundredSigns = 0.4
-
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Minimum items
-		minItems = 5
-
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=ColPos of the main content element
-		colPosOfPagesMainContentElement = 0
-
-		# cat=plugin.tx_rkwrelated_similarcontent//f; type=integer; label=PageType for Ajax Plugin
-		pageTypeAjaxSimilarcontent = 1491904583
-
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default header text cropping
-		headerCrop = 60
-
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default body text cropping
-		contentCrop = 230
-
-		# cat=plugin.tx_rkwrelated_similarcontent//a; type=integer; label=Default footer text cropping
-		footerCrop = 20
-
 	}
 }
 
@@ -223,35 +190,5 @@ plugin.tx_rkwrelated_morecontent {
             # cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Items per page for below layout
             below = 3
         }
-
-
-        # DEPRECATED BELOW THIS LINE!!!!!
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Include jQuery? 1 = yes
-		includeJqueryLib = 0
-
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=boolean; label=Include AjaxJS? 1 = yes
-		includeAjaxJS = 0
-
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default header text cropping
-		headerCrop = 200
-
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default body text cropping
-		contentCrop = 150
-
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default footer text cropping
-		footerCrop = 20
-
-		# cat=plugin.tx_rkwrelated_morecontent//a; type=integer; label=Default footer text cropping
-		publicationCrop = 30
-
-        # cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 1
-		pageTypeAjaxMoreContent = 1492077599
-
-		# cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 2
-		pageTypeAjaxMoreContent2 = 1491920078
-
-		# cat=plugin.tx_rkwrelated_morecontent//f; type=integer; label=PageType for Ajax Plugin 3
-		pageTypeAjaxMoreContentPublication = 1491920095
-
 	}
 }

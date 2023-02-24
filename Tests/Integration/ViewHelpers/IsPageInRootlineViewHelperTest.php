@@ -19,12 +19,11 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
-
 /**
  * IsPageInRootlineViewHelperTest
  *
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_RkwRelated
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -44,20 +43,23 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
         'typo3conf/ext/rkw_related'
     ];
 
+
     /**
      * @var string[]
      */
     protected $coreExtensionsToLoad = [ ];
 
-    /**
-     * @var \TYPO3\CMS\Fluid\View\StandaloneView
-     */
-    private $standAloneViewHelper;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var \TYPO3\CMS\Fluid\View\StandaloneView|null
      */
-    private $objectManager;
+    private ?StandaloneView $standAloneViewHelper = null;
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager|null
+     */
+    private ?ObjectManager $objectManager = null;
 
 
 
@@ -65,13 +67,12 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
      * Setup
      * @throws \Exception
      */
-    protected function setUp()
+    protected function setUp(): void
     {
 
         parent::setUp();
 
         $this->importDataSet(self::FIXTURES_PATH .'/Database/Global.xml');
-
         $this->setUpFrontendRootPage(
             1,
             [
@@ -94,6 +95,7 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
         );
     }
 
+    //=============================================
 
     /**
      * @test
@@ -123,7 +125,7 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
             $this->standAloneViewHelper->render()
         );
 
-        static::assertEquals($result, 'FALSE');
+        self::assertEquals($result, 'FALSE');
     }
 
 
@@ -155,14 +157,15 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
             $this->standAloneViewHelper->render()
         );
 
-        static::assertEquals($result, 'TRUE');
+        self::assertEquals($result, 'TRUE');
     }
 
+    //=============================================
 
     /**
      * TearDown
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }

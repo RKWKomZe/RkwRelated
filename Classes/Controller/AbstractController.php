@@ -1,5 +1,4 @@
 <?php
-
 namespace RKW\RkwRelated\Controller;
 
 /*
@@ -15,119 +14,76 @@ namespace RKW\RkwRelated\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwBasics\Domain\Repository\DepartmentRepository;
+use RKW\RkwBasics\Domain\Repository\DocumentTypeRepository;
+use RKW\RkwRelated\Cache\CacheInterface;
+use RKW\RkwRelated\Cache\ContentCache;
+use RKW\RkwRelated\Cache\CountCache;
+use RKW\RkwRelated\Domain\Repository\PagesLanguageOverlayRepository;
+use RKW\RkwRelated\Domain\Repository\PagesRepository;
+use RKW\RkwRelated\Domain\Repository\TtContentRepository;
+use RKW\RkwRelated\Utilities\FilterUtility;
+use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class AbstractController
  *
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractController
+abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstractController
 {
 
     /**
-     * pagesRepository
-     *
      * @var \RKW\RkwRelated\Domain\Repository\PagesRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $pagesRepository = null;
+    protected PagesRepository $pagesRepository;
+
 
     /**
-     * pagesLanguageOverlayRepository
-     *
      * @var \RKW\RkwRelated\Domain\Repository\PagesLanguageOverlayRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $pagesLanguageOverlayRepository = null;
+    protected PagesLanguageOverlayRepository $pagesLanguageOverlayRepository;
+
 
     /**
-     * ttContentRepository
-     *
      * @var \RKW\RkwRelated\Domain\Repository\TtContentRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $ttContentRepository = null;
+    protected TtContentRepository $ttContentRepository;
 
 
     /**
-     * departmentRepository
-     *
      * @var \RKW\RkwBasics\Domain\Repository\DepartmentRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $departmentRepository = null;
+    protected DepartmentRepository $departmentRepository;
+
 
     /**
-     * documentTypeRepository
-     *
      * @var \RKW\RkwBasics\Domain\Repository\DocumentTypeRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $documentTypeRepository = null;
+    protected DocumentTypeRepository $documentTypeRepository;
 
 
     /**
-     * filterUtility
-     *
      * @var \RKW\RkwRelated\Utilities\FilterUtility
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $filterUtility;
+    protected FilterUtility $filterUtility;
 
 
     /**
-     * @var \RKW\RkwRelated\Cache\ContentCache
-     * @inject
+     * @var \TYPO3\CMS\Core\Log\Logger|null
      */
-    protected $contentCache;
-
-
-    /**
-     * @var \RKW\RkwRelated\Cache\CountCache
-     * @inject
-     */
-    protected $countCache;
-
-
-    /**
-     * @var \TYPO3\CMS\Core\Log\Logger
-     */
-    protected $logger;
-
-
-    /**
-     * Checks if the current call is based on ajax or not
-     *
-     * @return bool
-     * @deprecated
-     */
-    protected function isAjaxCall()
-    {
-        if (
-            (
-                ($this->settings['pageTypeAjaxMoreContent'])
-                && (\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type') == intval($this->settings['pageTypeAjaxMoreContent']))
-            )
-            || (
-                ($this->settings['pageTypeAjaxMoreContent2'])
-                && (\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type') == intval($this->settings['pageTypeAjaxMoreContent2']))
-            )
-            || (
-                ($this->settings['pageTypeAjaxMoreContentPublication'])
-                && (\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type') == intval($this->settings['pageTypeAjaxMoreContentPublication']))
-            )
-            || (
-                ($this->settings['pageTypeAjaxSimilarcontent'])
-                && (\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type') == intval($this->settings['pageTypeAjaxSimilarcontent']))
-            )
-        ) {
-            return true;
-        }
-
-        return false;
-    }
+    protected ?Logger $logger;
 
 
     /**
@@ -135,14 +91,38 @@ abstract class AbstractController extends \RKW\RkwAjax\Controller\AjaxAbstractCo
      *
      * @return \TYPO3\CMS\Core\Log\Logger
      */
-    protected function getLogger()
+    protected function getLogger(): Logger
     {
 
         if (!$this->logger instanceof \TYPO3\CMS\Core\Log\Logger) {
-            $this->logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Log\\LogManager')->getLogger(__CLASS__);
+            $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
         }
 
         return $this->logger;
+    }
+
+
+    /**
+     * Returns the cache object
+     *
+     * @param bool $countCache
+     * @return \RKW\RkwRelated\Cache\CacheInterface
+     */
+    protected function getCache(bool $countCache = false): CacheInterface
+    {
+        $class = ContentCache::class;
+        $identifier = $this->extensionName . 'Content';
+        if ($countCache) {
+            $class = CountCache::class;
+            $identifier = $this->extensionName . 'Count';
+        }
+
+        /** @var \RKW\RkwRelated\Cache\CacheInterface $cache */
+        $cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($class);
+        $cache->setIdentifier($identifier)
+            ->setRequest($this->request);
+
+        return $cache;
     }
 
 }

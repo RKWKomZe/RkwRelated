@@ -22,11 +22,6 @@ defined('TYPO3_MODE') || die('Access denied.');
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     'RKW.RkwRelated',
-    'Morecontentpublication',
-    'RKW Related: Mehr zum Thema - Publikationen'
-);
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'RKW.RkwRelated',
     'Selectedcategories',
     'RKW Related: Kategorien (Auswahl)'
 );
@@ -63,15 +58,6 @@ if (
         'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentFullSpectrum.xml'
     );
 
-    $pluginName = strtolower('MorecontentPublication');
-    $pluginSignature = $extensionName . '_' . $pluginName;
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-        $pluginSignature,
-        'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContentFullSpectrum.xml'
-    );
-
 } else {
 
     $pluginName = strtolower('Morecontent');
@@ -84,15 +70,6 @@ if (
     );
 
     $pluginName = strtolower('Morecontent2');
-    $pluginSignature = $extensionName . '_' . $pluginName;
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-        $pluginSignature,
-        'FILE:EXT:' . $extKey . '/Configuration/FlexForms/MoreContent.xml'
-    );
-
-    $pluginName = strtolower('MorecontentPublication');
     $pluginSignature = $extensionName . '_' . $pluginName;
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';

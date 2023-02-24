@@ -21,11 +21,12 @@ namespace RKW\RkwRelated\Domain\Model;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @deprecated since TYPO3 v9.5
  */
-class PagesLanguageOverlay extends \RKW\RkwRelated\Domain\Model\Pages
+class PagesLanguageOverlay extends Pages
 {
 
 }

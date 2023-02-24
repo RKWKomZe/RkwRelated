@@ -1,13 +1,13 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-	xmlns:rkwAjax="http://typo3.org/ns/RKW/Ajax/ViewHelpers"
+	xmlns:ajaxApi="http://typo3.org/ns/RKW/Ajax/ViewHelpers"
 	data-namespace-typo3-fluid="true">
 
-	<rkwAjax:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="replace" ajaxId="3">
+	<ajaxApi:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="replace" ajaxId="3">
 		<f:if condition="{showMoreLink}">
 			<div class="flex-container flex-basis-12">
 				<f:render partial="Default/Boxes/Next" arguments="{_all}" />
 			</div>
 		</f:if>
-	</rkwAjax:ajaxWrapper>
+	</ajaxApi:ajaxWrapper>
 
 </html>

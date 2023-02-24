@@ -15,12 +15,15 @@ namespace RKW\RkwRelated\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwProjects\Domain\Repository\ProjectsRepository;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * Class MoreController
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -28,16 +31,15 @@ class MoreController extends AbstractController
 {
 
     /**
-     * year
-     * start date for filter select
-     *
      * @var int
      */
-    protected $year = 2011;
+    protected int $year = 2011;
 
 
-
-    public function initializeAction()
+    /**
+     * @return void
+     */
+    public function initializeAction(): void
     {
         // optional overwrite of year by TypoScript (used as filter option in template)
         $this->year = $this->settings['staticInitialYearForFilter'] ? intval($this->settings['staticInitialYearForFilter']) : $this->year;
@@ -48,23 +50,19 @@ class MoreController extends AbstractController
      * listAction
      *
      * @param array $filter
-     * @param integer $pageNumber
-     * @param integer $ttContentUid
+     * @param int $pageNumber
+     * @param int $ttContentUid
+     * @return void
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
      */
-    public function listAction($filter = array(), $pageNumber = 0, $ttContentUid = 0)
+    public function listAction(array $filter = array(), int $pageNumber = 0, int $ttContentUid = 0): void
     {
 
         // get plugins content element UID
         // Attention: Following line doesn't work in ajax-context (return PID instead of plugins content element uid)
         if (!$ttContentUid) {
             $ttContentUid = $this->ajaxHelper->getContentUid();
-
-        /** @deprecated - making old version work with new ajax */
-        } else if ($ttContentUid) {
-            $this->ajaxHelper->setContentUid($ttContentUid);
-            $this->loadSettingsFromFlexForm();
         }
 
         $pageNumber++;
@@ -95,49 +93,64 @@ class MoreController extends AbstractController
         ];
 
         //  Set cache-identifiers
-        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, array_merge($this->settings, $filter));
-        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, array_merge($this->settings, $filter));
+        /** @var \RKW\RkwRelated\Cache\ContentCache $contentCache */
+        $contentCache = $this->getCache();
+        $contentCache->setEntryIdentifier(
+            $contentCache->generateEntryIdentifier(
+                $ttContentUid,
+                $pageNumber,
+                array_merge($this->settings, $filter)
+            )
+        );
+
+        /** @var \RKW\RkwRelated\Cache\CountCache $countCache */
+        $countCache = $this->getCache(true);
+        $countCache->setEntryIdentifier(
+            $contentCache->generateEntryIdentifier(
+                $ttContentUid,
+                $pageNumber,
+                array_merge($this->settings, $filter)
+            )
+        );
 
         // Current state: No caching if someone is filtering via frontend form
         if (
-           ($this->contentCache->hasContent())
-            && ($this->countCache->hasContent())
+           ($contentCache->hasContent())
+            && ($countCache->hasContent())
             && (!$filter)
             && (!$this->settings['noCache'])
         ) {
             // Cache exists
-            $relatedPages = $this->contentCache->getContent();
-            $nextRelatedPagesCount = $this->countCache->getContent();
+            $relatedPages = $contentCache->getContent();
+            $nextRelatedPagesCount = $countCache->getContent();
 
-            $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Loading cached results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+            $this->getLogger()->log(
+                \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                sprintf(
+                    'Plugin %s: Loading cached results for page %s.',
+                    $this->request->getPluginName(),
+                    intval($GLOBALS['TSFE']->id)
+                )
+            );
 
         } else {
 
             // determine items per page
             $itemsPerPage = 10;
 
-            /** new version */
-            if ($this->settings['version'] == 2) {
-                if (is_array($this->settings['itemLimitPerPage'])) {
+            if (is_array($this->settings['itemLimitPerPage'])) {
 
-                    $layout = strtolower($this->settings['layout'] ? $this->settings['layout'] : 'default');
-                    if ($this->settings['itemLimitPerPage'][$layout]) {
-                        $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
-                    }
-                    if ($this->settings['itemLimitPerPageOverride']) {
-                        $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
-                    }
-                    if (
-                        ($this->settings['itemsPerPage'])
-                        && (intval($this->settings['itemsPerPage']) <  $itemsPerPage)
-                    ){
-                        $itemsPerPage = intval($this->settings['itemsPerPage']);
-                    }
+                $layout = strtolower($this->settings['layout'] ?: 'default');
+                if ($this->settings['itemLimitPerPage'][$layout]) {
+                    $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
                 }
-
-            /** @deprecated old version*/
-            } else {
-                if ($this->settings['itemsPerPage']) {
+                if ($this->settings['itemLimitPerPageOverride']) {
+                    $itemsPerPage = intval($this->settings['itemLimitPerPageOverride']);
+                }
+                if (
+                    ($this->settings['itemsPerPage'])
+                    && (intval($this->settings['itemsPerPage']) <  $itemsPerPage)
+                ){
                     $itemsPerPage = intval($this->settings['itemsPerPage']);
                 }
             }
@@ -148,14 +161,6 @@ class MoreController extends AbstractController
 
             // settings for publications including fallback to old solution
             $findPublications = intval($this->settings['displayPublications']);
-
-            /** @deprectated old setting */
-            if (
-                ($this->settings['everythingWithoutPublications'])
-                || ($this->request->getPluginName() == 'Morecontentpublication')
-            ){
-                $findPublications = ($this->request->getPluginName() == 'Morecontentpublication' ? 1 : ($this->settings['everythingWithoutPublications'] ? 2 : 0));
-            }
 
             // get pages
             $relatedPages = $this->pagesRepository->findByConfiguration(
@@ -190,132 +195,69 @@ class MoreController extends AbstractController
                 && (count($relatedPages) > 0)
             ) {
                 $cacheTtl = $this->settings['cache']['ttl'] ? $this->settings['cache']['ttl'] : 86400;
-                $this->contentCache->setContent(
+                $contentCache->setContent(
                     $relatedPages,
                     $cacheTtl
                 );
-                $this->countCache->setContent(
+                $countCache->setContent(
                     $nextRelatedPagesCount,
                     $cacheTtl
                 );
 
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Caching results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                    sprintf(
+                        'Plugin %s: Caching results for page %s.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id)
+                    )
+                );
 
             } else {
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::WARNING, sprintf('Plugin %s: No results found for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::WARNING,
+                    sprintf(
+                        'Plugin %s: No results found for page %s.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id)
+                    )
+                );
             }
         }
 
         $showMoreLink = ($nextRelatedPagesCount < 1) ? false : !boolval($this->settings['hideMoreLink']);
-        /** @deprecated completely obsolete in version 2
-        if (intval($this->settings['maximumShownResults'])) {
-            $showMoreLink = ($pageNumber * $itemsPerPage) < intval($this->settings['maximumShownResults']) ? true : false;
-        } else {
-            $this->settings['maximumShownResults'] = PHP_INT_MAX;
-            $showMoreLink = true;
-        }*/
 
         /** @deprecated */
-        $moreItemsAvailable = $showMoreLink;
         $this->settings['maximumShownResults'] = PHP_INT_MAX;
         $this->settings['showMoreLink'] = $showMoreLink;
-
 
         // to avoid dependence to RkwProject, we're calling the repository this way
         $projectList = null;
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
-            $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+            $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
             /** @var \RKW\RkwProjects\Domain\Repository\ProjectsRepository $projectsRepository */
-            $projectsRepository = $objectManager->get('RKW\\RkwProjects\\Domain\\Repository\\ProjectsRepository');
+            $projectsRepository = $objectManager->get(ProjectsRepository::class);
             $projectList = $projectsRepository->findAllByVisibility();
         }
 
-        /** New version */
-        if ($this->settings['version'] == 2) {
+        $assignments = [
+            'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
+            'relatedPagesList'       => $relatedPages,
+            'pageNumber'             => $pageNumber,
+            'showMoreLink'           => $showMoreLink,
+            'currentPluginName'      => $this->request->getPluginName(),
+            'departmentList'         => $this->departmentRepository->findAllByVisibility(),
+            'documentTypeList'       => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
+            'projectList'            => $projectList,
+            'years'                  => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
+            'filter'                 => $filter,
+            'filterFull'             => $filterList,
+            'sysLanguageUid'         => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
+            'linkInSameWindow'       => ($this->settings['openLinksInSameWindowOverride'] ?? $this->settings['openLinksInSameWindow'])
+        ];
 
-            $assignments = [
-                'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
-                'relatedPagesList'       => $relatedPages,
-                'pageNumber'             => $pageNumber,
-                'showMoreLink'           => $showMoreLink,
-                'currentPluginName'      => $this->request->getPluginName(),
-                'departmentList'         => $this->departmentRepository->findAllByVisibility(),
-                'documentTypeList'       => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
-                'projectList'            => $projectList,
-                'years'                  => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
-                'filter'                 => $filter,
-                'filterFull'             => $filterList,
-                'sysLanguageUid'         => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
-                'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
-            ];
+        $this->view->assignMultiple($assignments);
 
-            $this->view->assignMultiple($assignments);
-
-        /** @depreacted  */
-        } else {
-
-            // get correct typeNum of plugin
-            $pageTypeAjax = '';
-            if ($this->request->getPluginName() == "Morecontent") {
-                $pageTypeAjax = intval($this->settings['pageTypeAjaxMoreContent']);
-            }
-            if ($this->request->getPluginName() == "Morecontent2") {
-                $pageTypeAjax = intval($this->settings['pageTypeAjaxMoreContent2']);
-            }
-            if ($this->request->getPluginName() == "Morecontentpublication") {
-                $pageTypeAjax = intval($this->settings['pageTypeAjaxMoreContentPublication']);
-            }
-
-            // Choose kind of view. Either normal templating, or its ajax-more functionality
-            // Use normal view on page 1. Else use ajax api for more items
-            // But if no ajax is used on a further page (robots eg), use normal view
-            $assignments = [
-                'relatedPagesList'            => $relatedPages,
-                'pageNumber'                  => $pageNumber,
-                'pageTypeAjax'                => $pageTypeAjax,
-                'settingsArray'               => $this->settings,  // do not access settings in view the normal way -> this would produce ajax issues
-                'ttContentUid'                => $ttContentUid,
-                'showMoreLink'                => $showMoreLink,
-                'moreItemsAvailable'          => $moreItemsAvailable,
-                'currentPluginName'           => $this->request->getPluginName(),
-                'currentPluginNameStrtolower' => strtolower($this->request->getPluginName()),
-                'departmentList'              => $this->departmentRepository->findAllByVisibility(),
-                'documentTypeList'            => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
-                'projectList'                 => $projectList,
-                'years'                       => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
-                'filter'                      => $filter,
-                'sysLanguageUid'              => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
-            ];
-
-            if (
-                ($pageNumber == 1)
-                && (!$this->isAjaxCall())
-                // && !$isFilterRequest
-            ) {
-
-                $this->view->assignMultiple($assignments);
-
-            } else {
-
-                // get JSON helper
-                /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
-                $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
-
-                // get new list
-                $assignments['requestType'] = $kindOfRequest = $isFilterRequest ? 'replace' : 'append';
-                $divId = $isFilterRequest ? 'tx-rkwrelated-result-section-' . strtolower($this->request->getPluginName()) . '-' . $ttContentUid : 'tx-rkwrelated-boxes-grid-' . strtolower($this->request->getPluginName()) . '-' . $ttContentUid;
-
-                $jsonHelper->setHtml(
-                    $divId,
-                    $assignments,
-                    $kindOfRequest,
-                    'Ajax/List/More.html'
-                );
-
-                print (string)$jsonHelper;
-                exit();
-            }
-        }
     }
 
 }

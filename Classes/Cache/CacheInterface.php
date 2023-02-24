@@ -1,6 +1,6 @@
 <?php
+namespace RKW\RkwRelated\Cache;
 
-namespace RKW\RkwRelated\Domain\Model;
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,15 +15,15 @@ namespace RKW\RkwRelated\Domain\Model;
  */
 
 /**
- * Class File
+ * Class CacheInterface
  *
- * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
  * @copyright RKW Kompetenzzentrum
- * @package RKW_Related
+ * @package RKW_RkwRelated
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class File extends \TYPO3\CMS\Extbase\Domain\Model\File
+interface CacheInterface
 {
+
 
 }

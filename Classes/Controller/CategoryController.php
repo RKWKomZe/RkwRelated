@@ -15,14 +15,15 @@ namespace RKW\RkwRelated\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use RKW\RkwBasics\Utility\GeneralUtility;
+use Madj2k\CoreExtended\Utility\GeneralUtility;
+use RKW\RkwRelated\Domain\Repository\SysCategoryRepository;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class CategoryController
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -30,19 +31,18 @@ class CategoryController extends AbstractController
 {
 
     /**
-     * sysCategoryRepository
-     *
      * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $sysCategoryRepository = null;
+    protected ?SysCategoryRepository $sysCategoryRepository;
+
 
     /**
      * showSelected
      *
      * @return void
      */
-    public function showSelectedAction()
+    public function showSelectedAction(): void
     {
         $this->view->assign(
             'categoryList',
