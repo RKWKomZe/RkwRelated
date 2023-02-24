@@ -1,5 +1,4 @@
 <?php
-
 namespace RKW\RkwRelated\ViewHelpers;
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,7 @@ namespace RKW\RkwRelated\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
@@ -32,8 +32,10 @@ class IsPageInRootlineViewHelper extends AbstractViewHelper
 
     /**
      * Initialize arguments
+     *
+     * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('pageUid', 'integer', 'An pageUid to check against the current rootline.');
@@ -50,7 +52,7 @@ class IsPageInRootlineViewHelper extends AbstractViewHelper
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
+    ): bool {
 
         if (
             ($pageUid = $arguments['pageUid'])

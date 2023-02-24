@@ -1,6 +1,6 @@
 <?php
-
 namespace RKW\RkwRelated\Domain\Repository;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -14,6 +14,10 @@ namespace RKW\RkwRelated\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwRelated\Domain\Model\Pages;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * TtContentRepository
  *
@@ -25,22 +29,27 @@ namespace RKW\RkwRelated\Domain\Repository;
  */
 class TtContentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-    public function initializeObject()
+
+    /**
+     * @return void
+     */
+    public function initializeObject(): void
     {
-        $this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $this->defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $this->defaultQuerySettings->setRespectStoragePage(false);
         $this->defaultQuerySettings->setRespectSysLanguage(false);
     }
+
 
     /**
      * Get main bodytext element of page
      *
      * @param \RKW\RkwRelated\Domain\Model\Pages $page
-     * @param integer $sysLanguageUid
+     * @param int $sysLanguageUid
      * @param array $settings
-     * @return NULL|object
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findBodyTextElementsByPage($page, $sysLanguageUid, $settings)
+    public function findBodyTextElementsByPage(Pages $page, int $sysLanguageUid, array $settings): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -59,23 +68,24 @@ class TtContentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         );
 
         return $query->execute();
-        //====
     }
 
 
-    /*
+    /**
      * findFlexformDataByUid
      *
-     * @param integer $ttContentUid
+     * @param int $ttContentUid
      * @param string $pluginName
      * @return array
      */
-    public function findFlexformDataByUid($ttContentUid, $pluginName)
+    public function findFlexformDataByUid(int $ttContentUid, string $pluginName): array
     {
         $query = $this->createQuery();
-        $query->statement('SELECT pi_flexform from tt_content where list_type="rkwrelated_' . strtolower($pluginName) . '" and uid = ' . $ttContentUid);
+        $query->statement('SELECT pi_flexform from tt_content where list_type="rkwrelated_' .
+            strtolower($pluginName) . '" and uid = ' . $ttContentUid);
+
         $ttContent = $query->execute(true);
-        $flexformData = array();
+        $flexformData =[];
         if (is_array($ttContent)) {
 
             $xml = simplexml_load_string($ttContent[0]['pi_flexform']);
@@ -88,13 +98,17 @@ class TtContentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             ) {
                 foreach ($xml->data->sheet as $sheet) {
                     foreach ($sheet->language->field as $field) {
-                        $flexformData[str_replace('settings.flexform.', '', (string)$field->attributes())] = (string)$field->value;
+                        $flexformData[
+                            str_replace(
+                            'settings.flexform.',
+                            '',
+                            (string)$field->attributes())
+                        ] = (string)$field->value;
                     }
                 }
             }
         }
 
         return $flexformData;
-        //===
     }
 }

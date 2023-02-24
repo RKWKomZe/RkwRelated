@@ -1,8 +1,5 @@
 <?php
-
 namespace RKW\RkwRelated\Domain\Repository;
-
-use Madj2k\CoreExtended\Utility\QueryUtility;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -17,6 +14,11 @@ use Madj2k\CoreExtended\Utility\QueryUtility;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\CoreExtended\Utility\QueryUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * PagesRepository
  *
@@ -29,10 +31,12 @@ use Madj2k\CoreExtended\Utility\QueryUtility;
 class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
+    /**
+     * @return void     */
 
-    public function initializeObject()
+    public function initializeObject(): void
     {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
     }
 
@@ -44,11 +48,11 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param \RKW\RkwProjects\Domain\Model\Projects $project
      * @param array $excludePidList
      * @param array $includePidList
-     * @param integer $pageNumber
-     * @param integer $limit
+     * @param int $pageNumber
+     * @param int $limit
      * @param bool $ignoreVisibility
      * @param bool $randomResult
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function findByProject(
@@ -60,7 +64,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         int $limit = 5,
         bool $ignoreVisibility = false,
         bool $randomResult = false
-    ) {
+    ): QueryResultInterface {
+
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
@@ -109,7 +114,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $query->setOrderings(
                 array(
                     // 'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
-                    'lastUpdated'             => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+                    'lastUpdated' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                 )
             );
 
@@ -140,11 +145,11 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param \RKW\RkwBasics\Domain\Model\Department $department
      * @param array $excludePidList
      * @param array $includePidList
-     * @param integer $pageNumber
-     * @param integer $limit
+     * @param int $pageNumber
+     * @param int $limit
      * @param bool $ignoreVisibility
      * @param bool $randomResult
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function findByDepartment(
@@ -155,7 +160,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         int $limit = 5,
         bool $ignoreVisibility = false,
         bool $randomResult = false
-    ) {
+    ): QueryResultInterface {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
@@ -204,7 +209,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $query->setOrderings(
                 array(
                  //   'txRkwpdf2contentIsImport' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
-                    'lastUpdated'             => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+                    'lastUpdated' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
                 )
             );
 
@@ -234,12 +239,13 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategories
      * @param array $excludePidList
-     * @param integer parentCategory
-     * @param integer $pageNumber
-     * @param integer $limit
+     * @param int parentCategory
+     * @param int $pageNumber
+     * @param int $limit
      * @param bool $ignoreVisibility
      * @param bool $randomResult
-     * @return null|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|null
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
      */
     public function findBySysCategory(
         \TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategories,
@@ -249,7 +255,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         int $limit = 5,
         bool $ignoreVisibility = false,
         bool $randomResult = false
-    ) {
+    ):? QueryResultInterface {
 
         $result = null;
 
@@ -301,13 +307,14 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategories
      * @param array $excludePidList
-     * @param integer parentCategory
-     * @param integer $pageNumber
-     * @param integer $limit
+     * @param int parentCategory
+     * @param int $pageNumber
+     * @param int $limit
      * @param bool $ignoreVisibility
      * @param bool $randomResult
      * @param int $type
      * @return null|\TYPO3\CMS\Extbase\Persistence\QueryInterface
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
      */
     protected function buildQueryFindBySysCategory(
         \TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategories,
@@ -412,8 +419,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 WHERE
                     sys_category.uid IN(' . implode(',', $sysCategoriesList) . ')
                     AND ' . implode(' AND ', $constraints) .
-                QueryTypo3::getWhereClauseEnabled('pages') .
-                QueryTypo3::getWhereClauseDeleted('pages') .
+                QueryUtility::getWhereClauseEnabled('pages') .
+                QueryUtility::getWhereClauseDeleted('pages') .
                 '
                 GROUP BY pages.uid
                 ORDER BY counter ' . \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
@@ -455,8 +462,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param array $includePidList
      * @param array $filterList
      * @param int $findPublications
-     * @param integer $pageNumber
-     * @param integer $limit
+     * @param int $pageNumber
+     * @param int $limit
      * @param bool $ignoreVisibility
      * @param bool $randomResult
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
@@ -574,7 +581,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param int $limit
-     * @return integer
+     * @return int
      */
     protected function getRandomOffset(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $limit)
     {
@@ -589,7 +596,7 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param int $limit
      * @param int $pageNumber
-     * @return integer
+     * @return int
      */
     protected function getDefaultOffset($limit, $pageNumber)
     {

@@ -26,14 +26,6 @@ namespace RKW\RkwRelated\Cache;
 class ContentCache extends CacheAbstract
 {
 
-    /**
-     * @var string Key for cache
-     */
-    protected $_key = 'rkwrelated_content';
 
-    /**
-     * @var string Key for cache
-     */
-    protected $_identifier = 'rkwrelated_content';
 
 }

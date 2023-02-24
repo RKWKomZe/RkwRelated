@@ -13,9 +13,9 @@
 				</div>
 			</f:if>
 			<div class="tile__img">
-				<f:if condition="{page.txRkwbasicsTeaserImage}" >
+				<f:if condition="{page.txCoreextendedPreviewImage}" >
 					<f:then>
-						<f:cObject typoscriptObjectPath="lib.txRkwRelated.responsiveImageThumbnail" data="{page.txRkwbasicsTeaserImage.uid}"/>
+						<f:cObject typoscriptObjectPath="lib.txRkwRelated.responsiveImageThumbnail" data="{page.txCoreextendedPreviewImage.uid}"/>
 					</f:then>
 					<f:else>
 						&nbsp;
@@ -30,9 +30,9 @@
 	<f:section name="HeaderImageOnly">
 		<div class="tile__header has-img img-only">
 			<div class="tile__img">
-				<f:if condition="{page.txRkwbasicsTeaserImage}" >
+				<f:if condition="{page.txCoreextendedPreviewImage}" >
 					<f:then>
-						<f:cObject typoscriptObjectPath="lib.txRkwRelated.responsiveImageThumbnail" data="{page.txRkwbasicsTeaserImage.uid}"/>
+						<f:cObject typoscriptObjectPath="lib.txRkwRelated.responsiveImageThumbnail" data="{page.txCoreextendedPreviewImage.uid}"/>
 					</f:then>
 					<f:else>
 						&nbsp;
@@ -74,14 +74,7 @@
 		<f:if condition="{page.abstract}">
 			<div class="tile__text">
 				<p>
-					<f:if condition="<rkwRelated:pageTranslateProperty pageUid='{page.uid}' dbField='txRkwbasicsTeaserText' sysLanguageUid='{sysLanguageUid}' />">
-						<f:then>
-							<f:format.crop maxCharacters="{settings.textCropping.content}" respectWordBoundaries="false"><rkwRelated:pageTranslateProperty pageUid='{page.uid}' dbField='abstract' sysLanguageUid='{sysLanguageUid}' /></f:format.crop>
-						</f:then>
-						<f:else>
-							<f:format.crop maxCharacters="{settings.textCropping.content}" respectWordBoundaries="false">{page.abstract}</f:format.crop>
-						</f:else>
-					</f:if>
+					<f:format.crop maxCharacters="{settings.textCropping.content}" respectWordBoundaries="false">{page.abstract}</f:format.crop>
 				</p>
 			</div>
 		</f:if>

@@ -44,6 +44,7 @@ class FilterUtilityTest extends FunctionalTestCase
         'typo3conf/ext/rkw_related'
     ];
 
+
     /**
      * @var string[]
      */
@@ -51,16 +52,15 @@ class FilterUtilityTest extends FunctionalTestCase
 
 
     /**
-     * @var \RKW\RkwRelated\Utilities\FilterUtility
+     * @var \RKW\RkwRelated\Utilities\FilterUtility|null
      */
-    protected $subject;
+    protected ?FilterUtility $subject = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager|null
      */
-    protected $objectManager;
-
+    protected ?ObjectManager $objectManager = null;
 
 
     /**
@@ -91,8 +91,6 @@ class FilterUtilityTest extends FunctionalTestCase
         FrontendSimulatorUtility::simulateFrontendEnvironment(1);
 
     }
-
-
 
     //=============================================
 
@@ -175,8 +173,7 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(18, $result[3]);
         self::assertEquals(19, $result[4]);
 
-   }
-
+    }
 
     //=============================================
 
@@ -203,7 +200,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesStartingPidList()
     {
@@ -233,7 +230,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesExistingStartingPid()
     {
@@ -260,6 +257,7 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(1521, $result[3]);
     }
 
+
     /**
      * @test
      */
@@ -285,9 +283,10 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesExistingStartingPidOverStartingPidList()
     {
@@ -317,9 +316,10 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(1521, $result[3]);
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesStartingPidListOverNonExistingStartingPidGiven()
     {
@@ -352,7 +352,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesPidList()
     {
@@ -376,9 +376,10 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(18, $result[1]);
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesPidListRecursive()
     {
@@ -408,9 +409,10 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(1812, $result[5]);
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesPidListOverEverything()
     {
@@ -443,7 +445,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterByNameReturnsFilterBySettings()
     {
@@ -520,6 +522,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
+
     /**
      * @test
      */
@@ -580,6 +583,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
+
     /**
      * @test
      */
@@ -608,6 +612,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
+
     /**
      * @test
      */
@@ -632,6 +637,7 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertCount(0, $result);
 
     }
+
 
     /**
      * @test
@@ -663,6 +669,7 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(28, $result[2]);
     }
 
+
     /**
      * @test
      */
@@ -691,9 +698,10 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterByNameReturnsAlwaysPagePropertyFilterWhenSet()
     {
@@ -727,7 +735,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterBySpecificDepartmentReturnsThatDepartment()
     {
@@ -757,13 +765,11 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(1, $result[0]);
     }
 
-
     //=============================================
-
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterForDepartmentByAllDepartmentsReturnsNoDepartmentRecords()
     {
@@ -799,7 +805,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterForDepartmentByNoExternalFilterReturnsDefaultDepartmentRecords()
     {
@@ -832,12 +838,11 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
-
     //=============================================
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPagePropertyFiltersReturnsFilters ()
     {
@@ -863,12 +868,12 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(1, $result['department']);
         self::assertEquals(2, $result['documentType']);
 
-
     }
+
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPagePropertyFiltersReturnsEmptyIfNotSet ()
     {
@@ -894,7 +899,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPagePropertyFiltersReturnsIgnoresInvalid ()
     {
@@ -922,10 +927,9 @@ class FilterUtilityTest extends FunctionalTestCase
     }
 
 
-
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPagePropertyFiltersReturnsIgnoresNotDefined ()
     {
@@ -951,12 +955,11 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertEquals(2, $result['documentType']);
     }
 
-
     //=============================================
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageProjectRecursiveReturnsProjectOfPage()
     {
@@ -980,7 +983,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageProjectRecursiveReturnsProjectOfPageInRootline()
     {
@@ -1005,7 +1008,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageProjectRecursiveReturnsNull()
     {
@@ -1025,12 +1028,11 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertNull($result);
     }
 
-
     //=============================================
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageSysCategoriesReturnsCategoriesOfProject()
     {
@@ -1057,9 +1059,10 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageSysCategoriesReturnsCategoriesOfPage()
     {
@@ -1088,7 +1091,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageSysCategoriesReturnsCategoriesOfPageAsFallback()
     {
@@ -1116,9 +1119,10 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageSysCategoriesReturnsCategoriesOfProjectOverPage()
     {
@@ -1150,7 +1154,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageDepartmentRecursiveReturnsDepartmentOfPage()
     {
@@ -1174,7 +1178,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageDepartmentRecursiveReturnsDepartmentOfPageInRootline()
     {
@@ -1199,7 +1203,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageDepartmentRecursiveReturnsNull()
     {
@@ -1219,6 +1223,7 @@ class FilterUtilityTest extends FunctionalTestCase
         self::assertNull($result);
     }
 
+    //=============================================
 
     /**
      * TearDown

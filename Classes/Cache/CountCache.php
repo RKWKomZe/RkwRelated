@@ -16,7 +16,7 @@ namespace RKW\RkwRelated\Cache;
  */
 
 /**
- * Class MoreContentCountCache
+ * Class CountCache
  *
  * @author Steffen Kroggel <developer@steffenkroggel.de>
  * @copyright RKW Kompetenzzentrum
@@ -26,15 +26,6 @@ namespace RKW\RkwRelated\Cache;
 class CountCache extends CacheAbstract
 {
 
-    /**
-     * @var string Key for cache
-     */
-    protected $_key = 'rkwrelated_count';
 
-
-    /**
-     * @var string Key for cache
-     */
-    protected $_identifier = 'rkwrelated_count';
 
 }

@@ -1,8 +1,5 @@
 <?php
-
 namespace RKW\RkwRelated\ViewHelpers;
-
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -31,8 +28,10 @@ class PageTranslatePropertyViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\
 
     /**
      * Initialize arguments
+     *
+     * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('pageUid', 'int', 'The pageUid to translate.', true);
@@ -93,8 +92,8 @@ class PageTranslatePropertyViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\
     /**
      * Get page via pageUid argument or current id
      *
-     * @param integer $pageUid Uid of the page
-     * @return integer
+     * @param int $pageUid Uid of the page
+     * @return int
      */
     protected function getPageUid($pageUid = null)
     {

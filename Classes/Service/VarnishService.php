@@ -2,6 +2,9 @@
 
 namespace RKW\RkwRelated\Service;
 
+use Opsone\Varnish\Controller\VarnishController;
+use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /*
@@ -30,25 +33,30 @@ class VarnishService implements \TYPO3\CMS\Core\SingletonInterface
 {
 
     /**
-     * @var \TYPO3\CMS\Core\Log\Logger
+     * @var \TYPO3\CMS\Core\Log\Logger|null
      */
-    protected $logger;
+    protected ?Logger $logger;
 
 
     /**
      * Clears the varnish cache of the given pid
      *
-     * @param integer $pid Page-id
+     * @param int $pid Page-id
      * @return void
      */
-    public function clearCacheOfPageEvent($pid)
+    public function clearCacheOfPageEvent(int $pid): void
     {
 
-        $varnishController = GeneralUtility::makeInstance('Snowflake\\Varnish\\VarnishController');
+        $varnishController = GeneralUtility::makeInstance(VarnishController::class);
         $varnishController->clearCache(intval($pid));
 
-        $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Deleted Varnish for pid %s', $pid));
-
+        $this->getLogger()->log(
+            \TYPO3\CMS\Core\Log\LogLevel::INFO,
+            sprintf(
+                'Deleted Varnish for pid %s',
+                $pid
+            )
+        );
     }
 
 
@@ -57,15 +65,14 @@ class VarnishService implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @return \TYPO3\CMS\Core\Log\Logger
      */
-    protected function getLogger()
+    protected function getLogger(): Logger
     {
 
         if (!$this->logger instanceof \TYPO3\CMS\Core\Log\Logger) {
-            $this->logger = GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+            $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
         }
 
         return $this->logger;
-        //===
     }
 
 }

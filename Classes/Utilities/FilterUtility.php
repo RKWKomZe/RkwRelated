@@ -1,5 +1,4 @@
 <?php
-
 namespace RKW\RkwRelated\Utilities;
 
 /*
@@ -33,7 +32,6 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 * @package RKW_Related
 * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
 */
-
 class FilterUtility
 {
 
@@ -71,6 +69,7 @@ class FilterUtility
 
         return $excludePages;
     }
+
 
     /**
      * Gets list of pids to include
@@ -125,7 +124,6 @@ class FilterUtility
 
         return $includePages;
     }
-
 
 
     /**
@@ -281,7 +279,7 @@ class FilterUtility
      *
      * @return \RKW\RkwProjects\Domain\Model\Projects|null
      */
-    public static function getPageProjectRecursive () :? Projects
+    public static function getPageProjectRecursive ():? Projects
     {
 
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
@@ -330,12 +328,13 @@ class FilterUtility
         return null;
     }
 
+
     /**
      * Gets the relevant sysCategories
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>|null
      */
-    public static function getPageSysCategories () :? ObjectStorage
+    public static function getPageSysCategories ():? ObjectStorage
     {
 
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
@@ -371,7 +370,7 @@ class FilterUtility
      *
      * @return \RKW\RkwBasics\Domain\Model\Department|null
      */
-    public static function getPageDepartmentRecursive () :? Department
+    public static function getPageDepartmentRecursive ():? Department
     {
 
         $objectManager =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);

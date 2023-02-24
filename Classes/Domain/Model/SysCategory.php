@@ -27,24 +27,28 @@ namespace RKW\RkwRelated\Domain\Model;
 class SysCategory extends \TYPO3\CMS\Extbase\Domain\Model\Category
 {
     /**
-     * txRkwrelatedLink
-     *
-     * @var \RKW\RkwRelated\Domain\Model\Pages
+     * @var \RKW\RkwRelated\Domain\Model\Pages|null
      */
-    protected $txRkwrelatedLink = null;
+    protected ?Pages $txRkwrelatedLink = null;
+
 
     /**
-     * @return $txRkwrelatedLink
+     * Get the txRkwrelatedLink
+     *
+     * @return \RKW\RkwRelated\Domain\Model\Pages|null
      */
-    public function getTxRkwrelatedLink()
+    public function getTxRkwrelatedLink():? Pages
     {
         return $this->txRkwrelatedLink;
     }
 
     /**
+     * Set the txRkwrelatedLink
+     *
      * @param \RKW\RkwRelated\Domain\Model\Pages $txRkwrelatedLink
+     * @return void
      */
-    public function setTxRkwrelatedLink(\RKW\RkwRelated\Domain\Model\Pages $txRkwrelatedLink): void
+    public function setTxRkwrelatedLink(Pages $txRkwrelatedLink): void
     {
         $this->txRkwrelatedLink = $txRkwrelatedLink;
     }

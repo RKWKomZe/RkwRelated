@@ -16,6 +16,7 @@ namespace RKW\RkwRelated\Controller;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use RKW\RkwRelated\Domain\Repository\SysCategoryRepository;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
@@ -30,12 +31,10 @@ class CategoryController extends AbstractController
 {
 
     /**
-     * sysCategoryRepository
-     *
      * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $sysCategoryRepository = null;
+    protected ?SysCategoryRepository $sysCategoryRepository;
 
 
     /**
@@ -43,7 +42,7 @@ class CategoryController extends AbstractController
      *
      * @return void
      */
-    public function showSelectedAction()
+    public function showSelectedAction(): void
     {
         $this->view->assign(
             'categoryList',

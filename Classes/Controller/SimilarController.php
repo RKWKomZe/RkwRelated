@@ -1,5 +1,4 @@
 <?php
-
 namespace RKW\RkwRelated\Controller;
 
 /*
@@ -15,6 +14,9 @@ namespace RKW\RkwRelated\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwProjects\Domain\Model\Projects;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  * Class SimilarController
  *
@@ -28,37 +30,33 @@ class SimilarController extends AbstractController
 {
 
     /**
-     * sysCategories
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\SysCategory>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\SysCategory>|null
      */
-    protected $sysCategories = null;
+    protected ?ObjectStorage $sysCategories = null;
+
 
     /**
-     * project
-     *
-     * @var \RKW\RkwProjects\Domain\Model\Projects
+     * @var \RKW\RkwProjects\Domain\Model\Projects|null
      */
-    protected $project = null;
+    protected ?Projects $project = null;
+
 
     /**
-     * relatedPages
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\Pages>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\Pages>|null
      */
-    protected $relatedPages = null;
+    protected ?ObjectStorage $relatedPages = null;
 
 
     /**
      * listAction
      *
-     * @param integer $pageNumber
-     * @param integer $ttContentUid
+     * @param int $pageNumber
+     * @param int $ttContentUid
      * @return void
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
      */
-    public function listAction($pageNumber = 0, $ttContentUid = 0)
+    public function listAction(int $pageNumber = 0, int $ttContentUid = 0): void
     {
         // get plugins content element UID
         // Attention: Following line doesn't work in ajax-context (return PID instead of plugins content element uid)
@@ -69,20 +67,45 @@ class SimilarController extends AbstractController
         $pageNumber++;
         $itemsPerPage = 10;
 
-        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, $this->settings);
-        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, $this->settings);
+        //  Set cache-identifiers
+        /** @var \RKW\RkwRelated\Cache\ContentCache $contentCache */
+        $contentCache = $this->getCache();
+        $contentCache->setEntryIdentifier(
+            $contentCache->generateEntryIdentifier(
+                $ttContentUid,
+                $pageNumber,
+                $this->settings
+            )
+        );
+
+        /** @var \RKW\RkwRelated\Cache\CountCache $countCache */
+        $countCache = $this->getCache(true);
+        $countCache->setEntryIdentifier(
+            $contentCache->generateEntryIdentifier(
+                $ttContentUid,
+                $pageNumber,
+                $this->settings
+            )
+        );
 
         if (
-            ($this->contentCache->hasContent())
-            && ($this->countCache->hasContent())
+            ($contentCache->hasContent())
+            && ($countCache->hasContent())
             && (!$this->settings['noCache'])
         ) {
 
             // Cache exists
-            $relatedPages = $this->contentCache->getContent();
-            $nextRelatedPagesCount = $this->countCache->getContent();
+            $relatedPages = $contentCache->getContent();
+            $nextRelatedPagesCount = $countCache->getContent();
 
-            $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Loading cached results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+            $this->getLogger()->log(
+                \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                sprintf(
+                    'Plugin %s: Loading cached results for page %s.',
+                    $this->request->getPluginName(),
+                    intval($GLOBALS['TSFE']->id)
+                )
+            );
 
         } else {
 
@@ -139,7 +162,15 @@ class SimilarController extends AbstractController
                         boolval($this->settings['ignoreVisibility'])
                     );
                 }
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using category filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                    sprintf(
+                        'Plugin %s: Using category filter for page %s. Found %s pages.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id),
+                        count($relatedPages)
+                    )
+                );
             }
 
 
@@ -169,7 +200,15 @@ class SimilarController extends AbstractController
                     );
                 }
 
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using department filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                    sprintf(
+                        'Plugin %s: Using department filter for page %s. Found %s pages.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id),
+                        count($relatedPages)
+                    )
+                );
             }
 
 
@@ -199,7 +238,15 @@ class SimilarController extends AbstractController
                         boolval($this->settings['ignoreVisibility'])
                     );
                 }
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Using project filter for page %s. Found %s pages.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id), count($relatedPages)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                    sprintf(
+                        'Plugin %s: Using project filter for page %s. Found %s pages.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id),
+                        count($relatedPages)
+                    )
+                );
             }
 
             // get available items for next page
@@ -214,22 +261,36 @@ class SimilarController extends AbstractController
             ) {
 
                 $cacheTtl = $this->settings['cache']['ttl'] ? $this->settings['cache']['ttl'] : 86400;
-                $this->contentCache->setContent(
+                $contentCache->setContent(
                     $relatedPages,
                     $cacheTtl
                 );
-                $this->countCache->setContent(
+                $countCache->setContent(
                     $nextRelatedPagesCount,
                     $cacheTtl
                 );
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Caching results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                    sprintf(
+                        'Plugin %s: Caching results for page %s.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id)
+                    )
+                );
 
             } else {
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::WARNING, sprintf('Plugin %s: No results found for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::WARNING,
+                    sprintf(
+                        'Plugin %s: No results found for page %s.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id)
+                    )
+                );
             }
         }
 
-        $showMoreLink = ($nextRelatedPagesCount < 1) ? false : !boolval($this->settings['hideMoreLink']);
+        $showMoreLink = !($nextRelatedPagesCount < 1) && !$this->settings['hideMoreLink'];
 
         $assignments = [
             'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
@@ -238,7 +299,7 @@ class SimilarController extends AbstractController
             'showMoreLink'           => $showMoreLink,
             'currentPluginName'      => $this->request->getPluginName(),
             'itemsPerPage'           => $itemsPerPage,
-            'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
+            'linkInSameWindow'       => ($this->settings['openLinksInSameWindowOverride'] ?? $this->settings['openLinksInSameWindow'])
         ];
 
         $this->view->assignMultiple($assignments);

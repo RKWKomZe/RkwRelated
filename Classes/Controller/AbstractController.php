@@ -1,5 +1,4 @@
 <?php
-
 namespace RKW\RkwRelated\Controller;
 
 /*
@@ -15,7 +14,18 @@ namespace RKW\RkwRelated\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwBasics\Domain\Repository\DepartmentRepository;
+use RKW\RkwBasics\Domain\Repository\DocumentTypeRepository;
+use RKW\RkwRelated\Cache\CacheInterface;
+use RKW\RkwRelated\Cache\ContentCache;
+use RKW\RkwRelated\Cache\CountCache;
+use RKW\RkwRelated\Domain\Repository\PagesLanguageOverlayRepository;
+use RKW\RkwRelated\Domain\Repository\PagesRepository;
+use RKW\RkwRelated\Domain\Repository\TtContentRepository;
+use RKW\RkwRelated\Utilities\FilterUtility;
+use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class AbstractController
@@ -29,75 +39,51 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
 {
 
     /**
-     * pagesRepository
-     *
      * @var \RKW\RkwRelated\Domain\Repository\PagesRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $pagesRepository = null;
+    protected PagesRepository $pagesRepository;
+
 
     /**
-     * pagesLanguageOverlayRepository
-     *
      * @var \RKW\RkwRelated\Domain\Repository\PagesLanguageOverlayRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $pagesLanguageOverlayRepository = null;
+    protected PagesLanguageOverlayRepository $pagesLanguageOverlayRepository;
+
 
     /**
-     * ttContentRepository
-     *
      * @var \RKW\RkwRelated\Domain\Repository\TtContentRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $ttContentRepository = null;
+    protected TtContentRepository $ttContentRepository;
 
 
     /**
-     * departmentRepository
-     *
      * @var \RKW\RkwBasics\Domain\Repository\DepartmentRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $departmentRepository = null;
+    protected DepartmentRepository $departmentRepository;
+
 
     /**
-     * documentTypeRepository
-     *
      * @var \RKW\RkwBasics\Domain\Repository\DocumentTypeRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $documentTypeRepository = null;
+    protected DocumentTypeRepository $documentTypeRepository;
 
 
     /**
-     * filterUtility
-     *
      * @var \RKW\RkwRelated\Utilities\FilterUtility
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $filterUtility;
+    protected FilterUtility $filterUtility;
 
 
     /**
-     * @var \RKW\RkwRelated\Cache\ContentCache
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var \TYPO3\CMS\Core\Log\Logger|null
      */
-    protected $contentCache;
-
-
-    /**
-     * @var \RKW\RkwRelated\Cache\CountCache
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $countCache;
-
-
-    /**
-     * @var \TYPO3\CMS\Core\Log\Logger
-     */
-    protected $logger;
-
+    protected ?Logger $logger;
 
 
     /**
@@ -105,14 +91,38 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
      *
      * @return \TYPO3\CMS\Core\Log\Logger
      */
-    protected function getLogger()
+    protected function getLogger(): Logger
     {
 
         if (!$this->logger instanceof \TYPO3\CMS\Core\Log\Logger) {
-            $this->logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
+            $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
         }
 
         return $this->logger;
+    }
+
+
+    /**
+     * Returns the cache object
+     *
+     * @param bool $countCache
+     * @return \RKW\RkwRelated\Cache\CacheInterface
+     */
+    protected function getCache(bool $countCache = false): CacheInterface
+    {
+        $class = ContentCache::class;
+        $identifier = $this->extensionName . 'Content';
+        if ($countCache) {
+            $class = CountCache::class;
+            $identifier = $this->extensionName . 'Count';
+        }
+
+        /** @var \RKW\RkwRelated\Cache\CacheInterface $cache */
+        $cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($class);
+        $cache->setIdentifier($identifier)
+            ->setRequest($this->request);
+
+        return $cache;
     }
 
 }

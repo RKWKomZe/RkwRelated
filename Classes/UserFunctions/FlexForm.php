@@ -1,7 +1,6 @@
 <?php
 namespace RKW\RkwRelated\UserFunctions;
 
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -18,6 +17,7 @@ namespace RKW\RkwRelated\UserFunctions;
 use Madj2k\CoreExtended\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Class FlexForm
@@ -37,7 +37,8 @@ class FlexForm
      *
      * @var string
      */
-    protected $tableName = 'tx_rkwprojects_domain_model_projects';
+    protected string $tableName = 'tx_rkwprojects_domain_model_projects';
+
 
     /**
      * configurationManager
@@ -45,7 +46,8 @@ class FlexForm
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      * @inject
      */
-    protected $configurationManager;
+    protected ConfigurationManagerInterface $configurationManager;
+
 
     /**
      * Returns items from a given database table (set specific PID via TsConfig, see following line)
@@ -66,7 +68,7 @@ class FlexForm
      * @param array $flexForm
      * @return array
      */
-    public function filterRecordsByTsConfigPid($flexForm)
+    public function filterRecordsByTsConfigPid(array $flexForm): array
     {
         if (isset($flexForm['config']['parameters']['tableName'])){
             // override table name if set
@@ -108,7 +110,6 @@ class FlexForm
         }
 
         $statement = $queryBuilder->execute();
-
         while ($entity = $statement->fetch()) {
             // Add results to item list
             $flexForm['items'][] = [$entity['name'], $entity['uid']];
@@ -143,6 +144,7 @@ class FlexForm
         return 0;
     }
 
+
     /**
      * @param int $contentIdentifier
      * @return int
@@ -158,6 +160,7 @@ class FlexForm
             ->execute()
             ->fetchColumn();
     }
+
 
     /**
      * @return int

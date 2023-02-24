@@ -14,8 +14,6 @@ namespace RKW\RkwRelated\Cache;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Cache\CacheManager;
-
 /**
  * Class CacheAbstract
  *
@@ -24,277 +22,25 @@ use TYPO3\CMS\Core\Cache\CacheManager;
  * @package RKW_RkwRelated
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-abstract class CacheAbstract implements \TYPO3\CMS\Core\SingletonInterface
+abstract class CacheAbstract extends \Madj2k\Accelerator\Cache\CacheAbstract implements CacheInterface
 {
 
     /**
-     * @var string Key for cache
-     */
-    protected $_key = 'rkwrelated';
-
-    /**
-     * @var string Identifier for cache
-     */
-    protected $_identifier = 'rkwrelated';
-
-    /**
-     * @var string Contains context mode (Production, Development...)
-     */
-    protected $contextMode = '';
-
-    /**
-     * @var string Contains environment mode (FE or BE)
-     */
-    protected $environmentMode = '';
-
-    /**
-     * @var bool Contains test mode
-     */
-    protected $testMode = false;
-
-    /**
-     * @var array Contains relevant tags
-     */
-    protected $tags = [];
-
-
-    /**
-     * Returns cache identifier
+     * Generate entry identifier
      *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return $this->_identifier;
-    }
-
-
-    /**
-     * Sets cache identifier
-     *
-     * @param string $plugin
      * @param int $contentId
      * @param int $page
      * @param array $settings
-     * @return $this
+     * @return string
      */
-    public function setIdentifier($plugin, $contentId, $page, $settings = [])
+    public function generateEntryIdentifier(int $contentId, int $page, array $settings = []): string
     {
         $pid = intval($GLOBALS['TSFE']->id);
         $languageUid = intval($GLOBALS['TSFE']->config['config']['sys_language_uid']);
         $settingsMd5 = md5(serialize($settings));
 
-        $this->_identifier = $this->_key . '_' . strtolower($plugin) . '_' . $pid . '_' . $contentId . '_' . $languageUid . '_' . intval($page) . '_' . $settingsMd5;
-        $this->setTags($plugin);
-
-        return $this;
+       return $pid . '_' . $contentId . '_' . $languageUid . '_' . $page . '_' . $settingsMd5;
     }
 
-    /**
-     * Returns cached object
-     *
-     * @return bool
-     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
-     */
-    public function hasContent()
-    {
-
-        // only use cache when in production
-        // and when called from FE
-        if (! $this->getIsCacheActive()) {
-            return false;
-        }
-
-        return $this->getCache()
-            ->has($this->getIdentifier());
-    }
-
-
-    /**
-     * Returns cached object
-     *
-     * @return mixed
-     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
-     */
-    public function getContent()
-    {
-
-        // only use cache when in production
-        // and when called from FE
-        if (! $this->getIsCacheActive()) {
-
-            return false;
-        }
-
-        return $this->getCache()
-            ->get($this->getIdentifier());
-    }
-
-
-    /**
-     * sets cached content
-     *
-     * @param mixed $data
-     * @param integer $lifetime
-     * @param array $tags
-     * @return $this
-     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
-     */
-    public function setContent($data, $lifetime = 21600, array $tags = [])
-    {
-
-        // only use cache when in production
-        // and when called from FE
-        if (! $this->getIsCacheActive()) {
-
-            return $this;
-        }
-
-        $this->getCache()
-            ->set(
-                $this->getIdentifier(),
-                $data,
-                ($tags ? $tags : $this->tags),
-                $lifetime
-            );
-
-        return $this;
-    }
-
-
-    /**
-     * Sets the relevant tags
-     *
-     * @param string $plugin
-     * @return $this
-     */
-    public function setTags($plugin)
-    {
-        $pid = intval($GLOBALS['TSFE']->id);
-        $this->tags = [
-            'tx_rkwrelated',
-            'tx_rkwrelated_' . $pid,
-            'tx_rkwrelated_more',
-            'tx_rkwrelated_more_' . $pid,
-            'tx_rkwrelated_more_' . strtolower($plugin),
-            'tx_rkwrelated_more_' . strtolower($plugin) . '_' . $pid,
-        ];
-
-        return $this;
-    }
-
-
-    /**
-     * Returns cache
-     *
-     * @return \TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
-     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
-     */
-    public function getCache()
-    {
-        /** @var $cacheManager \TYPO3\CMS\Core\Cache\CacheManager */
-        $cacheManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(CacheManager::class);
-        return $cacheManager->getCache($this->_key);
-    }
-
-
-    /**
-     * Sets the testMode
-     *
-     * @param bool $testMode
-     * @return $this
-     */
-    public function setTestMode(bool $testMode)
-    {
-        $this->testMode = (bool) $testMode;
-        return $this;
-    }
-
-
-    /**
-     * Gets the testMode
-     *
-     * @return bool
-     */
-    public function getTestMode(): bool
-    {
-        return $this->testMode;
-    }
-
-
-    /**
-     * Function to return the current TYPO3_CONTEXT.
-     *
-     * @return string|NULL
-     */
-    protected function getContextMode(): string
-    {
-
-        if (!$this->contextMode) {
-            if (getenv('TYPO3_CONTEXT')) {
-                $this->contextMode = getenv('TYPO3_CONTEXT');
-            }
-        }
-
-        return $this->contextMode;
-    }
-
-
-    /**
-     * Function to return the current TYPO3_MODE.
-     * This function can be mocked in unit tests to be able to test frontend behaviour.
-     *
-     * @return string
-     * @see \TYPO3\CMS\Core\Resource\AbstractRepository
-     */
-    protected function getEnvironmentMode(): string
-    {
-        if (!$this->environmentMode) {
-            if (TYPO3_MODE) {
-                $this->environmentMode = TYPO3_MODE;
-            }
-        }
-
-        return $this->environmentMode;
-    }
-
-
-    /**
-     * Function to return cache mode
-     * @return bool
-     */
-    protected function getIsCacheActive(): bool
-    {
-        if (
-            (
-                ($this->getContextMode() == 'Production')
-                && ($this->getEnvironmentMode() == 'FE')
-            )
-            || ($this->getTestMode() == true)
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /**
-     * Constructor
-     *
-     * @param string $environmentMode
-     * @param string $contextMode
-     */
-    public function __construct($environmentMode = null, $contextMode = null)
-    {
-
-        if ($environmentMode) {
-            $this->environmentMode = $environmentMode;
-        }
-
-        if ($contextMode) {
-            $this->contextMode = $contextMode;
-        }
-    }
 
 }

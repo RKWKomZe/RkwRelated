@@ -15,6 +15,9 @@ namespace RKW\RkwRelated\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwProjects\Domain\Repository\ProjectsRepository;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * Class MoreController
  *
@@ -28,16 +31,15 @@ class MoreController extends AbstractController
 {
 
     /**
-     * year
-     * start date for filter select
-     *
      * @var int
      */
-    protected $year = 2011;
+    protected int $year = 2011;
 
 
-
-    public function initializeAction()
+    /**
+     * @return void
+     */
+    public function initializeAction(): void
     {
         // optional overwrite of year by TypoScript (used as filter option in template)
         $this->year = $this->settings['staticInitialYearForFilter'] ? intval($this->settings['staticInitialYearForFilter']) : $this->year;
@@ -48,12 +50,13 @@ class MoreController extends AbstractController
      * listAction
      *
      * @param array $filter
-     * @param integer $pageNumber
-     * @param integer $ttContentUid
+     * @param int $pageNumber
+     * @param int $ttContentUid
+     * @return void
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
      */
-    public function listAction($filter = array(), $pageNumber = 0, $ttContentUid = 0)
+    public function listAction(array $filter = array(), int $pageNumber = 0, int $ttContentUid = 0): void
     {
 
         // get plugins content element UID
@@ -90,21 +93,45 @@ class MoreController extends AbstractController
         ];
 
         //  Set cache-identifiers
-        $this->contentCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, array_merge($this->settings, $filter));
-        $this->countCache->setIdentifier($this->request->getPluginName(), $ttContentUid, $pageNumber, array_merge($this->settings, $filter));
+        /** @var \RKW\RkwRelated\Cache\ContentCache $contentCache */
+        $contentCache = $this->getCache();
+        $contentCache->setEntryIdentifier(
+            $contentCache->generateEntryIdentifier(
+                $ttContentUid,
+                $pageNumber,
+                array_merge($this->settings, $filter)
+            )
+        );
+
+        /** @var \RKW\RkwRelated\Cache\CountCache $countCache */
+        $countCache = $this->getCache(true);
+        $countCache->setEntryIdentifier(
+            $contentCache->generateEntryIdentifier(
+                $ttContentUid,
+                $pageNumber,
+                array_merge($this->settings, $filter)
+            )
+        );
 
         // Current state: No caching if someone is filtering via frontend form
         if (
-           ($this->contentCache->hasContent())
-            && ($this->countCache->hasContent())
+           ($contentCache->hasContent())
+            && ($countCache->hasContent())
             && (!$filter)
             && (!$this->settings['noCache'])
         ) {
             // Cache exists
-            $relatedPages = $this->contentCache->getContent();
-            $nextRelatedPagesCount = $this->countCache->getContent();
+            $relatedPages = $contentCache->getContent();
+            $nextRelatedPagesCount = $countCache->getContent();
 
-            $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Loading cached results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+            $this->getLogger()->log(
+                \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                sprintf(
+                    'Plugin %s: Loading cached results for page %s.',
+                    $this->request->getPluginName(),
+                    intval($GLOBALS['TSFE']->id)
+                )
+            );
 
         } else {
 
@@ -113,7 +140,7 @@ class MoreController extends AbstractController
 
             if (is_array($this->settings['itemLimitPerPage'])) {
 
-                $layout = strtolower($this->settings['layout'] ? $this->settings['layout'] : 'default');
+                $layout = strtolower($this->settings['layout'] ?: 'default');
                 if ($this->settings['itemLimitPerPage'][$layout]) {
                     $itemsPerPage = intval($this->settings['itemLimitPerPage'][$layout]);
                 }
@@ -168,19 +195,33 @@ class MoreController extends AbstractController
                 && (count($relatedPages) > 0)
             ) {
                 $cacheTtl = $this->settings['cache']['ttl'] ? $this->settings['cache']['ttl'] : 86400;
-                $this->contentCache->setContent(
+                $contentCache->setContent(
                     $relatedPages,
                     $cacheTtl
                 );
-                $this->countCache->setContent(
+                $countCache->setContent(
                     $nextRelatedPagesCount,
                     $cacheTtl
                 );
 
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::INFO, sprintf('Plugin %s: Caching results for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::INFO,
+                    sprintf(
+                        'Plugin %s: Caching results for page %s.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id)
+                    )
+                );
 
             } else {
-                $this->getLogger()->log(\TYPO3\CMS\Core\Log\LogLevel::WARNING, sprintf('Plugin %s: No results found for page %s.', $this->request->getPluginName(), intval($GLOBALS['TSFE']->id)));
+                $this->getLogger()->log(
+                    \TYPO3\CMS\Core\Log\LogLevel::WARNING,
+                    sprintf(
+                        'Plugin %s: No results found for page %s.',
+                        $this->request->getPluginName(),
+                        intval($GLOBALS['TSFE']->id)
+                    )
+                );
             }
         }
 
@@ -193,9 +234,9 @@ class MoreController extends AbstractController
         // to avoid dependence to RkwProject, we're calling the repository this way
         $projectList = null;
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')) {
-            $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+            $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
             /** @var \RKW\RkwProjects\Domain\Repository\ProjectsRepository $projectsRepository */
-            $projectsRepository = $objectManager->get('RKW\\RkwProjects\\Domain\\Repository\\ProjectsRepository');
+            $projectsRepository = $objectManager->get(ProjectsRepository::class);
             $projectList = $projectsRepository->findAllByVisibility();
         }
 
@@ -212,7 +253,7 @@ class MoreController extends AbstractController
             'filter'                 => $filter,
             'filterFull'             => $filterList,
             'sysLanguageUid'         => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
-            'linkInSameWindow'       => (isset($this->settings['openLinksInSameWindowOverride']) ? $this->settings['openLinksInSameWindowOverride'] : $this->settings['openLinksInSameWindow'])
+            'linkInSameWindow'       => ($this->settings['openLinksInSameWindowOverride'] ?? $this->settings['openLinksInSameWindow'])
         ];
 
         $this->view->assignMultiple($assignments);
