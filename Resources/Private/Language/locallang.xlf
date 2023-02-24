@@ -4,31 +4,52 @@
 		<header/>
 		<body>
 
-        	<!-- Partials -->
-			<trans-unit id="partials.more.list.boxes.default.byAuthor">
+        	<!-- Templates -->
+			<trans-unit id="templates.category.title">
+				<source>And with which topic can we support you?</source>
+			</trans-unit>
+
+
+			<!-- Partials -->
+			<trans-unit id="partials.default.more.boxes.default.inner.byAuthor">
 				<source>by</source>
 			</trans-unit>
-			<trans-unit id="partials.more.list.boxes.default.severalAuthors">
+			<trans-unit id="partials.default.more.boxes.default.inner.severalAuthors">
 				<source>Several Authors</source>
 			</trans-unit>
-            <trans-unit id="partials.default.more.boxes.more.labelMore">
-                <source>Show more</source>
-            </trans-unit>
-            <trans-unit id="partials.default.more.noResults.text1">
-                <source>No results.</source>
-            </trans-unit>
-            <trans-unit id="partials.default.more.noResults.text2">
-                <source>Please check your search filters.</source>
-            </trans-unit>
-            <trans-unit id="partials.default.more.noResults.text3">
-                <source>Maybe you've found a research gap ;-)</source>
-            </trans-unit>
-            <trans-unit id="partials.default.more.noResults.text4">
-                <source>Can we help you in person?</source>
-            </trans-unit>
-            <trans-unit id="partials.default.more.noResults.text5">
-                <source>Don't hesitate to contact us.</source>
-            </trans-unit>
+			<trans-unit id="partials.default.more.boxes.more.labelMore">
+				<source>Show more</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.noResults.text1">
+				<source>No results.</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.noResults.text2">
+				<source>Please check your search filters.</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.noResults.text3">
+				<source>Maybe you've found a research gap ;-)</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.noResults.text4">
+				<source>Can we help you in person?</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.noResults.text5">
+				<source>Don't hesitate to contact us.</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.department.showAll">
+				<source>All Topics</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.project.showAll">
+				<source>All Projects</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.category.showAll">
+				<source>All Categories</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.documentType.showAll">
+				<source>All Documents</source>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.years.showAll">
+				<source>All Years</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

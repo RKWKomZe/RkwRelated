@@ -10,6 +10,7 @@
                 <target>Und bei welchem Thema können wir Sie unterstützen?</target>
             </trans-unit>
 
+
         	<!-- Partials -->
 			<trans-unit id="partials.default.more.boxes.default.inner.byAuthor">
 				<source>by</source>
@@ -50,6 +51,10 @@
 			<trans-unit id="partials.default.more.filters.project.showAll">
 				<source>All Projects</source>
 				<target>Alle Projekte</target>
+			</trans-unit>
+			<trans-unit id="partials.default.more.filters.category.showAll">
+				<source>All Categories</source>
+				<target>Alle Kategorien</target>
 			</trans-unit>
 			<trans-unit id="partials.default.more.filters.documentType.showAll">
 				<source>All Documents</source>

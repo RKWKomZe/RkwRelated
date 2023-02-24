@@ -15,7 +15,9 @@ namespace RKW\RkwRelated\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\CoreExtended\Utility\GeneralUtility;
 use RKW\RkwProjects\Domain\Repository\ProjectsRepository;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
@@ -86,6 +88,11 @@ class MoreController extends AbstractController
             ),
             'project' => $this->filterUtility::getCombinedFilterByName(
                 'project',
+                $this->settings,
+                $filter
+            ),
+            'categories' => $this->filterUtility::getCombinedFilterByName(
+                'categories',
                 $this->settings,
                 $filter
             ),
@@ -240,6 +247,22 @@ class MoreController extends AbstractController
             $projectList = $projectsRepository->findAllByVisibility();
         }
 
+        // Get CategoryList for Filter
+        $categoryList = [];
+
+        // -> Hint: We only want that list, if there is a "SysCategory parent UID" is defined via TSCONFIG
+        $pageTsConfig = GeneralUtility::removeDotsFromTS(BackendUtility::getPagesTSconfig(intval($GLOBALS['TSFE']->id)));
+        // check either if path exists AND if there is a value!
+        if (
+            isset($pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid'])
+            && $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid']
+        ) {
+            $categoryParentRootUid = $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid'];
+            if ($categoryParentRootUid) {
+                $categoryList = $this->categoryRepository->findByParentRecursive([$categoryParentRootUid]);
+            }
+        }
+
         $assignments = [
             'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
             'relatedPagesList'       => $relatedPages,
@@ -247,6 +270,7 @@ class MoreController extends AbstractController
             'showMoreLink'           => $showMoreLink,
             'currentPluginName'      => $this->request->getPluginName(),
             'departmentList'         => $this->departmentRepository->findAllByVisibility(),
+            'categoryList'           => $categoryList,
             'documentTypeList'       => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
             'projectList'            => $projectList,
             'years'                  => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
