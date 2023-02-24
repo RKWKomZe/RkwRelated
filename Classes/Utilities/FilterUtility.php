@@ -41,7 +41,8 @@ class FilterUtility
     const VALID_FILTERS = [
         'documentType' => 'getTxRkwBasicsDocumentType',
         'department' => 'getTxRkwbasicsDepartment',
-        'project' => 'getTxRkwprojectsProjectUid'
+        'project' => 'getTxRkwprojectsProjectUid',
+        'categories' => 'getSysCategory'
     ];
 
 

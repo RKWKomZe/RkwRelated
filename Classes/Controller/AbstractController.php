@@ -21,6 +21,7 @@ use RKW\RkwRelated\Cache\ContentCache;
 use RKW\RkwRelated\Cache\CountCache;
 use RKW\RkwRelated\Domain\Repository\PagesLanguageOverlayRepository;
 use RKW\RkwRelated\Domain\Repository\PagesRepository;
+use RKW\RkwRelated\Domain\Repository\SysCategoryRepository;
 use RKW\RkwRelated\Domain\Repository\TtContentRepository;
 use RKW\RkwRelated\Utilities\FilterUtility;
 use TYPO3\CMS\Core\Log\Logger;
@@ -71,6 +72,13 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected DocumentTypeRepository $documentTypeRepository;
+
+
+    /**
+     * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?SysCategoryRepository $categoryRepository = null;
 
 
     /**

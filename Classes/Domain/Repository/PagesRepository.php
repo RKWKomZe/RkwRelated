@@ -492,6 +492,16 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $constraints[] = $query->in('txRkwbasicsDocumentType', $filterList['documentType']);
             }
         }
+        if (isset($filterList['categories'])) {
+            if ($filterList['categories']) {
+                $categoryOrQuery = [];
+                // Do not put the whole list inside "contains". By the reason we have an MM-Table, an "$query->in()" also not works
+                foreach ($filterList['categories'] as $categoryFilterId) {
+                    $categoryOrQuery[] = $query->contains('categories', $categoryFilterId);
+                }
+                $constraints[] = $query->logicalOr($categoryOrQuery);
+            }
+        }
         if ($filterList['year']) {
             $dateFrom = strtotime(intval($filterList['year']) . '-01-01');
             $dateUntil = strtotime(intval($filterList['year']) . '-12-31');

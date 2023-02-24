@@ -79,6 +79,9 @@
 			<trans-unit id="flexform.more.showProject">
 				<source>Show project option</source>
 			</trans-unit>
+            <trans-unit id="flexform.more.showCategory">
+                <source>Show category option</source>
+            </trans-unit>
 			<trans-unit id="flexform.more.showYear">
 				<source>Show year option</source>
 			</trans-unit>
@@ -104,6 +107,10 @@
 			</trans-unit>
             <trans-unit id="flexform.more.no_cache">
                 <source>No Caching</source>
+            </trans-unit>
+         	<trans-unit id="flexform.more.categoriesList">
+                <source>Categories</source>
+                <target>Kategorien</target>
             </trans-unit>
 
 

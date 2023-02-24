@@ -103,6 +103,10 @@
 				<source>Show project option</source>
 				<target>Option "Projekt" anbieten</target>
 			</trans-unit>
+       		<trans-unit id="flexform.more.showCategory">
+                <source>Show category option</source>
+                <target>Option "Kategorie" anbieten (Hinweis: Ist im Frontend nur sichtbar, wenn auch eine Kategorie-Eltern-UID definiert ist. Diese Einstellung kann nur durch einen Admin erfolgen.)</target>
+            </trans-unit>
 			<trans-unit id="flexform.more.showYear">
 				<source>Show year option</source>
 				<target>Option "Nach Jahr" anbieten</target>
@@ -135,6 +139,10 @@
             <trans-unit id="flexform.more.no_cache">
                 <source>No Caching</source>
                 <target>Kein Caching</target>
+            </trans-unit>
+          	<trans-unit id="flexform.more.categoriesList">
+                <source>Categories</source>
+                <target>Kategorien</target>
             </trans-unit>
 
 
