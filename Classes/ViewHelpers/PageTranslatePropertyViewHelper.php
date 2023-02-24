@@ -1,8 +1,5 @@
 <?php
-
 namespace RKW\RkwRelated\ViewHelpers;
-
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -22,69 +19,88 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class PageTranslatePropertyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class PageTranslatePropertyViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper
 {
+
+    /**
+     * Initialize arguments
+     *
+     * @return void
+     */
+    public function initializeArguments(): void
+    {
+        parent::initializeArguments();
+        $this->registerArgument('pageUid', 'int', 'The pageUid to translate.', true);
+        $this->registerArgument('dbField', 'string', 'The database field to translate.', true);
+        $this->registerArgument('showHiddenTranslations', 'bool', 'Show hidden translations as well (overrides hidden=1).', false, false);
+        $this->registerArgument('sysLanguageUid', 'int', 'The sysLanguageUid to use for translation.', false, 0);
+    }
+
     /**
      * Get translation information
      *
-     * @param integer $pageUid Uid of the page
-     * @param string $dbField
-     * @param boolean $showHiddenTranslations Show hidden translations as well (default FALSE)
-     * @param integer $sysLanguageUid Check for given language ID (as set in »website language« in root folder)
      * @return string
      */
-    public function render($pageUid, $dbField, $showHiddenTranslations = false, $sysLanguageUid = null)
+    public function render(): string
     {
+        $pageUid = $this->arguments['pageUid'];
+        $dbField = $this->arguments['dbField'];
+        $showHiddenTranslations = $this->arguments['showHiddenTranslation'];
+        $sysLanguageUid = $this->arguments['sysLanguageUid'];
 
         // if there is no sysLanguageUid or simple the standard one (0), do nothing!
         if (!$sysLanguageUid) {
-            return false;
-            //===
+            return '';
         }
 
         $pageUid = $this->getPageUid($pageUid);
         $sysLanguageUid = intval($sysLanguageUid);
-        $result = false;
 
-        if ($pageUid) {
+        /**
+         * @deprecated
+         * @todo rework!
+         if ($pageUid) {
+
             // Get all page language overlay records of the selected page
             $table = 'pages_language_overlay';
             $whereClause = 'pid=' . $pageUid . ' ';
             if ($sysLanguageUid > 0) {
                 $whereClause .= 'AND sys_language_uid=' . $sysLanguageUid . ' ';
             }
+
             $whereClause .= $GLOBALS['TSFE']->sys_page->enableFields($table, $showHiddenTranslations);
             $pageOverlays = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', $table, $whereClause);
 
             $content = '';
-
             while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($pageOverlays)) {
                 $content = $row[strip_tags(GeneralUtility::camelCaseToLowerCaseUnderscored($dbField))];
             }
 
             if ($pageOverlays) {
                 return $content;
-                //===
             }
-        }
+        }*/
 
-        return $result;
-        //===
+        return '';
     }
 
 
     /**
      * Get page via pageUid argument or current id
      *
-     * @param integer $pageUid Uid of the page
-     * @return integer
+     * @param int $pageUid Uid of the page
+     * @return int
      */
     protected function getPageUid($pageUid = null)
     {
+
+    /**
+     * @deprecated
+     * @todo rework!
         if ($pageUid === null) {
             $pageUid = (integer)$this->renderChildren();
         }
@@ -93,6 +109,7 @@ class PageTranslatePropertyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\A
         }
 
         return (integer)$pageUid;
+      **/
     }
 
 }

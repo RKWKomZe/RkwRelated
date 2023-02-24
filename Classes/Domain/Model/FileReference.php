@@ -19,85 +19,88 @@ namespace RKW\RkwRelated\Domain\Model;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class FileReference extends \TYPO3\CMS\Extbase\Domain\Model\FileReference
 {
+
     /**
      * @var string
      */
-    protected $fieldname;
+    protected string $fieldname = '';
+
 
     /**
-     * @var integer
+     * @var \RKW\RkwRelated\Domain\Model\File|null
      */
-    protected $uidLocal;
+    protected ?File $file = null;
 
-    /**
-     * @var \RKW\RkwRelated\Domain\Model\File
-     */
-    protected $file;
 
     /**
      * Returns the fieldname
      *
-     * @return integer $fieldname
+     * @return string $fieldname
      */
-    public function getFieldname()
+    public function getFieldname(): string
     {
         return $this->fieldname;
     }
 
+
     /**
      * Sets the fieldname
      *
-     * @param integer $fieldname
+     * @param string $fieldname
      * @return void
      */
-    public function setFieldname($fieldname)
+    public function setFieldname(string $fieldname): void
     {
         $this->fieldname = $fieldname;
     }
 
+
     /**
      * Returns the uidLocal
      *
-     * @return integer $uidLocal
+     * @return int $uidLocal
      */
-    public function getUidLocal()
+    public function getUidLocal(): int
     {
         return $this->uidLocal;
     }
 
+
     /**
      * Sets the uidLocal
      *
-     * @param integer $uidLocal
+     * @param int $uidLocal
      * @return void
      */
-    public function setUidLocal($uidLocal)
+    public function setUidLocal(int $uidLocal): void
     {
         $this->uidLocal = $uidLocal;
     }
+
 
     /**
      * Set file
      *
      * @param \RKW\RkwRelated\Domain\Model\File $file
      */
-    public function setFile($file)
+    public function setFile(File $file): void
     {
         $this->file = $file;
     }
+
 
     /**
      * Get file
      *
      * @return \RKW\RkwRelated\Domain\Model\File
      */
-    public function getFile()
+    public function getFile():?File
     {
         return $this->file;
     }

@@ -16,7 +16,7 @@ namespace RKW\RkwRelated\Tests\Integration\Utilities;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use RKW\RkwRelated\Utilities\FilterUtility;
-use RKW\RkwBasics\Utility\FrontendSimulatorUtility;
+use Madj2k\CoreExtended\Utility\FrontendSimulatorUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -24,7 +24,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  * FilterUtilityTest
  *
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_RkwRelated
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -44,6 +44,7 @@ class FilterUtilityTest extends FunctionalTestCase
         'typo3conf/ext/rkw_related'
     ];
 
+
     /**
      * @var string[]
      */
@@ -51,23 +52,22 @@ class FilterUtilityTest extends FunctionalTestCase
 
 
     /**
-     * @var \RKW\RkwRelated\Utilities\FilterUtility
+     * @var \RKW\RkwRelated\Utilities\FilterUtility|null
      */
-    protected $subject;
+    protected ?FilterUtility $subject = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager|null
      */
-    protected $objectManager;
-
+    protected ?ObjectManager $objectManager = null;
 
 
     /**
      * Setup
      * @throws \Exception
      */
-    protected function setUp()
+    protected function setUp(): void
     {
 
         parent::setUp();
@@ -92,8 +92,6 @@ class FilterUtilityTest extends FunctionalTestCase
 
     }
 
-
-
     //=============================================
 
     /**
@@ -113,8 +111,8 @@ class FilterUtilityTest extends FunctionalTestCase
         $GLOBALS['TSFE']->id = 15;
         $result = $this->subject::getExcludePidList([]);
 
-        static::assertCount(1, $result);
-        static::assertEquals(15, $result[0]);
+        self::assertCount(1, $result);
+        self::assertEquals(15, $result[0]);
     }
 
 
@@ -139,9 +137,9 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $result = $this->subject::getExcludePidList($settings);
 
-        static::assertCount(2, $result);
-        static::assertEquals(15, $result[0]);
-        static::assertEquals(16, $result[1]);
+        self::assertCount(2, $result);
+        self::assertEquals(15, $result[0]);
+        self::assertEquals(16, $result[1]);
 
     }
 
@@ -168,15 +166,14 @@ class FilterUtilityTest extends FunctionalTestCase
 
         $result = $this->subject::getExcludePidList($settings);
 
-        static::assertCount(5, $result);
-        static::assertEquals(15, $result[0]);
-        static::assertEquals(16, $result[1]);
-        static::assertEquals(17, $result[2]);
-        static::assertEquals(18, $result[3]);
-        static::assertEquals(19, $result[4]);
+        self::assertCount(5, $result);
+        self::assertEquals(15, $result[0]);
+        self::assertEquals(16, $result[1]);
+        self::assertEquals(17, $result[2]);
+        self::assertEquals(18, $result[3]);
+        self::assertEquals(19, $result[4]);
 
-   }
-
+    }
 
     //=============================================
 
@@ -194,16 +191,16 @@ class FilterUtilityTest extends FunctionalTestCase
          * Then the default rootline is returned
          */
         $result = $this->subject::getIncludePidList([]);
-        static::assertCount(2, $result);
-        static::assertEquals(1, $result[0]);
-        static::assertEquals(2, $result[1]);
+        self::assertCount(2, $result);
+        self::assertEquals(1, $result[0]);
+        self::assertEquals(2, $result[1]);
 
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesStartingPidList()
     {
@@ -222,18 +219,18 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->importDataSet(self::IMPORT_PATH .'/Check20.xml');
 
         $result = $this->subject::getIncludePidList($settings);
-        static::assertCount(5, $result);
-        static::assertEquals(161, $result[0]);
-        static::assertEquals(1611, $result[1]);
-        static::assertEquals(1612, $result[2]);
-        static::assertEquals(162, $result[3]);
-        static::assertEquals(1621, $result[4]);
+        self::assertCount(5, $result);
+        self::assertEquals(161, $result[0]);
+        self::assertEquals(1611, $result[1]);
+        self::assertEquals(1612, $result[2]);
+        self::assertEquals(162, $result[3]);
+        self::assertEquals(1621, $result[4]);
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesExistingStartingPid()
     {
@@ -253,12 +250,13 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->importDataSet(self::IMPORT_PATH .'/Check10.xml');
 
         $result = $this->subject::getIncludePidList($settings);
-        static::assertCount(4, $result);
-        static::assertEquals(15, $result[0]);
-        static::assertEquals(151, $result[1]);
-        static::assertEquals(152, $result[2]);
-        static::assertEquals(1521, $result[3]);
+        self::assertCount(4, $result);
+        self::assertEquals(15, $result[0]);
+        self::assertEquals(151, $result[1]);
+        self::assertEquals(152, $result[2]);
+        self::assertEquals(1521, $result[3]);
     }
+
 
     /**
      * @test
@@ -279,15 +277,16 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getIncludePidList($settings);
-        static::assertCount(2, $result);
-        static::assertEquals(1, $result[0]);
-        static::assertEquals(2, $result[1]);
+        self::assertCount(2, $result);
+        self::assertEquals(1, $result[0]);
+        self::assertEquals(2, $result[1]);
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesExistingStartingPidOverStartingPidList()
     {
@@ -310,16 +309,17 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->importDataSet(self::IMPORT_PATH .'/Check30.xml');
 
         $result = $this->subject::getIncludePidList($settings);
-        static::assertCount(4, $result);
-        static::assertEquals(15, $result[0]);
-        static::assertEquals(151, $result[1]);
-        static::assertEquals(152, $result[2]);
-        static::assertEquals(1521, $result[3]);
+        self::assertCount(4, $result);
+        self::assertEquals(15, $result[0]);
+        self::assertEquals(151, $result[1]);
+        self::assertEquals(152, $result[2]);
+        self::assertEquals(1521, $result[3]);
     }
+
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesStartingPidListOverNonExistingStartingPidGiven()
     {
@@ -341,18 +341,18 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->importDataSet(self::IMPORT_PATH .'/Check30.xml');
 
         $result = $this->subject::getIncludePidList($settings);
-        static::assertCount(5, $result);
-        static::assertEquals(161, $result[0]);
-        static::assertEquals(1611, $result[1]);
-        static::assertEquals(1612, $result[2]);
-        static::assertEquals(162, $result[3]);
-        static::assertEquals(1621, $result[4]);
+        self::assertCount(5, $result);
+        self::assertEquals(161, $result[0]);
+        self::assertEquals(1611, $result[1]);
+        self::assertEquals(1612, $result[2]);
+        self::assertEquals(162, $result[3]);
+        self::assertEquals(1621, $result[4]);
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesPidList()
     {
@@ -371,14 +371,15 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->importDataSet(self::IMPORT_PATH .'/Check40.xml');
 
         $result = $this->subject::getIncludePidList($settings);
-        static::assertCount(2, $result);
-        static::assertEquals(17, $result[0]);
-        static::assertEquals(18, $result[1]);
+        self::assertCount(2, $result);
+        self::assertEquals(17, $result[0]);
+        self::assertEquals(18, $result[1]);
     }
+
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesPidListRecursive()
     {
@@ -399,18 +400,19 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->importDataSet(self::IMPORT_PATH .'/Check40.xml');
 
         $result = $this->subject::getIncludePidList($settings);
-        static::assertCount(6, $result);
-        static::assertEquals(17, $result[0]);
-        static::assertEquals(171, $result[1]);
-        static::assertEquals(18, $result[2]);
-        static::assertEquals(181, $result[3]);
-        static::assertEquals(1811, $result[4]);
-        static::assertEquals(1812, $result[5]);
+        self::assertCount(6, $result);
+        self::assertEquals(17, $result[0]);
+        self::assertEquals(171, $result[1]);
+        self::assertEquals(18, $result[2]);
+        self::assertEquals(181, $result[3]);
+        self::assertEquals(1811, $result[4]);
+        self::assertEquals(1812, $result[5]);
     }
+
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getIncludePidListUsesPidListOverEverything()
     {
@@ -434,16 +436,16 @@ class FilterUtilityTest extends FunctionalTestCase
         $this->importDataSet(self::IMPORT_PATH .'/Check50.xml');
 
         $result = $this->subject::getIncludePidList($settings);
-        static::assertCount(2, $result);
-        static::assertEquals(17, $result[0]);
-        static::assertEquals(18, $result[1]);
+        self::assertCount(2, $result);
+        self::assertEquals(17, $result[0]);
+        self::assertEquals(18, $result[1]);
     }
 
     //=============================================
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterByNameReturnsFilterBySettings()
     {
@@ -461,10 +463,10 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings);
-        static::assertCount(3, $result);
-        static::assertEquals(15, $result[0]);
-        static::assertEquals(16, $result[1]);
-        static::assertEquals(18, $result[2]);
+        self::assertCount(3, $result);
+        self::assertEquals(15, $result[0]);
+        self::assertEquals(16, $result[1]);
+        self::assertEquals(18, $result[2]);
 
     }
 
@@ -488,7 +490,7 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('hurts', $settings);
-        static::assertCount(0, $result);
+        self::assertCount(0, $result);
 
     }
 
@@ -513,12 +515,13 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings);
-        static::assertCount(3, $result);
-        static::assertEquals(15, $result[0]);
-        static::assertEquals(16, $result[1]);
-        static::assertEquals(18, $result[2]);
+        self::assertCount(3, $result);
+        self::assertEquals(15, $result[0]);
+        self::assertEquals(16, $result[1]);
+        self::assertEquals(18, $result[2]);
 
     }
+
 
     /**
      * @test
@@ -540,10 +543,10 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(3, $result);
-        static::assertEquals(25, $result[0]);
-        static::assertEquals(26, $result[1]);
-        static::assertEquals(28, $result[2]);
+        self::assertCount(3, $result);
+        self::assertEquals(25, $result[0]);
+        self::assertEquals(26, $result[1]);
+        self::assertEquals(28, $result[2]);
 
     }
 
@@ -573,12 +576,13 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(3, $result);
-        static::assertEquals(25, $result[0]);
-        static::assertEquals(26, $result[1]);
-        static::assertEquals(28, $result[2]);
+        self::assertCount(3, $result);
+        self::assertEquals(25, $result[0]);
+        self::assertEquals(26, $result[1]);
+        self::assertEquals(28, $result[2]);
 
     }
+
 
     /**
      * @test
@@ -601,12 +605,13 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(3, $result);
-        static::assertEquals(25, $result[0]);
-        static::assertEquals(26, $result[1]);
-        static::assertEquals(28, $result[2]);
+        self::assertCount(3, $result);
+        self::assertEquals(25, $result[0]);
+        self::assertEquals(26, $result[1]);
+        self::assertEquals(28, $result[2]);
 
     }
+
 
     /**
      * @test
@@ -629,9 +634,10 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(0, $result);
+        self::assertCount(0, $result);
 
     }
+
 
     /**
      * @test
@@ -657,11 +663,12 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(3, $result);
-        static::assertEquals(25, $result[0]);
-        static::assertEquals(26, $result[1]);
-        static::assertEquals(28, $result[2]);
+        self::assertCount(3, $result);
+        self::assertEquals(25, $result[0]);
+        self::assertEquals(26, $result[1]);
+        self::assertEquals(28, $result[2]);
     }
+
 
     /**
      * @test
@@ -687,13 +694,14 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(3, $result);
+        self::assertCount(3, $result);
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterByNameReturnsAlwaysPagePropertyFilterWhenSet()
     {
@@ -720,14 +728,14 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('documentType', $settings, $externalFilter);
-        static::assertCount(1, $result);
-        static::assertEquals(2, $result[0]);
+        self::assertCount(1, $result);
+        self::assertEquals(2, $result[0]);
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterBySpecificDepartmentReturnsThatDepartment()
     {
@@ -753,17 +761,15 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterByName('department', $settings, $externalFilter);
-        static::assertCount(1, $result);
-        static::assertEquals(1, $result[0]);
+        self::assertCount(1, $result);
+        self::assertEquals(1, $result[0]);
     }
-
 
     //=============================================
 
-
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterForDepartmentByAllDepartmentsReturnsNoDepartmentRecords()
     {
@@ -792,14 +798,14 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterForDepartment($settings, $externalFilter);
-        static::assertCount(0, $result);
+        self::assertCount(0, $result);
 
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getCombinedFilterForDepartmentByNoExternalFilterReturnsDefaultDepartmentRecords()
     {
@@ -828,16 +834,15 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getCombinedFilterForDepartment($settings, $externalFilter);
-        static::assertCount(3, $result);
+        self::assertCount(3, $result);
 
     }
-
 
     //=============================================
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPagePropertyFiltersReturnsFilters ()
     {
@@ -859,16 +864,16 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getPagePropertyFilters($settings);
-        static::assertCount(2, $result);
-        static::assertEquals(1, $result['department']);
-        static::assertEquals(2, $result['documentType']);
-
+        self::assertCount(2, $result);
+        self::assertEquals(1, $result['department']);
+        self::assertEquals(2, $result['documentType']);
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPagePropertyFiltersReturnsEmptyIfNotSet ()
     {
@@ -887,14 +892,14 @@ class FilterUtilityTest extends FunctionalTestCase
         $settings = [];
 
         $result = $this->subject::getPagePropertyFilters($settings);
-        static::assertCount(0, $result);
+        self::assertCount(0, $result);
 
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPagePropertyFiltersReturnsIgnoresInvalid ()
     {
@@ -917,15 +922,14 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getPagePropertyFilters($settings);
-        static::assertCount(1, $result);
-        static::assertEquals(2, $result['documentType']);
+        self::assertCount(1, $result);
+        self::assertEquals(2, $result['documentType']);
     }
-
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPagePropertyFiltersReturnsIgnoresNotDefined ()
     {
@@ -947,16 +951,15 @@ class FilterUtilityTest extends FunctionalTestCase
         ];
 
         $result = $this->subject::getPagePropertyFilters($settings);
-        static::assertCount(1, $result);
-        static::assertEquals(2, $result['documentType']);
+        self::assertCount(1, $result);
+        self::assertEquals(2, $result['documentType']);
     }
-
 
     //=============================================
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageProjectRecursiveReturnsProjectOfPage()
     {
@@ -973,14 +976,14 @@ class FilterUtilityTest extends FunctionalTestCase
 
         /** @var \RKW\RkwProjects\Domain\Model\Projects $result */
         $result = $this->subject::getPageProjectRecursive();
-        static::assertInstanceOf('\RKW\RkwProjects\Domain\Model\Projects', $result);
-        static::assertEquals(1, $result->getUid());
+        self::assertInstanceOf('\RKW\RkwProjects\Domain\Model\Projects', $result);
+        self::assertEquals(1, $result->getUid());
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageProjectRecursiveReturnsProjectOfPageInRootline()
     {
@@ -998,14 +1001,14 @@ class FilterUtilityTest extends FunctionalTestCase
 
         /** @var \RKW\RkwProjects\Domain\Model\Projects $result */
         $result = $this->subject::getPageProjectRecursive();
-        static::assertInstanceOf('\RKW\RkwProjects\Domain\Model\Projects', $result);
-        static::assertEquals(1, $result->getUid());
+        self::assertInstanceOf('\RKW\RkwProjects\Domain\Model\Projects', $result);
+        self::assertEquals(1, $result->getUid());
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageProjectRecursiveReturnsNull()
     {
@@ -1022,15 +1025,14 @@ class FilterUtilityTest extends FunctionalTestCase
         $GLOBALS['TSFE']->id = 3000;
 
         $result = $this->subject::getPageProjectRecursive();
-        static::assertNull($result);
+        self::assertNull($result);
     }
-
 
     //=============================================
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageSysCategoriesReturnsCategoriesOfProject()
     {
@@ -1048,18 +1050,19 @@ class FilterUtilityTest extends FunctionalTestCase
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
         $result = $this->subject::getPageSysCategories();
-        static::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
-        static::assertCount(2, $result);
+        self::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
+        self::assertCount(2, $result);
 
         $result = $result->toArray();
-        static::assertEquals(1, $result[0]->getUid());
-        static::assertEquals(2, $result[1]->getUid());
+        self::assertEquals(1, $result[0]->getUid());
+        self::assertEquals(2, $result[1]->getUid());
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageSysCategoriesReturnsCategoriesOfPage()
     {
@@ -1076,19 +1079,19 @@ class FilterUtilityTest extends FunctionalTestCase
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
         $result = $this->subject::getPageSysCategories();
-        static::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
-        static::assertCount(2, $result);
+        self::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
+        self::assertCount(2, $result);
 
         $result = $result->toArray();
-        static::assertEquals(1, $result[0]->getUid());
-        static::assertEquals(2, $result[1]->getUid());
+        self::assertEquals(1, $result[0]->getUid());
+        self::assertEquals(2, $result[1]->getUid());
 
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageSysCategoriesReturnsCategoriesOfPageAsFallback()
     {
@@ -1107,18 +1110,19 @@ class FilterUtilityTest extends FunctionalTestCase
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
         $result = $this->subject::getPageSysCategories();
-        static::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
-        static::assertCount(2, $result);
+        self::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
+        self::assertCount(2, $result);
 
         $result = $result->toArray();
-        static::assertEquals(1, $result[0]->getUid());
-        static::assertEquals(2, $result[1]->getUid());
+        self::assertEquals(1, $result[0]->getUid());
+        self::assertEquals(2, $result[1]->getUid());
 
     }
 
+
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageSysCategoriesReturnsCategoriesOfProjectOverPage()
     {
@@ -1137,12 +1141,12 @@ class FilterUtilityTest extends FunctionalTestCase
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
         $result = $this->subject::getPageSysCategories();
-        static::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
-        static::assertCount(2, $result);
+        self::assertInstanceOf('\\TYPO3\CMS\Extbase\Persistence\ObjectStorage', $result);
+        self::assertCount(2, $result);
 
         $result = $result->toArray();
-        static::assertEquals(3, $result[0]->getUid());
-        static::assertEquals(4, $result[1]->getUid());
+        self::assertEquals(3, $result[0]->getUid());
+        self::assertEquals(4, $result[1]->getUid());
 
     }
 
@@ -1150,7 +1154,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageDepartmentRecursiveReturnsDepartmentOfPage()
     {
@@ -1167,14 +1171,14 @@ class FilterUtilityTest extends FunctionalTestCase
 
         /** @var \RKW\RkwBasics\Domain\Model\Department $result */
         $result = $this->subject::getPageDepartmentRecursive();
-        static::assertInstanceOf('\RKW\RkwBasics\Domain\Model\Department', $result);
-        static::assertEquals(1, $result->getUid());
+        self::assertInstanceOf('\RKW\RkwBasics\Domain\Model\Department', $result);
+        self::assertEquals(1, $result->getUid());
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageDepartmentRecursiveReturnsDepartmentOfPageInRootline()
     {
@@ -1192,14 +1196,14 @@ class FilterUtilityTest extends FunctionalTestCase
 
         /** @var \RKW\RkwBasics\Domain\Model\Department $result */
         $result = $this->subject::getPageDepartmentRecursive();
-        static::assertInstanceOf('\RKW\RkwBasics\Domain\Model\Department', $result);
-        static::assertEquals(1, $result->getUid());
+        self::assertInstanceOf('\RKW\RkwBasics\Domain\Model\Department', $result);
+        self::assertEquals(1, $result->getUid());
     }
 
 
     /**
      * @test
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws \Exception
      */
     public function getPageDepartmentRecursiveReturnsNull()
     {
@@ -1216,14 +1220,15 @@ class FilterUtilityTest extends FunctionalTestCase
         $GLOBALS['TSFE']->id = 3000;
 
         $result = $this->subject::getPageDepartmentRecursive();
-        static::assertNull($result);
+        self::assertNull($result);
     }
 
+    //=============================================
 
     /**
      * TearDown
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         FrontendSimulatorUtility::resetFrontendEnvironment();

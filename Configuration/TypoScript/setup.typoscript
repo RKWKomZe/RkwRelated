@@ -75,7 +75,6 @@ plugin.tx_rkwrelated_similarcontent {
 		cache {
 			ttl = {$plugin.tx_rkwrelated_similarcontent.settings.cache.ttl}
 		}
-		version = {$plugin.tx_rkwrelated_similarcontent.settings.version}
         startingPid = {$plugin.tx_rkwrelated_similarcontent.settings.startingPid}
         startingPidList = {$plugin.tx_rkwrelated_similarcontent.settings.startingPidList}
         excludePidList = {$plugin.tx_rkwrelated_similarcontent.settings.excludePidList}
@@ -105,17 +104,6 @@ plugin.tx_rkwrelated_similarcontent {
             reduced = {$plugin.tx_rkwrelated_similarcontent.settings.itemLimitPerPage.reduced}
             below = {$plugin.tx_rkwrelated_similarcontent.settings.itemLimitPerPage.below}
         }
-		        
-        # DEPRECATED BELOW!
-        itemsPerHundredSigns = {$plugin.tx_rkwrelated_similarcontent.settings.itemsPerHundredSigns}
-		minItems = {$plugin.tx_rkwrelated_similarcontent.settings.minItems}
-		colPosOfPagesMainContentElement = {$plugin.tx_rkwrelated_similarcontent.settings.colPosOfPageMainContentElement}
-		pageTypeAjaxSimilarcontent = {$plugin.tx_rkwrelated_similarcontent.settings.pageTypeAjaxSimilarcontent}
-		headerCrop = {$plugin.tx_rkwrelated_similarcontent.settings.headerCrop}
-		contentCrop = {$plugin.tx_rkwrelated_similarcontent.settings.contentCrop}
-		footerCrop = {$plugin.tx_rkwrelated_similarcontent.settings.footerCrop}
-                
-
 	}
 }
 
@@ -162,21 +150,9 @@ plugin.tx_rkwrelated_morecontent {
             reduced = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.reduced}
             below = {$plugin.tx_rkwrelated_morecontent.settings.itemLimitPerPage.below}
         }
-
-        # DEPRECATED BELOW!
-		pageTypeAjaxMoreContentPublication = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContentPublication}
-        pageTypeAjaxMoreContent = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent}
-        pageTypeAjaxMoreContent2 = {$plugin.tx_rkwrelated_morecontent.settings.pageTypeAjaxMoreContent2}
-		headerCrop = {$plugin.tx_rkwrelated_morecontent.settings.headerCrop}
-		contentCrop = {$plugin.tx_rkwrelated_morecontent.settings.contentCrop}
-		footerCrop = {$plugin.tx_rkwrelated_morecontent.settings.footerCrop}
-        publicationCrop = {$plugin.tx_rkwrelated_morecontent.settings.publicationCrop}
-
     }
-
 }
 plugin.tx_rkwrelated_morecontent2 < plugin.tx_rkwrelated_morecontent
-plugin.tx_rkwrelated_morecontentpublication < plugin.tx_rkwrelated_morecontent
 
 
 

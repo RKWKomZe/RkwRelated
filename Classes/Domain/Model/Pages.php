@@ -14,12 +14,14 @@ namespace RKW\RkwRelated\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  * Pages
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
@@ -27,33 +29,22 @@ class Pages extends PagesAbstract
 {
 
     /**
-     * categories
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\SysCategory>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\SysCategory>|null
      */
-    protected $categories;
+    protected ?ObjectStorage $categories;
+
 
     /**
-     * txRkwpdf2contentIsImport
-     *
-     * @var \integer
+     * @var int
      */
-    protected $txRkwpdf2contentIsImport;
+    protected int $txRkwpdf2contentIsImport = 0;
+
 
     /**
-     * txRkwsearchPubdate
-     *
-     * @var integer
-     * @deprecated
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors>|null
      */
-    protected $txRkwsearchPubdate;
+    protected ?ObjectStorage $txRkwauthorsAuthorship = null;
 
-    /**
-     * txRkwauthorsAuthorship
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors>
-     */
-    protected $txRkwauthorsAuthorship = null;
 
 
     /**
@@ -77,7 +68,7 @@ class Pages extends PagesAbstract
      */
     protected function initStorageObjects()
     {
-        $this->sysCategory = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->txRkwauthorsAuthorship = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
     }
@@ -87,38 +78,44 @@ class Pages extends PagesAbstract
      * Adds a SysCategory
      *
      * @param \RKW\RkwRelated\Domain\Model\SysCategory $sysCategory
+     * @return void
      */
-    public function addSysCategory(\RKW\RkwRelated\Domain\Model\SysCategory $sysCategory)
+    public function addSysCategory(SysCategory $sysCategory): void
     {
         $this->categories->attach($sysCategory);
     }
+
 
     /**
      * Removes a SysCategory
      *
      * @param \RKW\RkwRelated\Domain\Model\SysCategory $sysCategory
+     * @return void
      */
-    public function removeSysCategory(\RKW\RkwRelated\Domain\Model\SysCategory $sysCategory)
+    public function removeSysCategory(SysCategory $sysCategory): void
     {
         $this->categories->detach($sysCategory);
     }
 
+
     /**
      * Returns the sysCategory
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\SysCategory> sysCategory
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\SysCategory>
      */
-    public function getSysCategory()
+    public function getSysCategory(): ObjectStorage
     {
         return $this->categories;
     }
+
 
     /**
      * Sets the sysCategory
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\SysCategory> $sysCategory
+     * @return void
      */
-    public function setSysCategory(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $sysCategory)
+    public function setSysCategory(ObjectStorage $sysCategory): void
     {
         $this->categories = $sysCategory;
     }
@@ -127,33 +124,20 @@ class Pages extends PagesAbstract
     /**
      * Returns the txRkwpdf2contentIsImport
      *
-     * @return \string txRkwpdf2contentIsImport
+     * @return int txRkwpdf2contentIsImport
      */
-    public function getTxRkwpdf2contentIsImport() {
+    public function getTxRkwpdf2contentIsImport(): int
+    {
         return $this->txRkwpdf2contentIsImport;
     }
-
-
-
-    /**
-     * Returns the txRkwsearchPubdate
-     *
-     * @return integer
-     * @deprecated
-     */
-    public function getTxRkwsearchPubdate()
-    {
-        return $this->txRkwsearchPubdate;
-    }
-
 
 
     /**
      * Returns the txRkwauthorsAuthorship
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors> $txRkwauthorsAuthorship
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors>
      */
-    public function getTxRkwauthorsAuthorship()
+    public function getTxRkwauthorsAuthorship(): ObjectStorage
     {
         return $this->txRkwauthorsAuthorship;
     }

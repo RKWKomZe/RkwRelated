@@ -1,6 +1,6 @@
 <?php
-
 namespace RKW\RkwRelated\Domain\Repository;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -20,9 +20,10 @@ namespace RKW\RkwRelated\Domain\Repository;
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
- * @copyright Rkw Kompetenzzentrum
+ * @copyright RKW Kompetenzzentrum
  * @package RKW_Related
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @deprecated since TYPO3 v9
  */
 class PagesLanguageOverlayRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {

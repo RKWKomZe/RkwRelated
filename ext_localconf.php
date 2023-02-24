@@ -89,7 +89,7 @@ call_user_func(
             /**
              * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
              */
-            $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+            $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
             $signalSlotDispatcher->connect(
                 'RKW\\RkwRelated\\Hooks\\TtContentHook',
                 \RKW\RkwRelated\Hooks\RelatedHook::SIGNAL_CLEAR_PAGE_VARNISH,
@@ -102,8 +102,9 @@ call_user_func(
         //=================================================================
         // Register Caching
         //=================================================================
-        foreach (['rkwrelated_content', 'rkwrelated_count'] as $cache) {
-            $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$cache] = [
+        foreach (['Content', 'Count'] as $cache) {
+            $cacheIdentifier = \Madj2k\CoreExtended\Utility\GeneralUtility::camelize($extKey);
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$cacheIdentifier . $cache] = [
                 'frontend' => \TYPO3\CMS\Core\Cache\Frontend\VariableFrontend::class,
                 'backend' => \TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class,
                 'groups' => [
