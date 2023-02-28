@@ -4,7 +4,7 @@ routeEnhancers:
     extension: 'rkwRelated'
     plugin: 'morecontent'
     routes:
-      - { routePath: '/show-more/', _controller: 'More::list' }
+      - { routePath: '/show-more', _controller: 'More::list' }
       - { routePath: '/show-more//{pageNumber}', _controller: 'More::list' }
       - { routePath: '/show-more/{ttContentUid}', _controller: 'More::list' }
       - { routePath: '/show-more/{ttContentUid}/{pageNumber}', _controller: 'More::list' }
@@ -16,7 +16,7 @@ routeEnhancers:
     extension: 'rkwRelated'
     plugin: 'morecontent2'
     routes:
-      - { routePath: '/show-more2/', _controller: 'More::list' }
+      - { routePath: '/show-more2', _controller: 'More::list' }
       - { routePath: '/show-more2//{pageNumber}', _controller: 'More::list' }
       - { routePath: '/show-more2/{ttContentUid}', _controller: 'More::list' }
       - { routePath: '/show-more2/{ttContentUid}/{pageNumber}', _controller: 'More::list' }

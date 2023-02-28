@@ -75,10 +75,10 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
 
 
     /**
-     * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository|null
+     * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected ?SysCategoryRepository $categoryRepository = null;
+    protected SysCategoryRepository $categoryRepository;
 
 
     /**
@@ -91,7 +91,7 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
     /**
      * @var \TYPO3\CMS\Core\Log\Logger|null
      */
-    protected ?Logger $logger;
+    protected ?Logger $logger = null;
 
 
     /**
