@@ -1,11 +1,19 @@
 <?php
 defined('TYPO3_MODE') || die('Access denied.');
 
-//=================================================================
-// Add TypoScript
-//=================================================================
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    'rkw_related',
-    'Configuration/TypoScript',
-    'RKW Related'
+call_user_func(
+    function($extKey)
+    {
+
+        //=================================================================
+        // Add TypoScript
+        //=================================================================
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+            'rkw_related',
+            'Configuration/TypoScript',
+            'RKW Related'
+        );
+
+    },
+    'rkw_related'
 );

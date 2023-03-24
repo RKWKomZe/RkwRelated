@@ -31,7 +31,7 @@ class Pages extends PagesAbstract
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRelated\Domain\Model\SysCategory>|null
      */
-    protected ?ObjectStorage $categories;
+    protected ?ObjectStorage $categories = null;
 
 
     /**

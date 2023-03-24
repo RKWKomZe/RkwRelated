@@ -1,8 +1,18 @@
 <?php
-if (
-	! \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')
-	&& ! \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')
-) {
+defined('TYPO3_MODE') || die('Access denied.');
 
-	$GLOBALS['TCA']['pages']['columns']['categories']['config']['eval'] = 'required';
-}
+call_user_func(
+    function($extKey)
+    {
+
+        if (
+            ! \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_projects')
+            && ! \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rkw_pdf2content')
+        ) {
+
+            $GLOBALS['TCA']['pages']['columns']['categories']['config']['eval'] = 'required';
+        }
+
+    },
+    'rkw_related'
+);

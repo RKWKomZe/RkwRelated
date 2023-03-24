@@ -31,7 +31,10 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 class FilterUtilityTest extends FunctionalTestCase
 {
 
-    const IMPORT_PATH = __DIR__ . '/FilterUtilityTest/Fixtures/Database';
+    /**
+     * @const
+     */
+    const FIXTURE_PATH = __DIR__ . '/FilterUtilityTest/Fixtures';
 
 
     /**
@@ -72,7 +75,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         parent::setUp();
 
-        $this->importDataSet(self::IMPORT_PATH .'/Global.xml');
+        $this->importDataSet(self::FIXTURE_PATH. '/Database/Global.xml');
         $this->setUpFrontendRootPage(
             1,
             [
@@ -80,8 +83,10 @@ class FilterUtilityTest extends FunctionalTestCase
                 'EXT:rkw_authors/Configuration/TypoScript/setup.typoscript',
                 'EXT:rkw_projects/Configuration/TypoScript/setup.typoscript',
                 'EXT:rkw_related/Configuration/TypoScript/setup.typoscript',
-                'EXT:rkw_related/Tests/Integration/FilterUtilityTest/Frontend/Configuration/Rootpage.typoscript',
-            ]
+                self::FIXTURE_PATH . '/Frontend/Configuration/Rootpage.typoscript',
+            ],
+            ['example.com' => self::FIXTURE_PATH .  '/Frontend/Configuration/config.yaml']
+
         );
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
@@ -216,7 +221,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'startingPidList' => '161,162'
         ];
 
-        $this->importDataSet(self::IMPORT_PATH .'/Check20.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check20.xml');
 
         $result = $this->subject::getIncludePidList($settings);
         self::assertCount(5, $result);
@@ -247,7 +252,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'startingPid' => 15
         ];
 
-        $this->importDataSet(self::IMPORT_PATH .'/Check10.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check10.xml');
 
         $result = $this->subject::getIncludePidList($settings);
         self::assertCount(4, $result);
@@ -306,7 +311,7 @@ class FilterUtilityTest extends FunctionalTestCase
 
         ];
 
-        $this->importDataSet(self::IMPORT_PATH .'/Check30.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check30.xml');
 
         $result = $this->subject::getIncludePidList($settings);
         self::assertCount(4, $result);
@@ -338,7 +343,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'startingPidList' => '161,162'
         ];
 
-        $this->importDataSet(self::IMPORT_PATH .'/Check30.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check30.xml');
 
         $result = $this->subject::getIncludePidList($settings);
         self::assertCount(5, $result);
@@ -368,7 +373,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'pidList' => '17,18'
         ];
 
-        $this->importDataSet(self::IMPORT_PATH .'/Check40.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check40.xml');
 
         $result = $this->subject::getIncludePidList($settings);
         self::assertCount(2, $result);
@@ -397,7 +402,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'pidListRecursive' => true
         ];
 
-        $this->importDataSet(self::IMPORT_PATH .'/Check40.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check40.xml');
 
         $result = $this->subject::getIncludePidList($settings);
         self::assertCount(6, $result);
@@ -433,7 +438,7 @@ class FilterUtilityTest extends FunctionalTestCase
             'pidList' => '17,18',
         ];
 
-        $this->importDataSet(self::IMPORT_PATH .'/Check50.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check50.xml');
 
         $result = $this->subject::getIncludePidList($settings);
         self::assertCount(2, $result);
@@ -715,7 +720,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getCombinedFilterByName is called
          * Then the pagePropertyFilter is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check180.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check180.xml');
         $GLOBALS['TSFE']->id = 180;
 
         $settings = [
@@ -749,7 +754,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getCombinedFilterByName is called
          * Then the pagePropertyFilter is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check190.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check190.xml');
         $GLOBALS['TSFE']->id = 190;
 
         $settings = [
@@ -786,7 +791,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getCombinedFilterByName is called
          * Then NOTHING is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check190.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check190.xml');
         $GLOBALS['TSFE']->id = 190;
 
         $settings = [
@@ -822,7 +827,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getCombinedFilterByName is called
          * Then NOTHING is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check190.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check190.xml');
         $GLOBALS['TSFE']->id = 190;
 
         $settings = [
@@ -856,7 +861,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPagePropertyFilters is called
          * Then both filters are returned with their object uids
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check160.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check160.xml');
         $GLOBALS['TSFE']->id = 160;
 
         $settings = [
@@ -886,7 +891,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPagePropertyFilters is called
          * Then no filter is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check160.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check160.xml');
         $GLOBALS['TSFE']->id = 160;
 
         $settings = [];
@@ -914,7 +919,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPagePropertyFilters is called
          * Then only the valid filter is returned with the object uid
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check160.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check160.xml');
         $GLOBALS['TSFE']->id = 160;
 
         $settings = [
@@ -943,7 +948,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPagePropertyFilters is called
          * Then only the filter defined in page properties is returned with the object uid
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check170.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check170.xml');
         $GLOBALS['TSFE']->id = 170;
 
         $settings = [
@@ -971,7 +976,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageProjectRecursive is called
          * Then this project is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check60.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check60.xml');
         $GLOBALS['TSFE']->id = 300;
 
         /** @var \RKW\RkwProjects\Domain\Model\Projects $result */
@@ -996,7 +1001,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageProjectRecursive is called
          * Then this project is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check70.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check70.xml');
         $GLOBALS['TSFE']->id = 3000;
 
         /** @var \RKW\RkwProjects\Domain\Model\Projects $result */
@@ -1021,7 +1026,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageProjectRecursive is called
          * Then null is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check80.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check80.xml');
         $GLOBALS['TSFE']->id = 3000;
 
         $result = $this->subject::getPageProjectRecursive();
@@ -1045,7 +1050,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageSysCategories is called
          * Then the two categories of the project are returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check90.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check90.xml');
         $GLOBALS['TSFE']->id = 400;
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
@@ -1074,7 +1079,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageSysCategories is called
          * Then the two categories of the page are returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check100.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check100.xml');
         $GLOBALS['TSFE']->id = 400;
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
@@ -1105,7 +1110,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageSysCategories is called
          * Then the two categories of the page are returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check110.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check110.xml');
         $GLOBALS['TSFE']->id = 400;
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
@@ -1136,7 +1141,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageSysCategories is called
          * Then the two categories of the project are returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check120.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check120.xml');
         $GLOBALS['TSFE']->id = 400;
 
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage $result */
@@ -1166,7 +1171,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageDepartmentRecursive is called
          * Then this department is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check130.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check130.xml');
         $GLOBALS['TSFE']->id = 300;
 
         /** @var \RKW\RkwBasics\Domain\Model\Department $result */
@@ -1191,7 +1196,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageDepartmentRecursive is called
          * Then this department is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check140.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check140.xml');
         $GLOBALS['TSFE']->id = 3000;
 
         /** @var \RKW\RkwBasics\Domain\Model\Department $result */
@@ -1216,7 +1221,7 @@ class FilterUtilityTest extends FunctionalTestCase
          * When getPageDepartmentRecursive is called
          * Then null is returned
          */
-        $this->importDataSet(self::IMPORT_PATH .'/Check150.xml');
+        $this->importDataSet(self::FIXTURE_PATH  . '/Database/Check150.xml');
         $GLOBALS['TSFE']->id = 3000;
 
         $result = $this->subject::getPageDepartmentRecursive();
