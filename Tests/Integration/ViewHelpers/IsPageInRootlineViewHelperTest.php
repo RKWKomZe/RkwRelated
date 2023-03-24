@@ -30,7 +30,10 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 class IsPageInRootlineViewHelperTest extends FunctionalTestCase
 {
 
-    const FIXTURES_PATH = __DIR__ . '/IsPageInRootlineViewHelperTest/Fixtures';
+    /**
+     * @const
+     */
+    const FIXTURE_PATH = __DIR__ . '/IsPageInRootlineViewHelperTest/Fixtures';
 
 
     /**
@@ -72,7 +75,7 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
 
         parent::setUp();
 
-        $this->importDataSet(self::FIXTURES_PATH .'/Database/Global.xml');
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Global.xml');
         $this->setUpFrontendRootPage(
             1,
             [
@@ -90,7 +93,7 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
         $this->standAloneViewHelper = $this->objectManager->get(StandaloneView::class);
         $this->standAloneViewHelper->setTemplateRootPaths(
             [
-                0 => self::FIXTURES_PATH . '/Frontend/Templates'
+                0 => self::FIXTURE_PATH . '/Frontend/Templates'
             ]
         );
     }
@@ -113,7 +116,7 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
          * When the ViewHelper is rendered
          * Then it returns false
          */
-        $this->importDataSet(self::FIXTURES_PATH . '/Database/Check10.xml');
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check10.xml');
 
         $this->standAloneViewHelper->setTemplate('Check10.html');
         $this->standAloneViewHelper->assign('pid', 4);
@@ -145,7 +148,7 @@ class IsPageInRootlineViewHelperTest extends FunctionalTestCase
          * When the ViewHelper is rendered
          * Then it returns true
          */
-        $this->importDataSet(self::FIXTURES_PATH . '/Database/Check10.xml');
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check10.xml');
 
         $this->standAloneViewHelper->setTemplate('Check10.html');
         $this->standAloneViewHelper->assign('pid', 4);

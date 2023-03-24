@@ -50,14 +50,14 @@ class RelatedHook
      *
      * @param string $status
      * @param string $table
-     * @param int $id
+     * @param string $id
      * @param array $fieldArray
      * @param object $reference
      */
     public function processDatamap_postProcessFieldArray(
         string $status,
         string $table,
-        int $id,
+        string $id,
         array &$fieldArray,
         object &$reference
     ) {
@@ -71,8 +71,8 @@ class RelatedHook
             // @todo Since everytime a tt_content- element is changed, the page is also stored, we don't need this separate hook here!
             if (
                 ($table == 'tt_content')
-                && (is_int($id))
-                && ($record = BackendUtility::getRecord('tt_content', $id))
+                && (intval($id) == $id)
+                && ($record = BackendUtility::getRecord('tt_content', intval($id)))
             ){
 
                 // if list_type starts with "rkwreleated". The function strpos delivers 0 on success
@@ -97,7 +97,7 @@ class RelatedHook
             // 2.) clear extension cache of current page and all caches of defined pages when a page is changed
             if (
                 ($table == 'pages')
-                && (is_int($id))
+                && (intval($id) == $id)
             ) {
 
                 // clear extension cache of current page
