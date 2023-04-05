@@ -102,9 +102,9 @@ call_user_func(
         //=================================================================
         // Register Caching
         //=================================================================
-        foreach (['Content', 'Count'] as $cache) {
-            $cacheIdentifier = \Madj2k\CoreExtended\Utility\GeneralUtility::camelize($extKey);
-            $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$cacheIdentifier . $cache] = [
+        foreach (['content', 'count'] as $cache) {
+            $cacheIdentifier = \Madj2k\CoreExtended\Utility\GeneralUtility::underscore($extKey);
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$cacheIdentifier . '_' . $cache] = [
                 'frontend' => \TYPO3\CMS\Core\Cache\Frontend\VariableFrontend::class,
                 'backend' => \TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class,
                 'groups' => [
@@ -113,7 +113,6 @@ call_user_func(
                 ],
             ];
         }
-
         //=================================================================
         // Register Logger
         //=================================================================
