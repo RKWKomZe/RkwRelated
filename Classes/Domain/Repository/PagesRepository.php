@@ -327,8 +327,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         int $type = 0
     ) {
 
-        $select = array_keys($GLOBALS['TCA']['pages']['columns']);
-        $order = array();
+        $select = QueryUtility::getSelectColumns('pages');
+        $order = [];
 
         // 1. build uid list
         $sysCategoriesList = array();
