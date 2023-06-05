@@ -2,30 +2,31 @@
     xmlns:ajaxApi="http://typo3.org/ns/Madj2k/AjaxApi/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
-    <ajaxApi:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="replace" ajaxId="1">
-        <div class="flex-container" aria-live="assertive" aria-atomic="true" role="main">
-
-            <f:if condition="{relatedPagesList}">
-                <f:then>
-
-                    <div class="tiles-wrapper" >
-                        <ajaxApi:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="append" ajaxId="2">
-                            <div class="tiles flex-container flex-container--margin">
-                                <f:for each="{relatedPagesList}" as="page" iteration="iterator">
-                                    <f:render partial="Default/Boxes/Default" section="Flex3" arguments="{_all}" />
-                                </f:for>
-                            </div>
-                        </ajaxApi:ajaxWrapper>
-                    </div>
-
-                    <f:render partial="Default/Next" arguments="{_all}" />
-
-                </f:then>
-                <f:else>
-                    <f:render partial="Default/NoResults" arguments="{_all}" />
-                </f:else>
-            </f:if>
-        </div>
-    </ajaxApi:ajaxWrapper>
-
+    <div id="tx_rkwrelated_filter_result">
+        <ajaxApi:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="replace" ajaxId="1">
+            <div class="flex-container" aria-live="assertive" aria-atomic="true" role="main">
+    
+                <f:if condition="{relatedPagesList}">
+                    <f:then>
+    
+                        <div class="tiles-wrapper">
+                            <ajaxApi:ajaxWrapper ajaxHelper="{ajaxHelper}" ajaxAction="append" ajaxId="2">
+                                <div class="tiles flex-container flex-container--margin">
+                                    <f:for each="{relatedPagesList}" as="page" iteration="iterator">
+                                        <f:render partial="Default/Boxes/Default" section="Flex3" arguments="{_all}" />
+                                    </f:for>
+                                </div>
+                            </ajaxApi:ajaxWrapper>
+                        </div>
+    
+                        <f:render partial="Default/Next" arguments="{_all}" />
+    
+                    </f:then>
+                    <f:else>
+                        <f:render partial="Default/NoResults" arguments="{_all}" />
+                    </f:else>
+                </f:if>
+            </div>
+        </ajaxApi:ajaxWrapper>
+    </div>
 </html>

@@ -12,7 +12,7 @@
 			class="ajax"
 			additionalParams="{ajax_api : '{key: ajaxHelper.key, cid: ajaxHelper.contentUid, idl: \'1\'}'}" >
 
-			<div class="btn-list">
+			<div class="btn-list" aria-label="{f:translate(key:'partials.default.filters.filterListAriaLabel')}">
 				<f:if condition="{settings.showDepartment}">
 					<f:render partial="{layout}/Filters/Department" arguments="{_all}" />
 				</f:if>

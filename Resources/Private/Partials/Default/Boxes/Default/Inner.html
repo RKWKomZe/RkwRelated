@@ -53,7 +53,7 @@
 						<!-- ToDo: Switch for icon based on DocumentType -->
 					</f:if>
 				</f:comment>
-				<svg class="icon icon--32"><use xlink:href="#ic-document" /></svg>
+				<svg class="icon icon--32" aria-label="{page.txRkwbasicsDocumentType.name}"><use xlink:href="#ic-document" /></svg>
 			</span>
 			<span class="tile__title-text">
 				<f:if condition="<rkwRelated:pageTranslateProperty pageUid='{page.uid}' dbField='title' sysLanguageUid='{sysLanguageUid}' />">
@@ -87,7 +87,8 @@
 		<f:if condition="{page.lastUpdated} || (! {settings.hideAuthors} && {page.txRkwauthorsAuthorship})">
 			<div class="tile__footer tile__contact">
 				<div class="tile__contact-text">
-					<svg class="icon icon--16"><use xlink:href="#ic-date" /></svg>
+					<svg class="icon icon--16"  aria-label="{f:translate(key:'partials.default.more.boxes.default.inner.lastUpatedAriaLabel', extensionName:'rkwRelated')}">
+                        <use xlink:href="#ic-date" /></svg>
 					<f:if condition="{page.lastUpdated}">
 						<f:then>
 							<f:format.date format="d.m.Y">{page.lastUpdated}</f:format.date>
