@@ -20,10 +20,16 @@
 				<source>Several Authors</source>
 				<target>Mehrere Verfassende</target>
 			</trans-unit>
+			<trans-unit id="partials.default.more.boxes.default.inner.lastUpatedAriaLabel">
+				<source>Published</source>
+				<target>Veröffentlicht</target>
+			</trans-unit>
             <trans-unit id="partials.default.more.boxes.more.labelMore">
                 <source>Show more</source>
                 <target>Mehr anzeigen</target>
             </trans-unit>
+
+
             <trans-unit id="partials.default.more.noResults.text1">
                 <source>No results.</source>
                 <target>Leider konnten wir keine passenden Ergebnisse finden.</target>
@@ -44,26 +50,55 @@
                 <source>Don't hesitate to contact us.</source>
                 <target>Wir freuen uns über Ihren Anruf oder Ihre E-Mail!</target>
             </trans-unit>
-			<trans-unit id="partials.default.more.filters.department.showAll">
+
+
+			<trans-unit id="partials.default.filters.filters.category.showAll">
+				<source>All categories</source>
+				<target>Alle Kategorien</target>
+			</trans-unit>
+			<trans-unit id="partials.default.filters.filters.category.filterAriaLabel">
+				<source>Filter by category</source>
+				<target>Nach Kategorie filtern</target>
+			</trans-unit>
+			<trans-unit id="partials.default.filters.filters.department.showAll">
 				<source>All Topics</source>
 				<target>Alle Schwerpunkte</target>
 			</trans-unit>
-			<trans-unit id="partials.default.more.filters.project.showAll">
-				<source>All Projects</source>
-				<target>Alle Projekte</target>
+			<trans-unit id="partials.default.filters.filters.department.filterAriaLabel">
+				<source>Filter by topic</source>
+				<target>Nach Thema filtern</target>
 			</trans-unit>
-			<trans-unit id="partials.default.more.filters.category.showAll">
-				<source>All Categories</source>
-				<target>Alle Kategorien</target>
-			</trans-unit>
-			<trans-unit id="partials.default.more.filters.documentType.showAll">
-				<source>All Documents</source>
+			<trans-unit id="partials.default.filters.filters.documentType.showAll">
+				<source>All document types</source>
 				<target>Alle Dokumentenarten</target>
 			</trans-unit>
-            <trans-unit id="partials.default.more.filters.years.showAll">
-                <source>All Years</source>
-                <target>Alle Jahre</target>
-            </trans-unit>
+			<trans-unit id="partials.default.filters.filters.documentType.filterAriaLabel">
+				<source>Filter by document type</source>
+				<target>Nach Dokumentenart filtern</target>
+			</trans-unit>
+			<trans-unit id="partials.default.filters.filters.project.showAll">
+				<source>All projects</source>
+				<target>Alle Projekte</target>
+			</trans-unit>
+			<trans-unit id="partials.default.filters.filters.project.filterAriaLabel">
+				<source>Filter by project</source>
+				<target>Nach Projekt filtern</target>
+			</trans-unit>
+			<trans-unit id="partials.default.filters.filters.year.showAll">
+				<source>All years</source>
+				<target>Alle Jahre</target>
+			</trans-unit>
+			<trans-unit id="partials.default.filters.filters.year.filterAriaLabel">
+				<source>Filter by year</source>
+				<target>Nach Jahr filtern</target>
+			</trans-unit>
+
+
+			<trans-unit id="partials.default.filters.filterListAriaLabel">
+				<source>Filter list by criteria</source>
+				<target>Liste nach Kriterien filtern</target>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>
