@@ -14,15 +14,14 @@ namespace RKW\RkwRelated\Utilities;
 * The TYPO3 project - inspiring people to share!
 */
 
+use Madj2k\CoreExtended\Utility\QueryUtility;
 use RKW\RkwBasics\Domain\Model\Department;
 use RKW\RkwProjects\Domain\Model\Projects;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use RKW\RkwRelated\Domain\Repository\PagesRepository;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
 * Filter
@@ -77,6 +76,7 @@ class FilterUtility
      *
      * @param array $settings
      * @return array
+     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
      */
     public static function getIncludePidList (array $settings): array
     {
@@ -114,12 +114,10 @@ class FilterUtility
         }
 
 
-        /** @var QueryGenerator $queryGenerator */
-        $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
         foreach ($rootPidList as $rootPid) {
             $includePages = array_merge(
                 $includePages,
-                GeneralUtility::trimExplode(',', $queryGenerator->getTreeList($rootPid, 9999, 0, 1), true)
+                GeneralUtility::trimExplode(',', QueryUtility::getTreeList($rootPid, 9999, 0, 1), true)
             );
         }
 
