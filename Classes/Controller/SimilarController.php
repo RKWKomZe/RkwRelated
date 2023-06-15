@@ -55,6 +55,8 @@ class SimilarController extends AbstractController
      * @return void
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @todo some users disable caching for no reason. So now we have performance issues
      */
     public function listAction(int $pageNumber = 0, int $ttContentUid = 0): void
     {

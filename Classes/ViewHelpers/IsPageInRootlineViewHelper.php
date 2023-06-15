@@ -47,6 +47,7 @@ class IsPageInRootlineViewHelper extends AbstractViewHelper
      * @param \Closure                  $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
      * @return bool
+     * @todo performance issues!
      */
     public static function renderStatic(
         array $arguments,
