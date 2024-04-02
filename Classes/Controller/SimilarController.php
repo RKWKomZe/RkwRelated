@@ -143,7 +143,6 @@ class SimilarController extends AbstractController
                 && count($categories)
             ) {
 
-                /** @todo if language is not the standard one (= not "0"), use pagesLanguageOverlayRepository -- really needed? */
                 $relatedPages = $this->pagesRepository->findBySysCategory(
                     $categories,
                     $excludePidList,

@@ -9,33 +9,31 @@ call_user_func(
         // Register Plugin
         //=================================================================
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'RKW.RkwRelated',
+            $extKey,
             'Similarcontent',
             'RKW Related: Das könnte Sie auch interessieren'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'RKW.RkwRelated',
+            $extKey,
             'Morecontent',
             'RKW Related: Mehr zum Thema'
         );
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'RKW.RkwRelated',
+            $extKey,
             'Morecontent2',
             'RKW Related: Mehr zum Thema II'
         );
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'RKW.RkwRelated',
+            $extKey,
             'Selectedcategories',
             'RKW Related: Kategorien (Auswahl)'
         );
 
 
-
         //=================================================================
         // Add Flexform
         //=================================================================
-        $extKey = 'rkw_related';
         $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($extKey));
 
         // Check for rkw_projects and rkw_pdf2content
