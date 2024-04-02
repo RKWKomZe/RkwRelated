@@ -19,7 +19,6 @@ use RKW\RkwBasics\Domain\Repository\DocumentTypeRepository;
 use RKW\RkwRelated\Cache\CacheInterface;
 use RKW\RkwRelated\Cache\ContentCache;
 use RKW\RkwRelated\Cache\CountCache;
-use RKW\RkwRelated\Domain\Repository\PagesLanguageOverlayRepository;
 use RKW\RkwRelated\Domain\Repository\PagesRepository;
 use RKW\RkwRelated\Domain\Repository\SysCategoryRepository;
 use RKW\RkwRelated\Domain\Repository\TtContentRepository;
@@ -43,55 +42,102 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
      * @var \RKW\RkwRelated\Domain\Repository\PagesRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected PagesRepository $pagesRepository;
-
-
-    /**
-     * @var \RKW\RkwRelated\Domain\Repository\PagesLanguageOverlayRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected PagesLanguageOverlayRepository $pagesLanguageOverlayRepository;
+    protected ?PagesRepository $pagesRepository = null;
 
 
     /**
      * @var \RKW\RkwRelated\Domain\Repository\TtContentRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected TtContentRepository $ttContentRepository;
+    protected ?TtContentRepository $ttContentRepository = null;
 
 
     /**
      * @var \RKW\RkwBasics\Domain\Repository\DepartmentRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected DepartmentRepository $departmentRepository;
+    protected ?DepartmentRepository $departmentRepository = null;
 
 
     /**
      * @var \RKW\RkwBasics\Domain\Repository\DocumentTypeRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected DocumentTypeRepository $documentTypeRepository;
+    protected ?DocumentTypeRepository $documentTypeRepository = null;
 
 
     /**
      * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected SysCategoryRepository $categoryRepository;
+    protected ?SysCategoryRepository $categoryRepository = null;
 
 
     /**
      * @var \RKW\RkwRelated\Utilities\FilterUtility
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected FilterUtility $filterUtility;
+    protected ?FilterUtility $filterUtility = null;
 
 
     /**
      * @var \TYPO3\CMS\Core\Log\Logger|null
      */
     protected ?Logger $logger = null;
+
+
+    /**
+     * @param \RKW\RkwRelated\Domain\Repository\PagesRepository $pagesRepository
+     */
+    public function injectPagesRepository(PagesRepository $pagesRepository)
+    {
+        $this->pagesRepository = $pagesRepository;
+    }
+
+
+    /**
+     * @param \RKW\RkwRelated\Domain\Repository\TtContentRepository $ttContentRepository
+     */
+    public function injectTtContentRepository(TtContentRepository $ttContentRepository)
+    {
+        $this->ttContentRepository = $ttContentRepository;
+    }
+
+
+    /**
+     * @param \RKW\RkwBasics\Domain\Repository\DepartmentRepository $departmentRepository
+     */
+    public function injectDepartmentRepository(DepartmentRepository $departmentRepository)
+    {
+        $this->departmentRepository = $departmentRepository;
+    }
+
+
+    /**
+     * @param \RKW\RkwBasics\Domain\Repository\DocumentTypeRepository $documentTypeRepository
+     */
+    public function injectDocumentTypeRepository(DocumentTypeRepository $documentTypeRepository)
+    {
+        $this->documentTypeRepository = $documentTypeRepository;
+    }
+
+
+    /**
+     * @param \RKW\RkwRelated\Domain\Repository\SysCategoryRepository $categoryRepository
+     */
+    public function injectSysCategoryRepository(SysCategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+
+    /**
+     * @param \RKW\RkwRelated\Utilities\FilterUtility $filterUtility
+     */
+    public function injectFilterUtility(FilterUtility $filterUtility)
+    {
+        $this->filterUtility = $filterUtility;
+    }
 
 
     /**
@@ -119,10 +165,10 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
     protected function getCache(bool $countCache = false): CacheInterface
     {
         $class = ContentCache::class;
-        $identifier = $this->extensionName . 'Content';
+        $identifier = 'RkwRelatedContent';
         if ($countCache) {
             $class = CountCache::class;
-            $identifier = $this->extensionName . 'Count';
+            $identifier = 'RkwRelatedCount';
         }
 
         /** @var \RKW\RkwRelated\Cache\CacheInterface $cache */

@@ -16,8 +16,6 @@ namespace RKW\RkwRelated\Controller;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
-use RKW\RkwRelated\Domain\Repository\SysCategoryRepository;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class CategoryController
@@ -31,22 +29,16 @@ class CategoryController extends AbstractController
 {
 
     /**
-     * @var \RKW\RkwRelated\Domain\Repository\SysCategoryRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected ?SysCategoryRepository $sysCategoryRepository;
-
-
-    /**
      * showSelected
      *
      * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function showSelectedAction(): void
     {
         $this->view->assign(
             'categoryList',
-            $this->sysCategoryRepository->findByUidList(
+            $this->categoryRepository->findByUidList(
                 GeneralUtility::trimExplode(',', $this->settings['categorySelect']['categories'])
             )
         );
