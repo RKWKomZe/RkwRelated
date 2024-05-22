@@ -189,7 +189,7 @@ class RelatedHook
         /** @var \TYPO3\CMS\Core\TypoScript\TemplateService $template */
         $template = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TemplateService::class);
         $template->tt_track = 0;
-        $template->init();
+        //$template->init();
 
         /** @var array $rootLine */
         $rootLine = GeneralUtility::makeInstance(RootlineUtility::class, intval($pageId))->get();
