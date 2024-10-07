@@ -63,6 +63,7 @@
                             <label>LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.similar.layout</label>
                             <config>
                                 <type>select</type>
+                                <renderType>selectSingle</renderType>
                                 <items type="array">
                                     <numIndex index="0" type="array">
                                         <numIndex index="0">LLL:EXT:rkw_related/Resources/Private/Language/locallang_db.xlf:flexform.similar.layout.I.default</numIndex>
