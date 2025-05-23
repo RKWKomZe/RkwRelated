@@ -56,7 +56,7 @@ plugin.tx_rkwrelated_similarcontent {
 		staticInitialYearForFilter =
 
         # cat=plugin.tx_rkwrelated_similarcontent//a; type=string; label=Path to powered-by image
-        poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwi-logo-2021.png
+        poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwe-logo-2025.png
 
         # cat=plugin.tx_rkwrelated_similarcontent//f; type=int; label=Override opening of links in same window (empty to deactivate override)
         openLinksInSameWindowOverride =
@@ -147,7 +147,7 @@ plugin.tx_rkwrelated_morecontent {
 		staticInitialYearForFilter =
 
         # cat=plugin.tx_rkwrelated_morecontent//a; type=string; label=Path to powered-by image
-        poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwi-logo-2021.png
+        poweredByImage = EXT:rkw_related/Resources/Public/Images/bmwe-logo-2025.png
 
         # cat=plugin.tx_rkwrelated_morecontent//f; type=boolean; label=Override opening of links in same window (empty to deactivate override)
         openLinksInSameWindowOverride =
