@@ -5,28 +5,28 @@
 		<li class="iconlist__item more">
 			<f:if condition="({currentPluginName} == 'Morecontent') || ({currentPluginName} == 'Similarcontent')">
 				<f:link.action
-					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
 					rel="nofollow"
 					pageUid="{settings.detailPid.default}"
 					controller="More"
 					extensionName="RkwRelated"
 					pluginName="Morecontent"
 					action="list"
-					additionalParams="{tx_rkwrelated_morecontent: '{filter: filterFull}'}">
+					additionalParams="{tx_rkwrelated_morecontent: '{filter: filterFull}'}"
+                >
 					<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
 				</f:link.action>
 			</f:if>
 
 			<f:if condition="{currentPluginName} == 'Morecontent2'">
 				<f:link.action
-					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
 					rel="nofollow"
 					pageUid="{settings.detailPid.default}"
 					controller="More"
 					extensionName="RkwRelated"
 					pluginName="Morecontent"
 					action="list"
-					additionalParams="{tx_rkwrelated_morecontent2: '{filter: filterFull}'}">
+					additionalParams="{tx_rkwrelated_morecontent2: '{filter: filterFull}'}"
+                >
 					<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
 				</f:link.action>
 			</f:if>
@@ -39,28 +39,28 @@
 		<li class="iconlist__item more">
 			<f:if condition="({currentPluginName} == 'Morecontent') || ({currentPluginName} == 'Similarcontent')">
 				<f:link.action
-					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
 					rel="nofollow"
 					pageUid="{settings.detailPid.publication}"
 					controller="More"
 					extensionName="RkwRelated"
 					pluginName="Morecontent"
 					action="list"
-					additionalParams="{tx_rkwrelated_morecontent: '{filter: filterFull}'}">
+					additionalParams="{tx_rkwrelated_morecontent: '{filter: filterFull}'}"
+                >
 					<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
 				</f:link.action>
 			</f:if>
 
 			<f:if condition="{currentPluginName} == 'Morecontent2'">
 				<f:link.action
-					title="<f:translate key='partials.default.more.boxes.more.labelMore' extensionName='RkwRelated' />"
 					rel="nofollow"
 					pageUid="{settings.detailPid.publication}"
 					controller="More"
 					extensionName="RkwRelated"
 					pluginName="Morecontent"
 					action="list"
-					additionalParams="{tx_rkwrelated_morecontent2: '{filter: filterFull}'}">
+					additionalParams="{tx_rkwrelated_morecontent2: '{filter: filterFull}'}"
+                >
 					<f:translate key="partials.default.more.boxes.more.labelMore" extensionName="RkwRelated" />
 				</f:link.action>
 			</f:if>
