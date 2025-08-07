@@ -26,7 +26,6 @@
 				<f:link.page
 					pageUid="{page.uid}"
 					class="tile__link-overlay"
-					title="{page.title}"
 					target="{f:if(condition: '{linkInSameWindow}', then: '{f:if(condition: \'{rkwRelated:isPageInRootline(pageUid:\\\'{page.uid}\\\')}\', then: \'_self\', else: \'_blank\')}', else: '_blank')}"
 				>
 					{page.title}
@@ -50,7 +49,6 @@
 				<f:link.page
 					pageUid="{page.uid}"
 					class="tile__link-overlay"
-					title="{page.title}"
 					target="{f:if(condition: '{linkInSameWindow}', then: '{f:if(condition: \'{rkwRelated:isPageInRootline(pageUid:\\\'{page.uid}\\\')}\', then: \'_self\', else: \'_blank\')}', else: '_blank')}"
 				>
 					{page.title}
