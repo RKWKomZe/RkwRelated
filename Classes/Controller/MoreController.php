@@ -19,6 +19,7 @@ use Madj2k\CoreExtended\Utility\GeneralUtility;
 use RKW\RkwProjects\Domain\Repository\ProjectsRepository;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class MoreController
@@ -264,6 +265,11 @@ class MoreController extends AbstractController
             }
         }
 
+        $years = array_combine(
+            range(date("Y"), $this->year),
+            range(date("Y"), $this->year)
+        );
+
         $assignments = [
             'layout'                 => ($this->settings['layout'] ? $this->settings['layout'] : 'Default'),
             'relatedPagesList'       => $relatedPages,
@@ -274,7 +280,7 @@ class MoreController extends AbstractController
             'categoryList'           => $categoryList,
             'documentTypeList'       => $this->documentTypeRepository->findAllByTypeAndVisibility('publications'),
             'projectList'            => $projectList,
-            'years'                  => array_combine(range($this->year, date("Y")), range($this->year, date("Y"))),
+            'years'                  => $years,
             'filter'                 => $filter,
             'filterFull'             => $filterList,
             'sysLanguageUid'         => intval($GLOBALS['TSFE']->config['config']['sys_language_uid']),
