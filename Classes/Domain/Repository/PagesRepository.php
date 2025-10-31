@@ -529,8 +529,8 @@ class PagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $constraints[] = $query->in('uid', $includePidList);
         }
 
-        // search only real pages
-        $constraints[] = $query->in('doktype', array('1'));
+        // search only real pages and link to external urls
+        $constraints[] = $query->in('doktype', ['1','3']);
 
         // do not include pages which are excluded from search
         $constraints[] = $query->equals('noSearch', 0);
