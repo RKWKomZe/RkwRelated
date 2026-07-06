@@ -256,10 +256,10 @@ class MoreController extends AbstractController
         $pageTsConfig = GeneralUtility::removeDotsFromTS(BackendUtility::getPagesTSconfig(intval($GLOBALS['TSFE']->id)));
         // check either if path exists AND if there is a value!
         if (
-            isset($pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid'])
-            && $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid']
+            isset($pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings']['categoriesList']['config']['treeConfig']['rootUid'])
+            && $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings']['categoriesList']['config']['treeConfig']['rootUid']
         ) {
-            $categoryParentRootUid = $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid'];
+            $categoryParentRootUid = $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings']['categoriesList']['config']['treeConfig']['rootUid'];
             if ($categoryParentRootUid) {
                 $categoryList = $this->categoryRepository->findByParentRecursive([$categoryParentRootUid]);
             }

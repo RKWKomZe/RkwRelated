@@ -70,8 +70,8 @@ class FlexForm
         $pageTsConfig = GeneralUtility::removeDotsFromTS(BackendUtility::getPagesTSconfig($this->getCurrentPageIdentifier()));
         // check either if path exists AND if there is a value!
         if (
-            isset($pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid'])
-            && $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings.categoriesList']['config']['treeConfig']['rootUid']
+            isset($pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings']['categoriesList']['config']['treeConfig']['rootUid'])
+            && $pageTsConfig['TCEFORM']['tt_content']['pi_flexform']['rkwrelated_morecontent']['filteroptions']['settings']['categoriesList']['config']['treeConfig']['rootUid']
         ) {
             return true;
         }
